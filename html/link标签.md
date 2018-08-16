@@ -1,5 +1,7 @@
 # link
 
+
+
 ## iPhone 和 iTouch，默认 57x57 像素图标，必须有
 
 ```html
@@ -60,4 +62,34 @@
 <link rel="apple-touch-startup-image" sizes="640x1136" href="/splash-screen-640x1136.png"/>
 ```
 
-##
+## `canonical` 指定当前页规范化地址的 `URL`
+```html
+<link rel="canonical" href="https://www.linkeddb.com/">
+```
+- `href` 地址可以是**绝对路径**也可以是**相对路径**。通常还是建议使用绝对地址比较保险。
+
+## `miphtml` 指定当前页的mip版本页面的URL
+```html
+<link rel="miphtml" href="https://mip.linkeddb.com/">
+```
+- `href` 地址建议使用绝对地址比较保险。
+
+## `amphtml` 指定当前页的amp版本页面的URL
+```html
+<link rel="amphtml" href="https://amp.linkeddb.com/">
+```
+- `href` 地址建议使用绝对地址比较保险。
+
+## `alternate`
+- 使用 `hreflang` 设置语言和地区
+
+```html
+<link rel="alternate" hreflang="zh-cn" href="https://www.linkeddb.com/">
+<link rel="alternate" hreflang="zh-HK" href="https://hk.linkeddb.com/">
+<link rel="alternate" hreflang="zh-TW" href="https://tw.linkeddb.com/">
+```
+
+- `hreflang` 标签分两部分
+  - 前面是**语言**
+  - 后面是**地区**
+- 上面标签指明的是，这个页面针对中文（zh）、中国地区用户（cn）

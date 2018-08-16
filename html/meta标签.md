@@ -1,5 +1,7 @@
 # meta
 
+[TOC]
+
 ## 通用 `meta` 标签
 
 ### 声明文档使用的字符编码
@@ -330,8 +332,7 @@ content="
 - [Windows 8中的固定网站功能](http://www.iefans.net/windows8-gudingwangzhan/)
 - [声明固定站点元数据](http://msdn.microsoft.com/zh-cn/library/ie/gg491732%28v=vs.85%29.aspx)
 - [Page 3: Implementing Site Pinning with Internet Explorer 9 and Windows 7](http://www.htmlgoodies.com/html5/tutorials/page-3-implementing-site-pinning-with-internet-explorer-9-and-windows-7.html#fbid=e2FLjB06Ef_)
-- [Windows Store Applications <meta /> Elements | HTML <meta> Elements
-Standards Based Development](http://dev.bowdenweb.com/html/e/meta/windows-store-app-meta-elements.html)
+- [Windows Store Applications `<meta />` Elements | HTML `<meta>` Elements Standards Based Development](http://dev.bowdenweb.com/html/e/meta/windows-store-app-meta-elements.html)
 - [最齐全的网站元数据meta标签的含义和用法](https://blog.csdn.net/freshlover/article/details/25322839)
 
 ## 元标记
