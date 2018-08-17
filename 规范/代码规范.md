@@ -27,7 +27,8 @@
 
 ### 缩进
 
-- 一次缩进2个空格(可以调整编辑器格式)
+- 建议js和css一次缩进2个空格(可以调整编辑器格式)
+- 建议html一次缩进4个空格(可以调整编辑器格式)
 
 ```html
 .example {
@@ -35,8 +36,8 @@
 }
 
 <ul>
-  <li>Fantastic
-  <li>Great
+    <li>Fantastic
+    <li>Great
 </ul>
 ```
 

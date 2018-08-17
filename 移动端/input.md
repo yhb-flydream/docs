@@ -24,7 +24,7 @@
 - iOS placeholder 默认是居中的，但 Android 的不是，尝试调整了其行高，但没起作用
 - iOS 和 Android 的 input 框的宽度显示不太一致，但宽度一般都会再次设置，这里就没限定宽度
 
-```html
+```css
 input {
     display: block;
     height: auto; /* 根据需求设置 */

@@ -1,13 +1,21 @@
-# less 基本模板规范
+# css 基本模板规范
+
 [TOC]
 
 如下是 less 模板规则的介绍，一些基本通用模板代码在同目录的 [`common.less`](./common.less) 中
 
-- 目前项目开发一般使用 `less` 来快速开发
-  - [less 官网](http://lesscss.org/)
-  - [less github](https://github.com/less)
-  - [less 中文网](http://www.css88.com/doc/less/)
-  - [我自己整理的一些比较简单的 less 用法(供参考)](https://github.com/yhb-flydream/Use-Less)
+- 目前项目开发一般使用 `less` 来快速开发（也可以使用 `sass` 开发，根据个人喜好选择）
+  - `less`
+    - [less 官网](http://lesscss.org/)
+    - [less github](https://github.com/less)
+    - [less 中文网](http://www.css88.com/doc/less/)
+    - [我自己整理的一些比较简单的 less 用法(供参考)](https://github.com/yhb-flydream/Use-Less)
+  - `sass`
+    - [sass 官网](http://sass-lang.com/)
+    - [SASS 中文文档](http://sass.bootcss.com/)
+    - [SASS 中文网](https://www.sasscss.com/)
+    - []()
+    - []()
 
 - 一般会引入 `normalize` 来做一下样式初始化
   - [normalize](http://necolas.github.io/normalize.css/)
@@ -28,6 +36,7 @@
   - 比如：`font-size: .6rem;`
 
 - 如果一个元素只有一个属性，也不要写到一行，要保持格式统一
+
 ```
 /* 不要这样写 */
 img {display: inline-block;}
@@ -39,6 +48,7 @@ img {
 ```
 
 - 嵌套层之间最好能空一行，即使外层没有设置样式，这样是为了查看更清晰
+
 ```
 .aa {
   color: #000;
@@ -54,10 +64,12 @@ img {
 - 使用 `WebStorm` 时也有提示，尽量按照提示来写
 
 ## 嵌套使用规范
+
 - 嵌套规则尽量按照以下书写
 - `xxx` 为项目标记
 - `yyy` 为模块名
 - 层级结构要清晰，注意空行分割每一块，使结构清晰
+
 ```
 .xxx-yyy-main {
 

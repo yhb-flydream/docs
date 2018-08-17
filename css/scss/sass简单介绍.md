@@ -324,7 +324,7 @@ white
 
 ### 变量: `$`（Variables: $ ）
 
-使用 SassScript 最直截了当的方法是使用变量。变量以美元符号开始，赋值想设置CSS属性那样
+使用 SassScript 最直截了当的方法是使用变量。变量以美元符号`$`开始，赋值想设置CSS属性那样
 
 ```sass
 $color: red;
@@ -1689,12 +1689,13 @@ $i: 6;
 ## 混入指令 (Mixin Directives)
 
 混入(mixin)允许您定义可以在整个样式表中重复使用的样式，而避免了使用无语意的类（class），比如 `.float-left`。混入(mixin)还可以包含所有的CSS规则，以及任何其他在Sass文档中被允许使用的东西。
-他们甚至可以`带arguments`，引入变量，只需少量的混入(mixin)代码就能输出多样化的样式。
+他们甚至可以带`arguments`，引入变量，只需少量的混入(mixin)代码就能输出多样化的样式。
 
 ### 定义一个混入(mixin):`@mixin`（Defining a Mixin:  @mixin）
 
 混入(mixin)通过 `@mixin` 指令定义。在它后面跟混入的名称和任选的`arguments`（参数），以及混入的内容块。例如，`large-text`混入定义如下：
 
+```sass
 @mixin large-text {
   font: {
     family: Arial;
@@ -1703,8 +1704,11 @@ $i: 6;
   }
   color: #ff0000;
 }
-混入也可以包含选择器和属性的混合体，选择器中甚至可以包含parent references（父选择器）。 例如：
+```
 
+混入也可以包含选择器和属性的混合体，选择器中甚至可以包含`parent references`（父选择器）。 例如：
+
+```sass
 @mixin clearfix {
   display: inline-block;
   &:after {
@@ -1716,4 +1720,399 @@ $i: 6;
   }
   * html & { height: 1px }
 }
-由于历史原因，混入（mixin）的名字（和所有其他 Sass 标识符）可以互换连字符和下划线。例如，如果你定义了一个名为add-column的混入，你可以把它作为add_column，反之亦然。
+```
+
+由于历史原因，混入（mixin）的名字（和所有其他 Sass 标识符）可以互换连字符和下划线。例如，如果你定义了一个名为`add-column`的混入，你可以把它作为`add_column`，反之亦然。
+
+### 引用混合样式:`@include` （Including a Mixin:  @include）
+
+使用 `@include` 指令可以将混入（mixin）引入到文档中。这需要一个混入的名称和可选的参数传递给它，并包括由混入定义的当前规则的样式。 例如：
+
+```sass
+.page-title {
+  @include large-text;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+// 编译为：
+
+.page-title {
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff0000;
+  padding: 4px;
+  margin-top: 10px; }
+```
+
+混入（mixin）也可以包含在任何规则的外（即，在文档的根）,只要它们不直接定义的任何属性或使用任何父选择器引用。例如：
+
+```sass
+@mixin silly-links {
+  a {
+    color: blue;
+    background-color: red;
+  }
+}
+
+@include silly-links;
+
+// 编译为：
+
+a {
+  color: blue;
+  background-color: red; }
+```
+
+混入（mixin）定义也可以包含其他的混入。例如：
+
+```sass
+@mixin compound {
+  @include highlighted-background;
+  @include header-text;
+}
+
+@mixin highlighted-background { background-color: #fc0; }
+@mixin header-text { font-size: 20px; }
+```
+
+混入可以包含自己。这行为不同于 Sass 3.3 之前的版本，以前混入递归是被禁止的。
+
+只定义后代选择器的混入可以安全地混入到文件的最顶层。
+
+### 参数 (Arguments)
+
+混入（mixin）可以用 SassScript 值作为参数，给定的参数被包括在混入（mixin）中并且作为为变量提供给混入（mixin）。
+
+当定义一个混入（mixin）的时候，参数被作为变量名，写到混入（mixin）名字后面的括号内，多个参数可以用逗号分隔。然后，当调用混入的时候，值通过对应的参数顺序被传递。 例如：
+
+```sass
+@mixin sexy-border($color, $width) {
+  border: {
+    color: $color;
+        width: $width;
+    style: dashed;
+  }
+}
+
+p { @include sexy-border(blue, 1in); }
+
+// 编译为：
+
+p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed; }
+```
+
+混入（mixin）也可以使用普通的变量赋值语法为参数指定默认值。然后，当调用混入的时候，如果没有给参数赋值，则自动会使用默认值代替。 例如：
+
+```sass
+@mixin sexy-border($color, $width: 1in) {
+  border: {
+    color: $color;
+        width: $width;
+    style: dashed;
+  }
+}
+p { @include sexy-border(blue); }
+h1 { @include sexy-border(blue, 2in); }
+
+// 编译为：
+
+p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed; }
+
+h1 {
+  border-color: blue;
+  border-width: 2in;
+  border-style: dashed; }
+```
+
+#### 关键字参数 (Keyword Arguments)
+
+混入（mixin）在引入（`@include`指令）的时候也可以使用明确的关键字参数。例如，上面的例子可以写成：
+
+```sass
+p { @include sexy-border($color: blue); }
+h1 { @include sexy-border($color: blue, $width: 2in); }
+```
+
+虽然这是不够简明，但是它可以使样式表更容易阅读。它给函数呈现了更加灵活的接口，它使多参数的混入更加容易调用。
+
+命名的参数可以按任何顺序进行传递，有默认值的参数可以省略。由于命名参数是变量名，下划线和连字符可以互换使用。
+
+#### 可变参数 (Variable Arguments)
+
+有时，不能确定一个混入（mixin）或者一个函数（function）使用多少个参数。例如，用于创建盒子阴影（box-shadow）的一个混入（mixin）可以采取任何数量的box-shadow作为参数。对于这些情况，Sass支持"可变参数",参数在声明混入（mixin）或函数（function）结束的地方，所有剩余的参数打包成一个列表（list）。参数看起来就像普通参数一样，但后面跟随着`...`。例如：
+
+```sass
+@mixin box-shadow($shadows...) {
+      -moz-box-shadow: $shadows;
+      -webkit-box-shadow: $shadows;
+      box-shadow: $shadows;
+}
+
+.shadows {
+  @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+// 编译为：
+
+.shadows {
+  -moz-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+}
+```
+
+可变参数可以包含任何关键字参数传递给混入（mixin）或者函数（function）。这些可以使用`keywords($args)`函数 来访问，返回一个map，参数名称字符串（无`$`）和值的键值对。
+
+可变参数，也可以在调用（`@include`指令）一个混入（mixin）时使用。使用相同的语法，你可以扩展值的列表（list），以便每个值作为单独的参数传入，或扩展值的map，以使每个键值对作为一个关键字参数处理。例如：
+
+```sass
+@mixin colors($text, $background, $border) {
+  color: $text;
+  background-color: $background;
+  border-color: $border;
+}
+
+$values: #ff0000, #00ff00, #0000ff;
+  .primary {
+    @include colors($values...);
+}
+
+$value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
+  .secondary {
+    @include colors($value-map...);
+}
+
+// 编译为：
+
+.primary {
+  color: #ff0000;
+  background-color: #00ff00;
+  border-color: #0000ff;
+}
+
+.secondary {
+  color: #00ff00;
+  background-color: #0000ff;
+  border-color: #ff0000;
+}
+```
+
+你可以同时传递一个列表（list）和一个map参数，只要列表（list）在map上之前，比如`@include colors($values..., $map...)`。
+
+您可以使用可变参数来包装一个混入（mixin）并且添加额外的样式，而不改变混入（mixin）的参数签名。如果你这样做，关键字参数将通过包装的混入（mixin）直接传递。例如：
+
+```sass
+@mixin wrapped-stylish-mixin($args...) {
+      font-weight: bold;
+      @include stylish-mixin($args...);
+}
+
+.stylish {
+  // The $width argument will get passed on to "stylish-mixin" as a keyword
+      @include wrapped-stylish-mixin(#00ff00, $width: 100px);
+}
+```
+
+### 传递内容块到混入(Passing Content Blocks to a Mixin)
+
+样式内容块可以传递到混入（mixin）包含样式的位置。样式内容块将出现在混入内的任何  `@content` 指令的位置。这使得可以定义抽象 关联到选择器和指令的解析。例如：
+
+```sass
+@mixin apply-to-ie6-only {
+  * html {
+    @content;
+  }
+}
+@include apply-to-ie6-only {
+  #logo {
+    background-image: url(/logo.gif);
+  }
+}
+
+// 生成:
+
+* html #logo {
+  background-image: url(/logo.gif);
+}
+```
+
+同样的混入（mixin）可以在`.sass` 简写语法（`@mixin` 可以用 `=` 表示，而 `@include` 可以用 `+` 表示）来完成：
+
+```sass
+=apply-to-ie6-only
+  * html
+    @content
+
++apply-to-ie6-only
+  #logo
+    background-image: url(/logo.gif)
+```
+
+**注意： 当`@content`指令指定多次或在一个循环中指定的时候，样式块将在每次调用中被复制并引用。**
+
+#### 变量的作用域和内容块（Variable Scope and Content Blocks）
+
+传递给混入（mixin）的内容块在其被定义的作用域中进行运算，而不是混入（mixin）的作用域。这意味着混入（mixin）的局部变量**不能**传递给样式块使用，并且变量将解析为全局值：
+
+```sass
+$color: white;
+    @mixin colors($color: blue) {
+  background-color: $color;
+      @content;
+      border-color: $color;
+}
+.colors {
+  @include colors { color: $color; }
+}
+
+// 编译为:
+
+.colors {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+```
+
+另外，这清楚地表明，变量和传递到块中使用的混入，指向块定义的周围其他样式。例如：
+
+```sass
+#sidebar {
+  $sidebar-width: 300px;
+      width: $sidebar-width;
+  @include smartphone {
+    width: $sidebar-width / 3;
+  }
+}
+```
+
+## 函数指令 (Function Directives)
+
+Sass 支持**自定义函数**，并能在任何值或脚本上下文中使用。例如
+
+```sass
+$grid-width: 40px;
+$gutter-width: 10px;
+
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+
+#sidebar { width: grid-width(5); }
+
+// 就变成了:
+
+#sidebar {
+  width: 240px; }
+```
+
+正如你看到的，函数可以访问任何全局定义的变量，以及接受参数，就像一个混入（mixin）。函数可以包含语句，并且你必须调用`@return`来设置函数的返回值。
+
+与混入（mixin）一样，你可以使用关键字参数来调用Sass定义的函数。在上面的例子中，我们可以这样调用函数：
+
+```sass
+#sidebar { width: grid-width($n: 5); }
+```
+
+建议您在函数前加上前缀，以避免命名冲突，其他人阅读样式表的时候也会知道它们不是 Sass 或者 CSS 的自带功能。例如，如果您在ACME公司工作，你可以给上面的函数取名为`-acme-grid-width`。
+
+用户自定义的函数也支持可变参数，方式和混入（mixin）是相同的。
+
+由于历史的原因，函数名（和所有其他Sass标识符）**中连字符和下划线可以互换**。
+例如，如果你定义了一个名为`grid-width`的函数，你可以通过`grid_width`调用它，反之亦然。
+
+## 输出格式 (Output Style)
+
+虽然Sass 默认的 CSS 输出格式非常好，并且能反映文档的结构，但是由于每个人的喜好和需求各不相同，因此Sass 支持其他几种格式。
+
+Sass 提供了四种输出格式，可以通过`:style` 选项 选项设定，或者在命令行中使用 `--style` 选项。
+
+Sass 允许您通过设置:style 选项 或使用 `--style` 命令行标志，在四种不同的输出格式之间进行选择。
+
+### `:nested`
+
+nested（嵌套）格式是 Sass 默认的输出格式，因为它的格式反映CSS样式与HTML文档结构。每个属性都独占用一行，但缩排不是固定的。每个规则是基于它的何嵌套深度缩进。例如：
+
+```sass
+#main {
+  color: #fff;
+  background-color: #000; }
+  #main p {
+    width: 10em; }
+
+.huge {
+  font-size: 10em;
+  font-weight: bold;
+  text-decoration: underline; }
+```
+
+当阅读大型 CSS 文件时，nested（嵌套）格式是非常有用的：不用详细阅读，就可以让你轻松掌握文件的结构。
+
+### `:expanded`
+
+expanded（扩展）格式更像是手写的CSS样式，每个属性和规则都独占用一行。在规则之内的属性缩进的，但规则没有任何特殊的缩进。例如：
+
+```sass
+#main {
+  color: #fff;
+  background-color: #000;
+}
+#main p {
+  width: 10em;
+}
+
+.huge {
+  font-size: 10em;
+  font-weight: bold;
+  text-decoration: underline;
+}
+```
+
+### `:compact`
+
+compact（紧凑）格式比起nested（嵌套）或expanded（扩展）格式占据更小的空间。这种格式重点聚焦在选择器上，不是它们的属性。每个CSS规则独占用一行，该行还包括定义的每个属性。嵌套的规则都是另起一行，不嵌套的选择器会输出空白行作为分隔符。 例如：
+
+```sass
+#main { color: #fff; background-color: #000; }
+#main p { width: 10em; }
+
+.huge { font-size: 10em; font-weight: bold; text-decoration: underline; }
+```
+
+### `:compressed`
+
+compressed（压缩）格式占用尽可能小的空间，在该文件的末尾会有一个换行，并且除了必要的分隔选择器之外，基本没有多余空格，它还包括其他一些小的压缩，比如选择颜色最小的表示方式。这意味着可读性很差。 例如：
+
+```sass
+#main{color:#fff;background-color:#000}#main p{width:10em}.huge{font-size:10em;font-weight:bold;text-decoration:underline}
+```
+
+## 扩展 Sass (Extending Sass)
+
+对于独特的需求，Sass为用户提供了多项高级定制功能。使用这些功能需要对Ruby有深刻的理解。
+
+### 自定义 Sass 函数 (Defining Custom Sass Functions)
+
+用户通过 Ruby API 可以自定义 Sass 函数，更多信息请查看 [源代码文档](http://sass-lang.com/documentation/Sass/Script/Functions.html#adding_custom_functions)。
+
+### 缓存存储（Cache Stores）
+
+Sass会缓存已经解析的文档，这使得它们可以重复使用，而无需再次解析，除非他们已经被更改。 默认情况下，Sass会将这些缓存文件写到 `:cache_location`指定的文件系统中。如果你不能写入文件系统或者需要ruby进程或计算机共享缓存，那么你可以定义自己的缓存存储，并设置`:cache_store`选项。有关创建自定义缓存存储的详细信息，请查看 [源代码文档](http://sass-lang.com/documentation/Sass/Script/Functions.html#adding_custom_functions)。
+
+### 自定义导入 (Custom Importers)
+
+Sass导入主要负责获取路径传递给`@import`并找到这些路径相应的Sass代码。默认情况下，这些代码是从文件系统中加载，但是Importers可以从数据库加载，通过HTTP，或者使用不同的文件命名方案，被添加到Sass。
+
+每个importer负责一个单独的加载路径（或任何相应的后端概念）。importer可以和普通的文件系统路径一起放置在`:load_paths`数组中。
+
+当解析一个`@import`的时候，Sass将通过加载路径寻找importer来成功地导入路径。一旦被发现，该导入的文件就会被使用。
+
+用户创建的导入必须继承自 `Sass::Importers::Base`。
