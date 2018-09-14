@@ -1,6 +1,6 @@
 # 媒体查询
 
-```
+```less
 @media only screen and (min-width: 320px)  and (max-width: 359px) {
 
   html {
@@ -27,7 +27,7 @@
 }
 ```
 
-```
+```less
 
 @media only screen and (min-width: 320px) {
   html {
@@ -61,7 +61,7 @@
 
 ```
 
-```
+```less
 @media only screen and (min-width: 320px) and (max-width: 359px) {
   html {
     font-size: 16px;
