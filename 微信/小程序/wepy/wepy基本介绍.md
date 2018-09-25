@@ -300,11 +300,11 @@ export default class extends wepy.app {
 
 ## 实例
 
-通过前文的介绍可知，在 WePY 中，小程序被分为三个实例：
+通过前文的介绍可知，在 `WePY` 中，小程序被分为三个实例：
 
-- 小程序实例App
-- 页面实例Page
-- 组件实例Component
+- 小程序实例`App`
+- 页面实例`Page`
+- 组件实例`Component`
 - 其中Page实例继承自Component。各自的声明方式如下：
 
 ```javascript
@@ -380,7 +380,7 @@ export default class MyPage extends wepy.page {
 }
 ```
 
-<b style="color: red;">!</b> 注意，对于WePY中的methods属性，因为与Vue中的使用习惯不一致，非常容易造成误解，这里需要特别强调一下：
+<b style="color: red;">!</b> 注意，对于WePY中的`methods`属性，因为与Vue中的使用习惯不一致，非常容易造成误解，这里需要特别强调一下：
 
 - **WePY中的methods属性只能声明页面wxml标签的bind、catch事件，不能声明自定义方法，这与Vue中的用法是不一致的。** 示例如下：
 

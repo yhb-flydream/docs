@@ -1,6 +1,6 @@
 # wepy使用分包加载
 
-wepy 在 `1.7.0` 版本开始支持小程序的分包加载（[wepy跟新日志](https://tencent.github.io/wepy/document.html#/changelog?id=_170-2018-02-06)）
+wepy 在 `1.7.0` 版本开始支持小程序的分包加载（[wepy更新日志](https://tencent.github.io/wepy/document.html#/changelog?id=_170-2018-02-06)）
 
 所以 [`wepy`](https://tencent.github.io/wepy/document.html) 版本应为 `1.7.0` 以上
 
