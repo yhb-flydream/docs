@@ -387,5 +387,64 @@ l // 'world'
 
 ```js
 let { foo: foo, bar: bar } = { foo: "aaa", bar: "bbb" };
+baz // "aaa"
+foo // error: foo is not defined
 ```
 
+上面说明了，foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo。
+
+与数组一样，解构也可以用于嵌套结构的对象
+
+```js
+let obj = {
+  p: [
+    'hello',
+    { y: 'world' }
+  ]
+};
+
+let { p: [x, { y }] } = obj;
+x // "hello"
+y // "world"
+```
+
+**注意<b style="color: red;">!</b>**，这时p是模式，不是变量，因此不会被赋值。如果p也要作为变量赋值，可以写成下面这样
+
+```js
+let obj = {
+  p: [
+    'hello',
+    { y : 'world' }
+  ]
+};
+
+let { p, p: [x, { y }] } = obj;
+x // "hello"
+y // "world"
+p // ["hello", { y: "world" }]
+
+// -------------------------------
+
+const node = {
+  loc: {
+    start: {
+      line: 1,
+      column: 5
+    }
+  }
+};
+
+let { loc, loc: { start }, loc: { start: { line }} } = node;
+line // 1
+start // Object {start: Object}
+start // Object { line: 1, column: 5 }
+
+// -------------------------------
+
+let obj = {};
+let arr = [];
+
+({ foo: obj.prop, bar: arr[0] } = { foo: 123, bar: true });
+obj // {prop: 123}
+arr // [true]
+```
