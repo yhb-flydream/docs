@@ -2,6 +2,8 @@
 
 [TOC]
 
+[HEAD(meta)](https://github.com/Amery2010/HEAD#meta-%E6%A0%87%E7%AD%BE)
+
 ## 通用 `meta` 标签
 
 ### 声明文档使用的字符编码
@@ -42,10 +44,11 @@
 
 ### 搜索引擎抓取
 
-- `Robots`用来告诉搜索机器人哪些页面需要索引，哪些页面不需要索引。`Content`的参数有`all、none、index、noindex、follow、nofollow`。默认是`all`。
+- `Robots`用来告诉搜索机器人哪些页面需要索引，哪些页面不需要索引。`Content`的参数有`all、none、index、noindex、follow、nofollow`。可同时写多个(`index,follow`)默认是`all`。
 
 ```html
 <meta name="robots" content="All|None|Index|Noindex|Follow|Nofollow">
+<meta name="googlebot" content="All|None|Index|Noindex|Follow|Nofollow"><!-- Google Specific -->
 ```
 
 - `all`：文件将被检索，且页面上的链接可以被查询；
@@ -61,7 +64,7 @@
 <meta name="force-rendering" content="webkit">
 ```
 
-###
+### 主题色
 
 ```html
 <meta name="theme-color" content="black">
@@ -73,13 +76,13 @@
 <meta name="applicable-device" content="pc">
 ```
 
-###
+### 允许控制引用者信息的传递方式
 
 ```html
-<meta name="referrer" content="unsafe-url">
+<meta name="referrer" content="unsafe-url|no-referrer"">
 ```
 
-###
+### 添加到主屏幕 [More](https://developer.chrome.com/multidevice/android/installtohomescreen)
 
 ```html
 <meta name="mobile-web-app-capable" content="yes">
@@ -125,6 +128,8 @@ content="
 
 ### 文档类型
 
+- [configuring Web Application](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html)
+
 ```html
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 ```
@@ -154,16 +159,25 @@ content="
 <meta http-equiv="Cache-Control" content="no-siteapp" />   //先发送请求，与服务器确认该资源是否被更改，未被更改则使用缓存
 ```
 
-###
+### 是否设置DNS预加载
 
 ```html
-<meta http-equiv="x-dns-prefetch-control" content="on">
+<meta http-equiv="x-dns-prefetch-control" content="on|off">
 ```
+
+- `on` 是
+- `off` 否
 
 ###
 
 ```html
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+```
+
+### 在客户端Web浏览器上存储cookie以进行标识
+
+```html
+<meta http-equiv="set-cookie" content="name=value; expires=date; path=url">
 ```
 
 ## `UC` 浏览器私有 `meta` 属性
@@ -233,6 +247,12 @@ content="
 ```
 
 - 使用了`application`这种应用模式后，页面讲默认全屏，禁止长按菜单，禁止收拾，标准排版，以及强制图片显示
+
+### 禁用UC浏览器的功能“当本文档中有多个单词时缩放字体”
+
+```html
+<meta name="wap-font-scale" content="no">
+```
 
 ## `QQ` `x5`内核浏览器私有 `meta` 属性
 
@@ -316,6 +336,18 @@ content="
 <meta name="msapplication-tap-highlight" content="no">
 ```
 
+### Icon (180 x 180)
+
+```html
+<link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png">
+```
+
+### 屏幕图像
+
+```html
+<link rel="apple-touch-startup-image" href="/path/to/launch.png">
+```
+
 ## `IE`
 
 ### `application-name`
@@ -339,6 +371,10 @@ content="
 
 ### `google, facebook`
 
+- [Facebook Open Graph Markup](https://developers.facebook.com/docs/sharing/webmasters#markup)
+- [Open Graph protocol](https://ogp.me/)
+- [test](https://developers.facebook.com/tools/debug/)
+
 ```html
 <meta property="fb:app_id" content="xxxx">
 <meta property="og:url" content="">
@@ -347,6 +383,8 @@ content="
 <meta property="og:description" content="">
 <meta property="og:image" content="">
 <meta property="og:site_name" content="">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="">
 ```
 
 - `fb:app_id` `Facebook`的 `app_id`
@@ -356,8 +394,13 @@ content="
 - `og:description` 页面描述
 - `og:image` 页面展示主图
 - `og:site_name` 页面主域名
+- `og:locale` 页面地区语言
+- `article:author` 页面文章作者
 
 ### `twitter`
+
+- [Getting started with cards — Twitter Developers](https://dev.twitter.com/cards/getting-started)
+- [test](https://cards-dev.twitter.com/validator)
 
 ```html
 <meta name="twitter:card" content="">
@@ -370,3 +413,139 @@ content="
 - `twitter:title` 页面标题
 - `twitter:description` 页面描述
 - `twitter:image` 页面展示主图
+
+### Google+ / Schema.org
+
+- [test](https://developers.google.com/structured-data/testing-tool/)
+
+```html
+<html lang="" itemscope itemtype="https://schema.org/Article">
+    <head>
+      <link rel="author" href="">
+      <link rel="publisher" href="">
+      <meta itemprop="name" content="Content Title">
+      <meta itemprop="description" content="Content description less than 200 characters">
+      <meta itemprop="image" content="https://example.com/image.jpg">
+```
+
+### 防止从您的网站保存到 [Pinterest](https://www.pinterest.com/)
+
+- [防止从您的网站保存到](https://help.pinterest.com/en/articles/prevent-saves-pinterest-your-site)
+- 如果您不希望别人通过您的网站将内容保存到Pinterest，只需将此代码粘贴到您网站上任何页面的`<head>`部分即可
+
+```html
+<meta name="pinterest" content="nopin" />
+
+或者自定义提示文本
+
+<meta name = "pinterest" content = "nopin" description = "Sorry, you can't save from my website!" />
+
+如果要在单个图像上关闭保存到Pinterest，请将此标记添加到其中
+
+<img src = "foo.jpg" nopin = "nopin" />
+```
+
+### `Facebook Instant Articles`
+
+- [Creating Articles - Instant Articles](https://developers.facebook.com/docs/instant-articles/guides/articlecreate)
+- [Code Samples - Instant Articles](https://developers.facebook.com/docs/instant-articles/reference)
+
+```html
+<meta charset="utf-8">
+<meta property="op:markup_version" content="v1.0">
+
+<!-- The URL of the web version of your article -->
+<link rel="canonical" href="https://example.com/article.html">
+
+<!-- The style to be used for this article -->
+<meta property="fb:article_style" content="myarticlestyle">
+```
+
+### OEmbed
+
+- [oEmbed format](https://oembed.com/)
+
+```html
+<link rel="alternate" type="application/json+oembed"
+  href="https://example.com/services/oembed?url=http%3A%2F%2Fexample.com%2Ffoo%2F&amp;format=json"
+  title="oEmbed Profile: JSON">
+<link rel="alternate" type="text/xml+oembed"
+  href="https://example.com/services/oembed?url=http%3A%2F%2Fexample.com%2Ffoo%2F&amp;format=xml"
+  title="oEmbed Profile: XML">
+```
+
+## google
+
+### 告知Google不要显示附加链接搜索框
+
+```html
+<meta name="google" content="nositelinkssearchbox">
+```
+
+### 告知Google不要为此文档提供翻译
+
+```html
+<meta name="google" content="notranslate">
+```
+
+### Android应用深层链接
+
+```html
+<meta name="google-play-app" content="app-id=package-name">
+<link rel="alternate" href="android-app://package-name/http/url-sample.com">
+```
+
+###
+
+```html
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/APP_ID">
+```
+
+## 其他
+
+### 验证网站所有权
+
+```html
+<meta name="google-site-verification" content="verification_token"><!-- Google Search Console -->
+<meta name="yandex-verification" content="verification_token"><!-- Yandex Webmasters -->
+<meta name="msvalidate.01" content="verification_token"><!-- Bing Webmaster Center -->
+<meta name="alexaVerifyID" content="verification_token"><!-- Alexa Console -->
+<meta name="p:domain_verify" content="code_from_pinterest"><!-- Pinterest Console-->
+<meta name="norton-safeweb-site-verification" content="norton_code"><!-- Norton Safe Web -->
+```
+
+### 确定用于构建文档的软件（即 -  WordPress，Dreamweaver）
+
+```html
+<meta name="generator" content="program">
+```
+
+### 文档主题的简短描述
+
+```html
+<meta name="subject" content="your document's subject">
+```
+
+### 根据文档的内容给出一般年龄评级
+
+```html
+<meta name="rating" content="General">
+```
+
+### 指定要在特定框架中显示的文档
+
+```html
+<meta http-equiv="Window-Target" content="_value">
+```
+
+### 地理标签
+
+```html
+<meta name="ICBM" content="latitude, longitude">
+<meta name="geo.position" content="latitude;longitude">
+<meta name="geo.region" content="country[-state]"><!-- Country code (ISO 3166-1): mandatory, state code (ISO 3166-2): optional; eg. content="US" / content="US-NY" -->
+<meta name="geo.placename" content="city/town"><!-- eg. content="New York City" -->
+```
+
+- [HTML5 Boilerplate Docs: The HTML](https://github.com/h5bp/html5-boilerplate/blob/master/dist/doc/html.md)
+- [HTML5 Boilerplate Docs: Extend and customize](https://github.com/h5bp/html5-boilerplate/blob/master/dist/doc/extend.md)
