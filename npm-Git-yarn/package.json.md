@@ -4,13 +4,9 @@
 
 [来自《JavaScript 标准参考教程（alpha）》，by 阮一峰](http://javascript.ruanyifeng.com/nodejs/packagejson.html)
 
+[npm package.json](https://docs.npmjs.com/files/package.json)
 
-https://docs.npmjs.com/files/package.json
-
-http://javascript.ruanyifeng.com/nodejs/packagejson.html
-
-https://yarnpkg.com/zh-Hans/docs/package-json
-
+[yarn package.json](https://yarnpkg.com/zh-Hans/docs/package-json)
 
 ## 介绍
 
@@ -72,11 +68,137 @@ yarn init | yarn init -y
 
 ## 字段说明
 
-### `name` 项目名称
+### `name` 项目名称也是包的名字，它在 `URL` 中、作为命令行参数、作为 `node_modules` 里的目录名使用
+
+- 规则
+  - 必须少于或等于 `214` 个字符（对于限定域的包来说包括 `@scope/`）。
+  - 不能以句点 (`.`) 或者下划线 (`_`) 开头。
+  - 名字里不能有`大写字母`。
+  - 必须只使用 `URL` 安全的字符。
+
+- Tips
+  - 不要使用和 `Node.js` 核心模块相同的名字。
+  - 不要在名字里包含 `js` 或者 `node` 单词。
+  - 短小精悍，让人看到名字就大概了解包的功能，记住它也会被用在 `require()` 调用里。
+  - 保证名字在 `registry` 里是唯一的
 
 ### `version` 项目版本号（**`大版本.次要版本.小版本`**）
 
 `0.0.0` 或 `1.0.0` 都可
+
+### `description` 项目描述
+
+```json
+{
+  "description": "项目或者包的简短描述"
+}
+```
+
+### `keywords` 项目关键字
+
+```json
+{
+  "keywords": ["short", "relevant", "keywords", "for", "searching"]
+}
+```
+
+### `license` 指定许可证
+
+```json
+{
+  "license": "MIT",
+  "license": "(MIT or GPL-3.0)",
+  "license": "SEE LICENSE IN LICENSE_FILENAME.txt",
+  "license": "UNLICENSED"
+}
+```
+
+所有包都应该指定许可证，以便让用户了解他们是在什么授权下使用此包，以及此包还有哪些附加限制
+
+**license字段必须是以下之一：**
+
+- 如果你使用标准的许可证，需要一个有效地 [SPDX 许可证标识](https://spdx.org/licenses/)
+- 如果你用多种标准许可证，需要有效的 [SPDX 许可证表达式2.0语法表达式](https://www.npmjs.com/package/spdx)
+- 如果你使用非标准的许可证，一个 `SEE LICENSE IN <文件名>` 字符串指向你的包里顶级目录的一个 `<文件名>`
+- 如果你不想在任何条款下授权其他人使用你的私有或未公开的包，一个 `UNLICENSED` 字符串
+
+### `homepage` 包的项目主页或者文档首页
+
+```json
+{
+  "homepage": "https://your-package.org"
+}
+```
+
+### `bugs` 问题反馈系统的 `URL`，或者是 `email` 地址之类的链接。别人可以通过该途径反馈问题
+
+```json
+{
+  "bugs": "https://github.com/user/repo/issues"
+}
+```
+
+### `repository` 代码托管的位置
+
+```json
+{
+  "repository": { "type": "git", "url": "https://github.com/user/repo.git" },
+  "repository": "github:user/repo",
+  "repository": "gitlab:user/repo",
+  "repository": "bitbucket:user/repo",
+  "repository": "gist:a1b2c3d4e5f"
+}
+```
+
+### `author` 项目的维护者，一个人信息
+
+```json
+{
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com",
+    "url": "http://your-website.com"
+  },
+  "author": "Your Name <you@example.com> (http://your-website.com)"
+}
+```
+
+### `contributors` 贡献者信息，可能很多人
+
+```json
+{
+  "contributors": [
+    { "name": "Your Friend", "email": "friend@example.com", "url": "http://friends-website.com" }
+    { "name": "Other Friend", "email": "other@example.com", "url": "http://other-website.com" }
+  ],
+  "contributors": [
+    "Your Friend <friend@example.com> (http://friends-website.com)",
+    "Other Friend <other@example.com> (http://other-website.com)"
+  ]
+}
+```
+
+### `files` 指定包含在项目中的文件，以及项目的入口文件
+
+```json
+{
+  "files": ["filename.js", "directory/", "glob/*.{js,json}"]
+}
+```
+
+### `directories` 当包安装时，你可以指定确切的位置来放二进制文件、man pages、文档、例子等
+
+```json
+{
+  "directories": {
+    "lib": "path/to/lib/",
+    "bin": "path/to/bin/",
+    "man": "path/to/man/",
+    "doc": "path/to/doc/",
+    "example": "path/to/example/"
+  }
+}
+```
 
 ### `scripts`
 
@@ -121,7 +243,7 @@ yarn init | yarn init -y
 - `npm install vue --save` 表示将该模块写入`dependencies`属性字段
 - `npm install vue --save-dev` 表示将该模块写入`devDependencies`属性字段
 
-## `peerDependencies`
+### `peerDependencies`
 
 有时，你的项目和所依赖的模块，都会同时依赖另一个模块，但是所依赖的版本不一样。比如，你的项目依赖A模块和B模块的1.0版，而A模块本身又依赖B模块的2.0版。
 
@@ -144,7 +266,25 @@ yarn init | yarn init -y
 
 **注意，从npm 3.0版开始，peerDependencies不再会默认安装了**
 
-## `bin`
+### `optionalDependencies` 可选依赖可以用于你的包，但不是必需的。如果可选包没有找到，安装还可以继续
+
+```json
+{
+  "optionalDependencies": {
+    "package-5": "^1.6.1"
+  }
+}
+```
+
+### `bundledDependencies` 打包依赖是发布你的包时将会一起打包的一个包名数组
+
+```json
+{
+  "bundledDependencies": ["package-4"]
+}
+```
+
+### `bin`
 
 用来指定各个内部命令对应的可执行文件的位置
 
@@ -176,12 +316,12 @@ scripts: {
 所有`node_modules/.bin/`目录下的命令，都可以用`npm run [命令]`的格式运行。
 在命令行下，键入`npm run`，然后按tab键，就会显示所有可以使用的命令
 
-## main
+### main
 
 指定了加载的入口文件，`require('moduleName')`就会加载这个文件。
 这个字段的默认值是模块根目录下面的`index.js`
 
-## config
+### config
 
 用于添加命令行的环境变量
 
