@@ -1,5 +1,7 @@
 # Vue 重要点
 
+[TOC]
+
 ## Vue 没有完全遵循 [MVVM模型](https://zh.wikipedia.org/wiki/MVVM)
 
 ## 如果知道晚些时候会需要一个属性，但一开始它不存在，那么最好先声明一下这个属性，并设置一些初始值
@@ -330,4 +332,437 @@ computed: {
 </div>
 ```
 
+## 数组更新检查
+
+### 变异方法 Vue 包含一组观察数组的变异方法，所以它们也将会触发视图更新
+
+#### `push()`
+
+#### `pop()`
+
+#### `shift()`
+
+#### `unshift()`
+
+#### `splice()`
+
+#### `sort()`
+
+#### `reverse()`
+
+### 替换数组 调用此方法后不会改变原来的数组，总会返回一个新数组
+
+```js
+example1.items = example1.items.filter(function (item) {
+  return item.message.match(/Foo/)
+})
+```
+
+#### 由于 JavaScript 的限制，Vue 不能检测以下变动的数组：
+
+##### 当你利用索引直接设置一个项时，例如：`vm.items[indexOfItem] = newValue`
+
+##### 当你修改数组的长度时，例如：`vm.items.length = newLength`
+
+```js
+var vm = new Vue({
+  data: {
+    items: ['a', 'b', 'c']
+  }
+})
+vm.items[1] = 'x' // 不是响应性的
+vm.items.length = 2 // 不是响应性的
+```
+
+##### 解决办法
+
+- 解决第一类问题 (`vm.items[indexOfItem] = newValue`)
+
+```js
+// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)
+```
+
+也可以使用 `vm.$set` 实例方法，该方法是全局方法 `Vue.set` 的一个别名：
+
+```js
+vm.$set(vm.items, indexOfItem, newValue)
+```
+
+- 解决第二类问题(`vm.items.length = newLength`)，可以使用 `splice`：
+
+```js
+vm.items.splice(newLength)
+```
+
+## 对象更改检测注意事项
+
+由于 JavaScript 的限制，**Vue 不能检测对象属性的添加或删除**：
+
+```js
+var vm = new Vue({
+  data: {
+    a: 1
+  }
+})
+// `vm.a` 现在是响应式的
+
+vm.b = 2
+// `vm.b` 不是响应式的
+```
+
+对于已经创建的实例，Vue 不能动态添加根级别的响应式属性。但是，可以使用 `Vue.set(object, key, value)` 方法向嵌套对象添加响应式属性。例如，对于：
+
+```js
+var vm = new Vue({
+  data: {
+    userProfile: {
+      name: 'Anika'
+    }
+  }
+})
+```
+
+可以添加一个新的 `age` 属性到嵌套的 `userProfile` 对象：
+
+```js
+Vue.set(vm.userProfile, 'age', 27)
+```
+
+还可以使用 `vm.$set` 实例方法，它只是全局 `Vue.set` 的别名：
+
+```js
+vm.$set(vm.userProfile, 'age', 27)
+```
+
+有时可能需要为已有对象赋予**多个新属性**，比如使用 `Object.assign()` 或 `_.extend()`。在这种情况下，你应该用两个对象的属性创建一个新的对象。所以，如果你想添加新的响应式属性，不要像这样：
+
+```js
+Object.assign(vm.userProfile, {
+  age: 27,
+  favoriteColor: 'Vue Green'
+})
+```
+
+应该这样做：
+
+```js
+vm.userProfile = Object.assign({}, vm.userProfile, {
+  age: 27,
+  favoriteColor: 'Vue Green'
+})
+```
+
+## 展示排序/过滤后的结果
+
+有时，我们想要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的**计算属性**
+
+```html
+<li v-for="n in evenNumbers">{{ n }}</li>
+
+data: {
+  numbers: [1, 2, 3, 4]
+},
+computed: {
+  evenNumbers: function() {
+    return this.numbers.filter(function(number) {
+      return number % 2 === 0
+    })
+  }
+}
+```
+
+在计算属性不适用的情况下 (*例如，在嵌套 `v-for` 循环中*) 你可以使用一个 `method` 方法：
+
+```html
+<li v-for="n in even(numbers)">{{ n }}</li>
+
+data: {
+  numbers: [1, 2, 3, 4]
+},
+methods: {
+  even: function(numbers) {
+    return numbers.filter(function(number) {
+      return number % 2 === 0
+    })
+  }
+}
+```
+
+## `v-for` 对于整数的循环
+
+```html
+<div>
+  <span v-for="n in 10">{{ n }} </span>
+</div>
+
+结果：
+1 2 3 4 5 6 7 8 9 10
+```
+
+## `v-for` with `v-if`
+
+**当它们处于同一节点，v-for 的优先级比 v-if 更高**，这意味着 `v-if` 将分别重复运行于每个 `v-for` 循环中。当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用，如下：
+
+```html
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo }}
+</li>
+```
+
+上面的代码只传递了未完成的 `todos`。
+
+而如果你的目的是**有条件地跳过循环的执行**，那么可以将 `v-if` 置于外层元素 (或 `<template>`)上。如：
+
+```html
+<ul v-if="todos.length">
+  <li v-for="todo in todos">
+    {{ todo }}
+  </li>
+</ul>
+<p v-else>No todos left!</p>
+```
+
+## 一个组件的 `v-for`
+
 https://cn.vuejs.org/v2/guide/list.html#%E6%95%B0%E7%BB%84%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B
+
+## 事件处理
+
+### 可以用 `v-on` 指令监听 DOM 事件，并在`触发时运行一些 JavaScript 代码`
+
+```html
+<div id="example-1">
+  <button v-on:click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    counter: 0
+  }
+})
+```
+
+### 然而许多事件处理逻辑会更为复杂，所以直接把 JavaScript 代码写在 `v-on` 指令中是不可行的。因此 `v-on` 还可以`接收一个需要调用的方法名称`
+
+```html
+<div id="example-2">
+  <!-- greet 是在下面定义的方法 -->
+  <button v-on:click="greet">Greet</button>
+</div>
+
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    name: 'Vue.js'
+  },
+  在 methods 对象中定义方法
+  methods: {
+    greet: function (event) {
+      alert('Hello' + this.name + '!')
+      // event 是原生 DOM 事件
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+// 也可以用 JavaScript 直接调用方法
+example2.greet() // 'Hello Vue.js'
+```
+
+### 除了直接绑定到一个方法，也可以`在内联 JavaScript 语句中调用方法`
+
+```html
+<div id="example-3">
+  <button v-on:click="say('hi')">Say Hi</button>
+  <button v-on:click="say('what')">Say what</button>
+</div>
+
+new Vue({
+  el: '#example-3',
+  methods: {
+    say: function(message) {
+      alert(message);
+    }
+  }
+})
+```
+
+### 有时也需要在内联语句处理器中访问原始的 DOM 事件。`可以用特殊变量 $event 把它传入方法`
+
+```html
+<button v-on:click="warn('Form cannot be submitted yet.', $event)"></button>
+
+//...
+methods: {
+  warn: function(message, event) {
+    if (event) event.preventDefault()
+    alert(message)
+  }
+}
+```
+
+### 事件修饰符
+
+#### `.stop` 阻止单击事件继续传播
+
+```html
+<a v-on:click.stop="doThis"></a>
+```
+
+#### `.prevent` 阻止默认事件的执行
+
+```html
+<!-- 提交事件不再重载页面 -->
+<form v-on:click.prevent="onSubmit"></form>
+```
+
+#### `.capture` 添加事件监听器时使用事件捕获模式
+
+即元素自身触发的事情先在此处理，然后再交由内部元素处理
+
+```html
+<div v-on:click.capture="doThis">...</div>
+```
+
+#### `.self` 只当在 `event.target` 是当前元素自身时触发处理函数，即事件不是冲内部触发的
+
+```html
+<div v-on:click.self="doThat">
+```
+
+#### `.once` 点击事件只会触发一次
+
+```html
+<a v-on:click.once="doOnceThis"></a>
+```
+
+#### `.passive` 对 `addEventListener` 中的 `passive` 提供了 `.passive` 修饰符，`尤其能够提升移动端性能`
+
+滚动事件的默认行为（即滚动行为）会被立即触发，而不会等待 `onScroll` 完成，这其中包含 `event.preventDefault()` 的情况
+
+```html
+<div v-on:scroll.passive="onScroll"></div>
+```
+
+##### 不要把 `.passive` 和 `.prevent` 一起使用，因为 `.prevent` 将会被忽略，同时浏览器可能会向你展示一个警告。请记住，`.passive` 会告诉浏览器你不想阻止事件的默认行为
+
+#### 修饰符可以串联 `v-on:click.stop.prevent`
+
+```html
+<a v-on:click.stop.prevent="doThat"></a>
+```
+
+#### 可以只写修饰符 `<form v-on:submit.prevent></form>`
+
+#### 使用修饰符时顺序很重要，相应的代码会以同样的顺序产生。因此，用 `v-on:click.prevent.self` 会**阻止所有的点击**，而 `v-on:click.self.prevent` 只会阻止对元素自身的点击
+
+### 按键修饰符
+
+在监听键盘事件时，我们经常需要检查常见的键值。`v-on` 在监听键盘事件时添加按键修饰符：
+
+```html
+<!-- 只有在 `keyCode` 是 13 时调用 `vm.submit()` -->
+<input v-on:keyup.13="submit">
+```
+
+记住所有的 `keyCode` 比较困难，所以 `Vue` 为最常用的按键提供了别名：
+
+```html
+<!-- 同上 -->
+<input v-on:keyup.enter="submit">
+
+<!-- 缩写语法 -->
+<input @keyup.enter="submit">
+```
+
+#### `.enter`
+
+#### `.tab`
+
+#### `.delete`(包含“删除”和“退格”)
+
+#### `.esc`
+
+#### `.space`
+
+#### `.up`
+
+#### `.down`
+
+#### `.left`
+
+#### `.right`
+
+#### 通过全局 `config.keyCode` 对象可自定义修改按年修饰符别名
+
+```js
+// 可以使用 v-on:keyup.f1
+Vue.config.keyCode.f1 = 112
+```
+
+#### 也可以直接将 `KeyboardEvent.key` 暴露的任意有效按键名转换为kebab-case 来作为修饰符
+
+```html
+<input @keyup.page-down="onPageDown">
+```
+
+此事件触发后近 `@event.key === 'PageDown'` 时被调用
+
+#### 有一些按键（`.esc` 以及所有的方向键）在IE9中有不同的 key，如果要支持IE9，它们的内置别名应该是首选
+
+### [系统修饰键](https://cn.vuejs.org/v2/guide/events.html#%E7%B3%BB%E7%BB%9F%E4%BF%AE%E9%A5%B0%E9%94%AE)
+
+## [表单输入绑定](https://cn.vuejs.org/v2/guide/forms.html)
+
+## 组件
+
+### 组件是可复用的 Vue 实例，且带有一个名字。我们可以在一个通过 `new Vue` 创建的 Vue 根实例中，把这个组件作为自定义元素来使用
+
+```html
+<div id="components-demo">
+    <button-counter></button-counter>
+</div>
+
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button @click="count++">You click me {{ count }} times</button>'
+});
+
+new Vue({
+  el: '#components-demo'
+})
+```
+
+### 因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 `data`、`computed`、`watch`、`methods` 以及生命周期钩子等。仅有的例外是像 `el` 这样根实例特有的选项
+
+### 可以将组件进行任意次数的复用：因为每用一次组件，就会有一个它的新实例被创建
+
+```html
+<div id="components-demo">
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+</div>
+```
+
+### `data` 必须是一个`函数` 一个组件的 `data` 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：
+
+```js
+data: function () {
+  return {
+    count: 0
+  }
+}
+```
