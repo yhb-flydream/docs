@@ -1,5 +1,7 @@
 # yarn
 
+[TOC]
+
 > 快速、可靠、安全的依赖管理。
 
 [yarn github](https://github.com/yarnpkg/yarn)
