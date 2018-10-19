@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta name="applicable-device" content="pc,mobile">
+    <!--<link rel="icon" href="favicon.ico">-->
+    <title>轮播图</title>
+    <meta name="description" content="轮播图">
+    <meta name="keywords" content="轮播图">
+    <!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.9.0/slick/slick.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.9.0/slick/slick-theme.css"/>-->
+    <link href="http://cdn.bootcss.com/slick-carousel/1.6.0/slick.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #b2b2b2;
+        }
+        .slick-main {
+            width: 90%;
+            margin: 50px auto;
+        }
+        .slick__top {
+
+        }
+        .slick__top .slick-item {
+            height: 300px;
+            line-height: 300px;
+        }
+
+        .slick__bottom {
+            margin-top: 100px;
+        }
+        .slick__bottom .slick-item {
+            height: 100px;
+            line-height: 100px;
+            margin: 0 10px;
+        }
+        .slick-item {
+            text-align: center;
+        }
+        .slick-item-01 {
+            background-color: red;
+        }
+        .slick-item-02 {
+            background-color: yellow;
+        }
+        .slick-item-03 {
+            background-color: blue;
+        }
+        .slick-item-04 {
+            background-color: green;
+        }
+        .slick-item-05 {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body class="body-wrap">
+<div class="body-main">
+    <div class="slick-wrap">
+        <div class="slick-main">
+            <div class="slider slick__top">
+                <div class="slick-item slick-item-01">11111</div>
+                <div class="slick-item slick-item-02">22222</div>
+                <div class="slick-item slick-item-03">33333</div>
+                <div class="slick-item slick-item-04">44444</div>
+                <div class="slick-item slick-item-05">55555</div>
+            </div>
+            <div class="slider slick__bottom">
+                <div class="slick-item slick-item-01">11111</div>
+                <div class="slick-item slick-item-02">22222</div>
+                <div class="slick-item slick-item-03">33333</div>
+                <div class="slick-item slick-item-04">44444</div>
+                <div class="slick-item slick-item-05">55555</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://cdn.bootcss.com/slick-carousel/1.6.0/slick.min.js"></script>
+<script>
+    $(function () {
+      $('.slick__top').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slick__bottom'
+      });
+      $('.slick__bottom').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.slick__top',
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true
+      });
+    })
+</script>
+</body>
+</html>
