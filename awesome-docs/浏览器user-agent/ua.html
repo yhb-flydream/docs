@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var ua = navigator.userAgent;
+    document.write(ua);
+    if (/Android (\d+\.\d+)|UCBrowser/.test(ua) && !/XiaoMi\/\/(\d+\.\d+)/.test(ua)){
+        var version = parseFloat(RegExp.$1);
+        if(version>2.3 && !/UCBrowser|MiuiBrowser/.test(ua)){
+            if(/Windows/.test(ua)){
+                document.write('<meta name="viewport" content="width=800, user-scalable=no"/>');
+            }else{
+                if(phoneScale<1){//pad纵向
+                    document.write('<meta name="viewport" content="width='+phoneWidth+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'"/>');
+                }else if (ua.indexOf('HUAWEINXT')>-1){//华为mate系列
+                    document.write('<meta name="viewport" content="width=720, user-scalable=no,minimal-ui"/>');
+                }else{//pad横向
+                    document.write('<meta name="viewport" content="width=device-width"/>');
+                }
+            }
+        }else {
+            if(phoneScale<1){
+                //mipad纵向
+                document.write('<meta name="viewport" content="width='+phoneWidth+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'"/>');
+            }else {//mipad 横向
+                if(/UCBrowser|MiuiBrowser/.test(ua)){
+                    document.write('<meta name="viewport" content="width=800, user-scalable=no,minimal-ui"/>')
+                    //document.write('<meta name="viewport" content="width=device-width'+',minimum-scale = 1'+', maximum-scale = '+phoneScale+'"/>');
+                }else{
+                    document.write('<meta name="viewport" content="width=device-width"/>');
+                }
+                /*document.write('<meta name="viewport" content="width='+phoneWidth+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'"/>');*/
+            }
+        }
+    }
+</script>
+</body>
+</html>

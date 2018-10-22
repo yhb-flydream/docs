@@ -202,6 +202,8 @@ const global = getGlobal();
 
 ## 变量的解构赋值
 
+从数组和对象中提取值，对变量进行赋值，这被称为解构
+
 ### 数组的解构赋值
 
 ES6 允许写成下面这样
@@ -286,7 +288,7 @@ sexth // 5
 
 #### 默认值
 
-结构允许指定默认值
+解构允许指定默认值
 
 ```js
 let [foo = true] = [];
@@ -447,4 +449,94 @@ let arr = [];
 ({ foo: obj.prop, bar: arr[0] } = { foo: 123, bar: true });
 obj // {prop: 123}
 arr // [true]
+```
+
+对象的解构也可以指定默认值
+
+```js
+var { x = 3 } = {}; // x = 3
+var { x, y = 5 } = { x = 1 }; // x = 1  y = 5
+var {X: y = 3 } = {}; // y = 3
+var { x: y = 5 } = { x = 5 }; // y = 5
+var { message: msg = 'something went wrong' } = {} // msg = something went wrong
+```
+
+默认值生效的条件是，对象的属性值严格等于undefined。
+
+```js
+var {x = 3} = {x: undefined};
+x // 3
+
+var {x = 3} = {x: null};
+x // null
+```
+
+如果结构失败，变量值等于 `undefined`
+
+```js
+let {foo} = { bar: 'baz' }; // foo = undefined
+```
+
+### 字符串的解构赋值
+
+字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。
+
+```js
+const [a, b, c, d, e] = 'hello';
+a // "h"
+b // "e"
+c // "l"
+d // "l"
+e // "o"
+```
+
+类似数组的对象都有一个length属性，因此还可以对这个属性解构赋值。
+
+```js
+let {length : len} = 'hello';
+len // 5
+```
+
+### 数值和布尔值的解构赋值
+
+解构赋值时，如果等号右边是数值和布尔值，**则会先转化为对象**
+
+```js
+let {toString: s} = 123;
+s === Number.protopery.toString // true
+
+let {toString: s} = true;
+s === Boolean.protopery.toString // true
+```
+
+### 函数参数的解构赋值
+
+```js
+function add([x, y]) {
+  return x + y;
+}
+add([1, 2]); // 3
+
+[[1, 2], [3, 4]].map(([a, b]) => a + b) // [3, 7]
+
+function move({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, 0]
+move({}); // [0, 0]
+move(); // [0, 0]
+```
+
+**注意，下面的写法会得到不一样的结果。**
+
+```js
+function move({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, undefined]
+move({}); // [undefined, undefined]
+move(); // [0, 0]
 ```
