@@ -1,0 +1,134 @@
+<script>
+  import wepy from 'wepy'
+  import 'wepy-async-function'
+  import {setStore} from 'wepy-redux'
+  import configStore from './store'
+  // import WXAPI from './common/utils/WX-API'
+
+  const store = configStore()
+  setStore(store)
+
+  export default class extends wepy.app {
+    config = {
+      pages: [
+        'pages/tabBar/home/home'
+      ],
+      window: {
+        navigationBarTitleText: 'wepy-template',
+        backgroundTextStyle: 'black',
+        navigationBarBackgroundColor: '#fff'
+      },
+      /* 分包加载 */
+      subPackages: [
+        {
+          'root': 'pages/subPages/verification/',
+          'pages': [
+            'faceRecognition/faceRecognition',
+            'IdCardLogin/IdCardLogin',
+            'wxAuthorize/wxAuthorize'
+          ]
+        }
+      ],
+      /* 分包预加载 */
+      preloadRule: {
+        'pages/tabBar/home/home': {
+          'network': 'all',
+          'packages': ['pages/subPages/verification/']
+        }
+      },
+      debug: true
+    };
+
+    globalData = {
+      REGISTERED_TOKEN: '', // 临时token
+      ACCESS_TOKEN: '' // 验证token
+    };
+
+    constructor() {
+      super()
+      this.use('promisify')
+      this.use('requestfix')
+    }
+
+    onLaunch() {
+      console.log('APP::: onLaunch')
+      // WXAPI.clearStorageSync()
+    }
+
+    onShow() {
+      console.log('APP::: onShow')
+      /* let ACCESS_TOKEN = WXAPI.getStorageSync('ACCESS_TOKEN')
+      if (ACCESS_TOKEN) {
+        // console.log('ACCESS_TOKEN:', ACCESS_TOKEN)
+        // Do something with return value
+        this.globalData.ACCESS_TOKEN = ACCESS_TOKEN
+        // this.globalData.HEADER = {'Authorization': `Bearer access_token=${ACCESS_TOKEN}`}
+      } else {
+        console.log('navigateTo')
+        // WXAPI.navigateTo('./pages/subPages/verification/wxAuthorize/wxAuthorize')
+      } */
+    }
+
+    onHide() {
+      console.log('APP::: hide')
+    }
+  }
+</script>
+
+<style lang='less'>
+  @import './common/lib/css/weui';
+  @import 'common/lib/font/iconfont';
+
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+  }
+  view {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    content: '';
+    display: table;
+    height: 0;
+    line-height: 0;
+    clear: both;
+  }
+
+  input,
+  .input,
+  .textarea,
+  textarea {
+    &::-webkit-input-placeholder {
+      color: #999;
+      font-size: 14px;
+    }
+    &:-moz-placeholder {
+      color: #999;
+      font-size: 14px;
+    }
+    &::-moz-placeholder {
+      color: #999;
+      font-size: 14px;
+    }
+    &:-ms-input-placeholder {
+      color: #999;
+      font-size: 14px;
+    }
+  }
+
+  button {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+</style>

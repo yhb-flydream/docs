@@ -1,0 +1,13 @@
+/*
+ * 空置过滤器
+ * @val     需要判断的值
+ * @after   后缀
+ */
+
+module.exports = {
+
+  format: function (val, after = '') {
+    if (val && val !== '') return val + after
+    return ''
+  }
+}

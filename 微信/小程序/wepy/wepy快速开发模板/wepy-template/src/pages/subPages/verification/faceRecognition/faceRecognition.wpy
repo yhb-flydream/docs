@@ -1,0 +1,315 @@
+<template>
+  <!--<view class="weui-toptips weui-toptips_warn" wx:if="{{!isPhoneErrorHidden}}">{{phoneErrorMsg}}</view>-->
+  <view class="page-cover-wrap" hidden="{{isPageCoverHidden}}">
+    <view class="page-cover-main">
+      <view class="verification-success" hidden="{{isVerificationSuccessHidden}}">
+        <view class="verification-success__hd page-cover-title">信息验证成功</view>
+        <view class="verification-success__bd">
+          <view class="avatar-wrap">
+            <image class="avatar" src="{{user.avatar}}" lazy-load="true"></image>
+          </view>
+          <view class="name">{{user.name}}</view>
+          <view class="num">编号：{{user.num}}</view>
+        </view>
+        <view class="verification-success__ft">
+          <button class="weui-btn error-btn" @tap="quit">信息有误</button>
+          <navigator url="/pages/tabBar/moreClue/list" hover-class="none" class="weui-btn">
+            <button class="submit-btn">确定</button>
+          </navigator>
+        </view>
+      </view>
+      <view class="face-failed" hidden="{{isFaceFailHidden}}">
+        <view class="face-failed__hd page-cover-title">信息验证失败</view>
+        <view class="face-failed__bd">抱歉您的人脸识别与资料无法匹配，请您再试一次或联系我们的管理员解决该问题</view>
+        <view class="face-failed__ft">
+          <button class="weui-btn quit-btn" @tap="again">再试一次</button>
+          <navigator url="../IdCardLogin/IdCardLogin?registered_token={{registered_token}}" class="weui-btn">
+            <button class="ID-btn">身份证登录</button>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page" hidden="{{isCameraHidden}}">
+    <view class="page__hd">
+      <view class="tips-wrap">
+        <view class="tips-main">
+          <view class="tips_hd">
+            <swiper class="tip-title-list"
+                    autoplay
+                    interval="5000"
+                    duration="300"
+                    circular="true">
+              <repeat for="{{tips.tipList}}" key="index" index="index" item="item">
+                <swiper-item class="tip-title-item">{{item}}</swiper-item>
+              </repeat>
+            </swiper>
+          </view>
+          <view class="tips_bd">{{tips.tipInfo}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="page__bd">
+      <view class="camera-wrap">
+        <view class="camera-main">
+          <camera device-position="front" @error="error" class="camera-view">
+            <cover-view class="camera-mask">
+              <cover-image class="img" src="../../../../common/lib/images/camera_mask.png"></cover-image>
+            </cover-view>
+          </camera>
+        </view>
+      </view>
+    </view>
+    <view class="weui-footer weui-footer_fixed-bottom page__ft">
+      <button class="operate-btn star-btn" wx:if="{{!isFaceStartHidden}}" @tap="TakePhoto">
+        <view class="star-btn-bg {{isStarBtnHasWidth? 'width':''}}"></view>
+        <text class="text">开始识别</text>
+        <view class="weui-loading" wx:if="{{isStarBtnHasWidth}}"></view>
+      </button>
+      <button class="operate-btn down-btn" wx:else="{{isFaceStartHidden}}">识别结束</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import WXAPI from '../../../../common/utils/WX-API'
+  import {HOST} from '../../../../common/config'
+  import HTTP from '../../../../common/utils/HTTP'
+
+  const host = HOST.pro
+
+  export default class FaceRecognition extends wepy.page {
+    config = {
+      navigationBarTitleText: '人脸验证',
+      navigationBarTextStyle: 'black',
+      navigationBarBackgroundColor: 'white'
+    };
+    data = {
+      registered_token: '', // 临时 registered_token
+      cameraCtx: null, // 相机实例
+      src: [], // 图片地址
+      videoSrc: '', // 视频地址
+      isCameraHidden: false, // 相机隐藏
+      isPageCoverHidden: true, // 弹窗隐藏
+      isVerificationSuccessHidden: true, // 验证成功提示隐藏
+      isFaceFailHidden: true, // 脸部识别错误提示隐藏
+      isFaceStartHidden: false, // 开始识别按钮隐藏
+      isStarBtnHasWidth: false, // 开始识别按钮背景宽度显示
+      uploadimg: '',
+      user: {
+        avatar: '../../../../common/lib/images/icon64_appwx_logo.png',
+        name: '名字',
+        num: '12345678'
+      },
+      tips: {
+        tipList: [
+          '人脸识别验证',
+          '对着镜头眨眨眼',
+          '请保持稳定姿势',
+          '验证需要 5 秒钟'
+        ],
+        tipInfo: '请保持面容清晰，不要佩戴帽子、口 罩、墨镜和围巾等遮挡面部的物品，平视手机屏幕'
+      }
+    };
+
+    // 生命周期回调—监听页面加载
+    onLoad = function (options) {
+      this.registered_token = options.registered_token || ''
+      console.log('registered_token-----', this.registered_token)
+    };
+
+    onReady = function() {
+      let that = this
+      WXAPI.getSetting((res) => {
+        console.log(res)
+        if (!res.authSetting['scope.camera']) {
+          WXAPI.authorize('scope.camera', () => {})
+        }
+        that.cameraCtx = WXAPI.createCameraContext()
+      })
+    };
+
+    methods = {
+      /**
+       * 拍照
+       * @constructor
+       */
+      TakePhoto() {
+        let that = this
+        let timeFlag = 0
+        let timer = setInterval(function () {
+          timeFlag++
+          if (timeFlag <= 6) {
+            that.cameraCtx.takePhoto({
+              quality: 'high',
+              success: (res) => {
+                that.isStarBtnHasWidth = true
+                that.src.push(res.tempImagePath)
+                that.$apply()
+                // console.log(1212)
+                console.log(that.src)
+              }
+            })
+          } else {
+            clearInterval(timer)
+            console.log(that.src)
+
+            that.uploadimg({
+              url: '',
+              path: that.src,
+              formData: {'token': that.registered_token}
+            })
+          }
+        }, 1000)
+
+        // 多张图片上传
+        that.uploadimg = function (data) {
+          let that = this
+          let i = data.i ? data.i : 0 // 当前上传的哪张图片
+          let success = data.success ? data.success : 0 // 上传成功的个数
+          let fail = data.fail ? data.fail : 0 // 上传失败的个数
+          WXAPI.uploadFile(
+            data.url,
+            data.path[i],
+            'avatar', // 这里根据自己的实际情况改关键词名字
+            // {'content-type': 'application/x-www-form-urlencoded;charset=utf-8'},
+            data.formData, // 这里是上传图片时一起上传的数据
+            (res) => {
+              console.log(res)
+              console.log(i)
+              // console.log('上传成功返回的数据', JSON.parse(res.data))
+              success++ // 图片上传成功，图片上传成功的变量+1
+              if (res.statusCode === 200) {
+                if (res.data.code === 200) {
+                  // success++ // 图片上传成功，图片上传成功的变量+1
+                  // WXAPI.showSuccess('验证成功')
+                  // console.log(res.data)
+                  WXAPI.setStorageSync('ACCESS_TOKEN', res.data[0].access_token)
+                  WXAPI.setStorageSync('USERINFO', res.data[0].reporter_name)
+                  that.$parent.globalData.ACCESS_TOKEN = res.data[0].access_token
+                  that.$parent.globalData.USERINFO = res.data[0].reporter_name
+                  that.$parent.globalData.HEADER = {'Authorization': `Bearer access_token=${res.data[0].access_token}`}
+                  WXAPI.reLaunch('/pages/tabBar/home/home')
+                }
+              } else {
+                fail++ // 图片上传失败，图片上传失败的变量+1
+                console.log('fail:' + i + 'fail:' + fail)
+                WXAPI.showToast('失败！')
+                return false
+              }
+              // 这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
+            },
+            (res) => {
+              fail++ // 图片上传失败，图片上传失败的变量+1
+              console.log('fail:' + i + 'fail:' + fail)
+            },
+            () => {
+              that.isStarBtnHasWidth = false
+              that.isFaceStartHidden = false
+              that.$apply()
+              console.log(i)
+              i++ // 这个图片执行完上传后，开始上传下一张
+              if (i === data.path.length) { // 当图片传完时，停止调用
+                // that.save()
+                console.log('执行完毕')
+                console.log('成功：' + success + '失败：' + fail)
+              } else { // 若图片还没有传完，则继续调用函数
+                console.log(i)
+                data.i = i
+                data.success = success
+                data.fail = fail
+                that.uploadimg(data)
+              }
+            }
+          )
+        }
+      },
+
+      /**
+       * 开始录像
+       * @constructor
+       */
+      StartRecord() {
+        let that = this
+        this.cameraCtx.startRecord({
+          success: (res) => {
+            console.log('startRecord')
+            that.isStarBtnHasWidth = true
+            that.$apply()
+            setTimeout(() => {
+              that.cameraCtx.stopRecord({
+                success: (res) => {
+                  console.log('stopRecord')
+                  console.log(res)
+                  HTTP.post(`${host}`,
+                    {'genre': 'face', 'token': this.registered_token}, (res) => {
+                      if (res.code === 200) {
+                        WXAPI.setStorageSync('ACCESS_TOKEN', res.data[0].access_token)
+                        that.$parent.globalData.HEADER = {'Authorization': `Bearer access_token=${res.data[0].access_token}`}
+                      } else {
+                        console.log('错误信息：', res.message)
+                      }
+                    })
+                  that.isFaceStartHidden = true
+                  that.src = res.tempImagePath
+                  that.videoSrc = res.tempVideoPath
+                  that.isCameraHidden = true
+                  that.isPageCoverHidden = false
+                  that.isVerificationSuccessHidden = false
+                  that.isStarBtnHasWidth = false
+                  that.$apply()
+                }
+              })
+            }, 5000)
+          }
+        })
+      },
+
+      // 停止录像
+      // StopRecord() {
+      //   let that = this
+      //   this.cameraCtx.stopRecord({
+      //     success: (res) => {
+      //       console.log('stopRecord')
+      //       console.log(res)
+      //       that.isFaceStartHidden = false
+      //       that.src = res.tempImagePath
+      //       that.videoSrc = res.tempVideoPath
+      //       that.$apply()
+      //     }
+      //   })
+      // },
+
+      /**
+       * 录像事件错误返回
+       * @param e
+       */
+      error(e) {
+        console.log(e.detail)
+      },
+
+      /**
+       * 再试一次
+       */
+      again() {
+        this.isPageCoverHidden = true
+        this.isFaceFailHidden = true
+        this.isCameraHidden = false
+        this.isFaceStartHidden = false
+        this.$apply()
+      },
+
+      /**
+       * 退出
+       */
+      quit() {
+        WXAPI.showToast('请联系管理员')
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  @import "../../../../style/subPages/verification/faceRecognition";
+</style>
