@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滚动字幕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .scroll-main {
+            height: 40px;
+            line-height: 40px;
+            background: #eee;
+            overflow: hidden;
+        }
+
+        .text {
+            width: auto;
+            display: inline-block;
+            min-width: 50%;
+            white-space: nowrap;
+            animation: scroll 15s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(200%);
+            }
+            100% {
+                transform: translateX(-200%);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <div class="scroll-wrap">
+        <div class="scroll-main">
+            <span class="text">这是滚动字幕滚动字幕这是滚动字幕滚动字幕这是滚动字幕滚动字幕这是滚动字幕滚动字幕这是滚动字幕滚动字幕这是滚动字幕滚动字幕这是滚动字幕滚动字幕</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
