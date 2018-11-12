@@ -81,29 +81,49 @@ $('.input-file').on('change', function () {
     URL = getObjectURL(thisFile);
     // 判断上传的文件是否符合格式要求
     if (['image/jpg', 'image/jpeg', 'image/png', 'image/gif'].indexOf(thisFile.type) >= 0) {
-      $(document.body).append(`<img src="${URL}" alt="">`);
+      // 在页面展示
+      $(document.body).append('<img src="${URL}" alt="">');
+      // makeFormData({'image': thisFile});
+      sendAjax({
+        url: '',
+        formData: makeFormData({'image': thisFile}),
+      })
     } else {
       // 文件格式不符合要求
     }
   }
 });
 
+// 创建 formData 对象，保存需要提交的数据
 function makeFormData(obj) {
   let formData = new FormData();
   for (let key in obj) {
     formData.append(key, obj[key]);
   }
+  return formData
 }
 
 function sendAjax(option) {
   $.ajax({
     type: option.type || 'GET',
     url: option.url,
-    dataType: 'json'
+    dataType: 'json',
+    data: option.formData,
+    cache: false, // 不缓存
+    processData: false, // jQuery不要去处理发送的数据
+    contentType: false, // jQuery不要去设置Content-Type请求头
+    beforeSend: function() {
+      // 发送请求前 do something
+      if (option.beforeSend) option.beforeSend();
+    },
+    success: function(res) {
+      // 发送成功 do something
+      if (option.success) option.success();
+    },
+    error: function() {
+      // 发送失败 do something
+      if (option.error) option.error();
+    }
   })
 }
 ```
-
-https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects
-
-https://developer.mozilla.org/zh-CN/docs/Web/API/FormData
