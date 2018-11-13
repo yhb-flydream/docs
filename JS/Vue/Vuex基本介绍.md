@@ -579,11 +579,11 @@ store.state.b // -> moduleB 的状态
 
 ### 模块的局部状态
 
-对于模块内部的 `mutation` 和 `getter`，接收的第一个参数是模块的局部状态对象。
+对于模块内部的 `mutation` 和 `getter`，接收的第一个参数是**模块的局部状态对象**。
 
 ```js
 const moduleA = {
-  state: { count: 0 },
+  state: { count: 0 }, // 这里定义的是模块的局部状态
   mutations: {
     increment(state) {
       // 这里的 `state` 对象是模块的局部状态
@@ -599,7 +599,7 @@ const moduleA = {
 }
 ```
 
-同样，对于模块内部的 `action`，局部状态通过 `context.state` 暴露出来，根节点状态则为 `context.rootState`:
+同样，对于模块内部的 `action`，局部状态通过 `context.state` 暴露出来，**根节点状态则为 `context.rootState`**:
 
 ```js
 const moduleA = {
@@ -614,7 +614,7 @@ const moduleA = {
 }
 ```
 
-对于模块内部的 `getter`，根节点状态会作为第三个参数暴露出来：
+对于模块内部的 `getter`，**根节点状态会作为第三个参数暴露出来 `rootState`**：
 
 ```js
 const moduleA = {
@@ -718,4 +718,424 @@ modules: {
 }
 ```
 
-https://vuex.vuejs.org/zh/guide/modules.html
+#### 在带命名空间的模块注册全局 action
+
+当使用 `mapState, mapGetters, mapActions 和 mapMutations` 这些函数来绑定带命名空间的模块时，写起来可能比较繁琐：
+
+```js
+computed: {
+  ...mapState({
+    a: state => state.some.nested.module.a,
+    b: state => state.some.nested.module.b
+  })
+},
+methods: {
+  ...mapActions([
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
+  ])
+}
+```
+
+对于这种情况，你可以将模块的空间名称字符串作为第一个参数传递给上述函数，这样所有绑定都会自动将该模块作为上下文。于是上面的例子可以简化为：
+
+```js
+computed: {
+  ...mapState('some/nested/module', {
+    a: state => state.a,
+    b: state => state.b
+  })
+},
+methods: {
+  ...mapActions('some/nested/module', [
+    'foo', // -> this.foo()
+    'bar' // -> this.bar
+  ])
+}
+```
+
+而且，你可以通过使用 `createNamespacedHelpers` 创建基于某个命名空间辅助函数。
+
+它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助函数：
+
+```js
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // 在 `some/nested/module` 中查找
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // 在 `some/nested/module` 中查找
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+```
+
+#### 插件开发的注意事项
+
+如果你开发的插件（Plugin）提供了模块并允许用户将其添加到 Vuex store，可能需要考虑模块的空间名称问题。对于这种情况，你可以通过插件的参数对象来允许用户指定空间名称：
+
+```js
+// 通过插件的参数对象得到空间名称
+// 然后返回 Vuex 插件函数
+export function createPlugin (options = {}) {
+  return function (store) {
+    // 把空间名字添加到插件莫魁岸的类型（type）中去
+    const nameSpace = options.nameSpace || ''
+    store.dispatch(nameSpace + 'pluginAction')
+  }
+}
+```
+
+### 模块动态注册
+
+在 `store` 创建之后，你可以使用 `store.registerModule` 方法注册模块：
+
+```js
+// 注册模块 `muModule`
+store.registerMudole('myModule', {
+  // ...
+})
+
+// 模块嵌套模块 `nested/myModule`
+store.registerModule(['nested', 'myModule'], {
+  // ...
+})
+```
+
+之后就可以通过 `store.state.myModule` 和 `store.state.nested.myModule` 访问模块的状态。
+
+模块动态注册功能使得其他 `Vue` 插件可以通过在 `store` 中附加新模块的方式来使用 `Vuex` 管理状态。
+
+例如，`vuex-router-sync` 插件就是通过动态注册模块将 `vue-router` 和 `vuex` 结合在一起，实现应用的路由状态管理。
+
+你也可以使用 `store.unregisterModule(moduleName)` 来动态卸载模块。
+
+**注意，你不能使用此方法卸载静态模块（即创建 `store` 时声明的模块）。**
+
+在注册一个新 `module` 时，你很有可能想保留过去的 `state`，例如从一个服务端渲染的应用保留 `state`。你可以通过 `preserveState` 选项将其归档：`store.registerModule('a', module, { preserveState: true })`。
+
+### 模块重用
+
+有时我们可能需要创建一个模块的多个实例，例如：
+
+- 创建多个 `store`，他们公用同一个模块 (例如当 runInNewContext 选项是 false 或 'once' 时，为了在服务端渲染中避免有状态的单例)
+- 在一个 `store` 中多次注册同一个模块
+
+如果我们使用一个纯对象来声明模块的状态，那么这个状态对象会通过引用被共享，导致状态对象被修改时 store 或模块间数据互相污染的问题。
+
+实际上这和 Vue 组件内的 data 是同样的问题。因此解决办法也是相同的————**使用一个函数来声明模块状态（仅 2.3.0+ 支持）**：
+
+```js
+const MyReusableModule = {
+  state () {
+    return {
+      foo: 'bar'
+    }
+  },
+  // mutation, getter 和 action 等...
+}
+```
+
+## 项目结构
+
+Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的规则：
+
+- 应用层级的状态应该集中到单个 `store` 对象中。
+- 提交 `mutation` 是更改状态的唯一方法，并且这个过程是**同步**的。
+- **异步逻辑**都应该封装到 `action` 里面。
+
+只要你遵守以上规则，如何组织代码随你便。如果你的 `store` 文件太大，只需将 `action、mutation 和 getter` 分割到单独的文件。
+
+对于大型应用，我们会希望把 `Vuex` 相关代码分割到模块中。
+
+下面是项目结构示例：
+
+```sh
+|- index.html
+|- main.js
+|- api
+|   L ... # 抽取出API请求
+|- components
+|   |- App.vue
+|   L ...
+L store
+    |- index.js # 我们组装模块并导出 store 的地方
+    |- actions.js # 根级别的 action
+    |- mutations.js # 根级别的 mutation
+    L modules
+        |- cart.js # 购物车模块
+        L products.js # 产品模块
+```
+
+## 严格模式
+
+开启严格模式，仅需在创建 `store` 的时候传入 `strict: true`：
+
+```js
+const store = new Vuex.Store({
+  // ...
+  strict: true
+})
+```
+
+在严格模式下，无论何时发生了状态变更且不是由 `mutation` 函数引起的，将会抛出错误。这能保证所有的状态变更都能被调试工具跟踪到。
+
+### 开发环境与发布环境
+
+**不要在发布环境下启用严格模式！**
+
+严格模式会深度监测状态树来检测不合规的状态变更————**请确保在发布环境下关闭严格模式，以避免性能损失**。
+
+类似于插件，我们可以让构建工具来处理这种情况：
+
+```js
+const store = new Vuex.Store({
+  // ...
+  strict: process.env.NODE_ENV != 'production'
+})
+```
+
+## 表单处理
+
+当在严格模式中使用 `Vuex` 时，在属于 `Vuex` 的 `state` 上使用 `v-model` 会比较棘手：
+
+```html
+<input v-model="obj.message">
+```
+
+假设这里的 `obj` 是在计算属性中返回的一个属于 `Vuex store` 的对象，在用户输入时，`v-model` 会试图直接修改 `obj.message`。在严格模式中，由于这个修改不是在 `mutation` 函数中执行的, 这里会抛出一个错误。
+
+用**“Vuex 的思维”**去解决这个问题的方法是：给 `<input>` 中绑定 `value`，然后侦听 `input` 或者 `change` 事件，在事件回调中调用 `action`:
+
+```js
+<input :value="message" @input="updateMessage">
+
+// ...
+computed: {
+  ...mapState({
+    message: state => state.obj.message
+  })
+},
+methods: {
+  updateMessage(e) {
+    this.$store.commit('updataMessage', e.target.value)
+  }
+}
+```
+
+`mutation` 函数：
+
+```js
+mutations: {
+  updataMessage(state, message) {
+    state.obj.message = message
+  }
+}
+```
+
+### 双向绑定的计算属性
+
+必须承认，这样做比简单地使用**“v-model + 局部状态”**要啰嗦得多，并且也损失了一些 `v-model` 中很有用的特性。
+
+另一个方法是使用带有 `setter` 的双向绑定计算属性：
+
+```js
+<input v-model="message">
+
+// ...
+computed: {
+  message: {
+    get() {
+      return this.$store.state.obj.message
+    },
+    set(value) {
+      this.$store.commit('updateMessage', value)
+    }
+  }
+}
+```
+
+## 热重载
+
+使用 `webpack` 的 `Hot Module Replacement API`，`Vuex` 支持在开发过程中热重载 `mutation、module、action 和 getter`。你也可以在 `Browserify` 中使用 `browserify-hmr` 插件。
+
+对于 `mutation` 和模块，你需要使用 `store.hotUpdate()` 方法：
+
+```js
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import mutations from './mutations'
+import muduleA from './modules/a'
+
+Vue.use(Vuex)
+
+const state = { ... }
+
+const store = new Vuex.Store({
+  state,
+  mutations,
+  mudules: {
+    a: muduleA
+  }
+})
+
+if (module.hot) {
+  // 使用 action 和 mutation 成为可热重载模块
+  module.hot.accept(['./mutations', 'modules/a'], () => {
+    // 获取更新后的模块
+    // 因为 babel 6 的模块编译格式问题，这里需要加上 `.default`
+    const newMutations = require('./mutations').default
+    const newModuleA = require('./modules/a').default
+    // 加载新模块
+    store.hotUpdate({
+      mutations: newMutations,
+      mudules: {
+        a: newModuleA
+      }
+    })
+  })
+}
+```
+
+## 插件
+
+`Vuex` 的 `store` 接受 `plugins` 选项，这个选项暴露出每次 `mutation` 的钩子。
+
+`Vuex` 插件就是一个函数，它接收 `store` 作为唯一参数：
+
+```js
+const myPlugin = store => {
+  store.subscribe((mutation, state) => {
+    // 每次mutation 之后调用
+    // mutation 的格式为 { type， payload }
+  })
+}
+```
+
+使用：
+
+```js
+const store = new Vuex.Store({
+  // ...
+  plugins: [myplugin]
+})
+```
+
+### 在插件内提交 Mutation
+
+在插件中不允许直接修改状态——类似于组件，只能通过提交 `mutation` 来触发变化。
+
+通过提交 `mutation`，插件可以用来同步数据源到 `store`。
+
+例如，同步 `websocket` 数据源到 `store`（下面是个大概例子，实际上 `createPlugin` 方法可以有更多选项来完成复杂任务）：
+
+```js
+export default function createWebSocketPlugin (socket) {
+  return store => {
+    socket.on('data', data => {
+      store.commit('receiveData', data)
+    })
+    store.subscribe(mutation => {
+      if (mutation.type === 'UPDATE_DATA') {
+        socket.emit('update', mutation.payload)
+      }
+    })
+  }
+}
+
+const plugin = createWebsocketPlugin(socket)
+
+const store = new Vuex.Store({
+  state,
+  mutations,
+  plugins: [pligin]
+})
+```
+
+### 生成 State 快照
+
+有时候插件需要获得状态的“快照”，比较改变的前后状态。
+
+想要实现这项功能，你需要对状态对象进行深拷贝：
+
+```js
+const pyPluginWithSnapshot = store => {
+  let prevState = _.cloneDeep(store.state) {
+    store.subscribe((mutation, state) => {
+      let nextState = _.cloneDeep(state)
+
+      // 比较 prevState 和 nextState
+
+      // 保存状态，用于下一次 mutation
+      prevState = nextState
+    })
+  }
+}
+```
+
+**生成状态快照的插件应该只在开发阶段使用**，使用 `webpack` 或 `Browserify`，让构建工具帮我们处理：
+
+```js
+const store = new Vuex.Store({
+  // ...
+  plugins: process.env.NODE_ENV !== 'production'? [myPluginWithSnapshot]:[]
+})
+```
+
+上面插件会默认启用。
+
+在发布阶段，你需要使用 `webpack` 的 `DefinePlugin` 或者是 `Browserify` 的 `envify` 使 `process.env.NODE_ENV !== 'production' 为 false`。
+
+### 内置 Logger 插件
+
+**如果正在使用 `vue-devtools`，你可能不需要此插件。**
+
+`Vuex` 自带一个日志插件用于一般的调试:
+
+```js
+import createLogger from 'vuex/dist/logger'
+
+const store = new Vuex.Store({
+  plugins: [createLogger()]
+})
+```
+
+`createLogger` 函数有几个配置项：
+
+```js
+const logger = createLogger({
+  collapsed: false, // 自动展开记录的 mutation
+  filter (mutation, stateBefore, stateAfter) {
+    // 若 mutation 需要被记录，就让它返回 true 即可
+    // 顺便，`mutation` 是个 { type, payload } 对象
+    return mutation.type !== 'aBlacklistedMutation'
+  },
+  transformer (state) {
+    // 在开始记录之前转换状态
+    // 例如，只返回指定的子树
+    return state.subTree
+  },
+  mutationTransformer (mutation) {
+    // mutation 按照{ type, payload } 格式记录
+    // 我们可以按照任意方式格式化
+    return state.subTree
+  },
+  logger: console, // 自定义 console 实现，默认为 `console`
+})
+```
+
+日志插件还可以直接通过 `<script>` 标签引入，它会提供全局方法 `createVuexLogger`。
+
+要注意，`logger` 插件会生成状态快照，所以仅在开发环境使用。
