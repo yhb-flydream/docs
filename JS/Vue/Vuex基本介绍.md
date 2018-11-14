@@ -244,7 +244,7 @@ const store = new Vue.Store({
 
 **不能直接调用一个 `mutation handler`。**
 
-这个选项更像是事件注册：**“当触发一个类型为 increment 的 mutation 时，调用此函数。”**要唤醒一个 mutation handler，你需要以相应的 type 调用 `store.commit` 方法：
+这个选项更像是事件注册：**当触发一个类型为 `increment` 的 `mutation` 时，调用此函数。** 要唤醒一个 mutation handler，你需要以相应的 type 调用 `store.commit` 方法：
 
 ```js
 store.commit('increment');
@@ -461,7 +461,7 @@ actions: {
       products,
       // 成功操作
       () => commit(types.CHECKOUT_SUCCESS),
-      // 操作
+      // 失败操作
       () => commit(types.CHECKOUT_FAILURE, savedCarItems)
     )
   }
