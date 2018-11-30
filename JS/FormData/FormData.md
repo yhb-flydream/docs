@@ -1,6 +1,7 @@
 # FormData
 
 - [`FormData MDN`](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects)
+- [`FormData() MDN`](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)
 
 `FormData`对象用以将数据编译成键值对，以便用`XMLHttpRequest`来发送数据。
 
