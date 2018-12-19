@@ -1,4 +1,4 @@
-# 自定义指令
+# Vue 自定义指令
 
 **`autofocus` 在移动版 Safari 上不工作**
 
