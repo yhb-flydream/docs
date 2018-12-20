@@ -55,7 +55,7 @@ const Counter = {
 }
 ```
 
-### `mapState` 辅助函数
+### `mapState` 辅助函数？？？
 
 当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 mapState 辅助函数帮助我们生成计算属性，让你少按几次键：
 
@@ -104,7 +104,7 @@ computed: {
 
 使用Vuex并不意味着你需要将所用状态放到Vuex。虽然将所有状态放到Vuex会使状态变化显示和易于调用，但也会使代码变得冗长不直观。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。你应该根据你的应用开发需要进行权衡和确定。
 
-## Getter
+## Getter（*可以认为是 store 的计算属性*）
 
 有时候我们需要从 store 中的 state 中派生出一些状态，例如对列表进行过滤并计数：
 
@@ -190,7 +190,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 **注意，`getter` 在通过方法访问时，每次都会去进行调用，而不会缓存结果**
 
-`mapGetters` 辅助函数
+### `mapGetters` 辅助函数
 
 `mapGetters` 辅助函数仅仅是将 `store` 中的 `getter` 映射到局部计算属性：
 
@@ -220,11 +220,11 @@ mapGetters({
 })
 ```
 
-## Mutation
+## Mutation (*类似于事件 methods*)
 
 **更改 Vuex 的 store 中的状态的唯一方法是提交 `mutation`**
 
-`Vuex` 中的 `mutation` 非常类似于事件：每个 `mutation` 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)
+`Vuex` 中的 `mutation` 非常类似于事件：每个 `mutation` 都有一个字符串的 `事件类型 (type)` 和 一个 `回调函数 (handler)`
 
 这个回调函数就是我们实际进行状态更改的地方，并且它会接受 `state` 作为第一个参数：
 
