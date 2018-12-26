@@ -2,6 +2,9 @@
 
 > Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
 
+- [Axios github](https://github.com/axios/axios)
+- [Axios 中文说明](https://www.kancloud.cn/yunye/axios/234845)
+
 ## 特点
 
 - 从浏览器中创建 `XMLHttpRequests`
@@ -123,7 +126,7 @@ axios('user/name', {
 
 ## 创建实例
 
-可以使用自定义配置仙剑一个 `axios` 实例
+可以使用自定义配置新建一个 `axios` 实例
 
 - `axios.create([config])`
 
@@ -136,6 +139,8 @@ let instance = axios.create({
 ```
 
 ## 实例方法
+
+以下是可用的实例方法。指定的配置将与实例的配置合并
 
 - `axios#request(config)`
 - `axios#get(url[, config])`
@@ -467,3 +472,78 @@ cancel();
 ```
 
 **可以使用同一个 `cancel token` 取消多个请求**
+
+## 使用 `application/x-www-form-urlencoded` 格式数据
+
+默认情况下，`axios` 将JavaScript对象序列化为JSON。
+
+要以 `application / x-www-form-urlencoded` 格式发送数据，您可以使用以下选项之一。
+
+### 浏览器
+
+- 可以使用 [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) API
+
+```js
+cosnt params = new URLSearchParams();
+params.append('param1', 'value1');
+params.append('param2', 'value2');
+axios.post('/foo', params);
+```
+
+**并非所有浏览器都支持 `URLSearchParams` (查看[caniuse.com](http://www.caniuse.com/#feat=urlsearchparams)了解)，但可以使用 [polyfill](https://github.com/WebReflection/url-search-params)（确保为全局环境变量）**
+
+- 使用 `qs` 库对数据进行编码
+
+```js
+cosnt qs = require('qs');
+axios.post('/foo', qs.stringify({ 'bar': 123 }));
+```
+
+- 或者使用 `ES6`
+
+```js
+import qs from 'qs';
+cosnt data = { 'bar': 123 };
+cosnt options = {
+  methods: 'POST',
+  headers: { 'content-type': 'application/x-www-form-urlencoded' },
+  data: qs.stringify(data),
+  url,
+};
+axios(options);
+```
+
+### Node.js
+
+可以用 `querystring` 模块，也可以使用 `qs` 模块
+
+```js
+cosnt querystring = require('querystring');
+axios.post('http://something.com/', querystring.stringify({ foo: 'bar' }));
+```
+
+## Demo
+
+```js
+import axios from 'axios';
+
+const service = axios.create({
+  baseURL: '',
+  timeout: 5000
+});
+
+service.interceptors.request.use(config => {
+  // Do something before request
+  return config;
+}, error => {
+  // Do something with request error
+  console.log(error);
+});
+
+service.interceptors.response.use(response => {
+  const res = response.data;
+  if (res.code === 200) {
+
+  }
+})
+```
