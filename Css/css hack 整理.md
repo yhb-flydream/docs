@@ -42,7 +42,7 @@
 
 `@-moz-document url-prefix() {...}`
 
-```
+```html
 <p class="class">@hack@hack@hack@hack@hack@hack</p>
 
 <style type="text/css">
@@ -87,7 +87,7 @@
 
 `*html  选择器{}`
 
-```
+```html
 <p class="class">选择器hack选择器hack选择器hack选择器hack选择器hack选择器hack</p>
 
 html* .class{color:#F00;} /* 在IE7中文本颜色为红色 */
@@ -127,7 +127,7 @@ html* .class{color:#F00;} /* 在IE7中文本颜色为红色 */
 
 `选择器{[;属性:属性值;]}`
 
-```
+```html
 <p class="class">属性hack属性hack属性hack属性hack属性hack属性hack</p>
 
 <style type="text/css">
