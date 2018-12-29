@@ -1,8 +1,13 @@
 # RegExp
+
 [TOC]
 
-**[廖雪峰RegExp](https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499503920bb7b42ff6627420da2ceae4babf6c4f2000)**
+[廖雪峰RegExp](https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499503920bb7b42ff6627420da2ceae4babf6c4f2000)
+
+[正则表达式全集](http://tool.oschina.net/uploads/apidocs/jquery/regexp.html)
+
 ## 创建正则对象
+
 - 构造函数定义
   - **`var reg = new RegExp(pattern, attributes);`**
   - **`pattern`是一个`字符串`**，指定了`正则表达式的模式`或`其他正则表达式`
@@ -17,6 +22,7 @@
   - **由于构造函数定义的参数是字符串，所以在某些情况下要对字符串进行双重转义**
   - **另外所有的元字符都必须进行双重转义，那些已经转义过的字符串也是如此**
   - 以下左边为**字面量模式**，右边为等价的**构造函数定义时使用的字符串参数**
+
 |字面量模式|等价的字符串|
 |:---:|:---:|
 |`/\w/`|`"\\w"`|
@@ -29,7 +35,8 @@
 - **ECMAScript3和ECMAScript5中的区别**
   - 在ECMAScript3中，**正则表达式字面量会始终共享同一个RegExp实例**，而使用**构造函数创建的每一个新RegExp都是一个新的实例**
   - 在ECMAScript5中，**正则表达式字面量和构造函数一样，每次都会创建新的RegExp实例**
-```
+
+```js
 var reg = null,i;
 
 for (i = 0; i < 10; i++){
@@ -42,13 +49,15 @@ for (i = 0; i < 10; i++){
   reg.test("javascript");
 }
 ```
+
 - 第一个循环中第一次调用test()找到了”java”,但**第二次调用从索引为3(上一次匹配的末尾)的字符开始**,所以第二次就匹配不到，由于匹配会一直找到字符串末尾，所以下一次再调用test()又会重头开始
 - 第二个循环使用构造函数在每次循环中创建正则表达式，因为每次迭代都会创建一个新的RegExp实例，所以每次调用test()都会返回true
 - ECMAScript5往后上面两个循环结果都一样
 
-
 ### 正则表达式的属性和方法
+
 #### 正则属性
+
 |属性名|说明|
 |:---|:---|
 |`input`或`$_`|返回最近一次要匹配的字符串|
@@ -57,7 +66,8 @@ for (i = 0; i < 10; i++){
 |`leftContext`或$`|input字符串中lastMatch之前的文本|
 |`rightContext`或`$’`|input字符串中lastMatch之后的文本|
 |`Multiline`或`$*`|返回布尔值，表示是否所有表达式都使用多行|模式
-```
+
+```js
 var text = "this has been a short summer";
 var pattern = /(.)hort/g;
 
@@ -70,9 +80,11 @@ if (pattern.test(text)){
   alert(RegExp.multiline);           //false
 }
 ```
+
 - **`某些属性在某些浏览器可能未实现`**
 - 除了上面的几个属性外，还有9个用于存储捕获组的属性。访问语法是`RegExp.$1,RegExp.$2…RegExp.$9`，在调用`test()和exec()`方法时，这些属性会被自动填充
-```
+
+```js
 var text = "this has been a short summer";
 var pattern = /(..)or(.)/g;
 
@@ -85,12 +97,15 @@ if (pattern.test(text)){
 ```
 
 #### 正则方法
+
 ##### `exec(str)`
+
 - `exec()`方法接受一个参数，即要应用模式的字符串，返回包含第一个匹配信息的数组，没有匹配信息的情况下返回null
 - 返回的是Array的实例，另外还包含两个额外的属性，index和input
   - index标识匹配项在字符串的位置
   - input表示应用正则表达式的字符串
-```
+
+```js
 var text = "mom and dad and baby";
 var reg = /mom( and dad( and baby)?)?/gi;
 
@@ -101,8 +116,10 @@ alert(matches[0]);       //"mom and dad and baby"
 alert(matches[1]);       //" and dad and baby"
 alert(matches[2]);       //" and baby"
 ```
+
 **对于exec()方法而言，在模式中设置了g，它每次也只返回一个匹配项，但每次调用exec()都会在字符串中继续查找新的匹配项，如不设置g，每次调用exec()都只返回第一个匹配的信息**
-```
+
+```js
 var text = "cat, bat, sat, fat";
 var pattern1 = /.at/;
 
@@ -130,14 +147,18 @@ alert(pattern2.lastIndex);//8
 ```
 
 ##### `test(str)`
+
 - 接受一个字符串参数，在模式与该参数匹配的情况下返回true，否则返回false
 
 ##### `replace(RegExp/str, str_replace)`
+
 - 接受两个参数
   - 第一个为字符串或RegExp对象
   - 第二个参数为字符串或一个回调函数。
   - 第一个参数若为字符串，第二个参数江替换第一个参数匹配到的值，然后将替换后的原文本作为返回值返回，其中第二个参数和中可包含RegExp的特殊字符序列，例如`$1~$9`,表示从原文本中捕获到的对象，使用$1~$9属性时，第一个参数必须是RegExp对象,且需用`()`来捕获
+
 **下面是一些ECMAScript提供的特殊字符串序列：**
+
 |字符序列|替换文本|
 |:---|:---|
 |`$$`|`$`|
@@ -146,8 +167,10 @@ alert(pattern2.lastIndex);//8
 |**$`**|匹配的子字符串之后的字符串，与RegExp.rightContext的值相同|
 |`$n`|匹配第n个捕获组的子字符串，n等于0-9，如果正则中没有定义捕获组，则为空字符串|
 |`$nn`|匹配第nn个捕获组的子字符串，n等于01-99，如果正则中没有定义捕获组，则为空字符串|
+
 - 注意调用函数`str.replace()`,并不改变str的值,而是返回一个副本
-```
+
+```js
 var text = "first_second";
 var text_replaced = text.replace(/first/,"1");
 alert(text);    //first_second
@@ -159,29 +182,31 @@ alert(text_replaced);     //1first_second
 text_replaced = text.replace(/(first)/,"1$`");
 alert(text_replaced);     //1_second
 ```
+
 - 若第二个参数是一个函数,那么这个函数的有三个参数，分别代表匹配到的字符串，匹配的字符串在位置，和原字符串，后两个参数是可选。常见用法如下：
-```
+
+```js
 function htmlEscape(text){
-            return text.replace(/[<>"&]/g, function(match, pos, originalText){
-                switch(match){
-                    case "<":
-                        return "&lt;";
-                    case ">":
-                        return "&gt;";
-                    case "&":
-                        return "&amp;";
-                    case "\"":
-                        return "&quot;";
-                }
-            });
+    return text.replace(/[<>"&]/g, function(match, pos, originalText){
+        switch(match){
+            case "<":
+                return "&lt;";
+            case ">":
+                return "&gt;";
+            case "&":
+                return "&amp;";
+            case "\"":
+                return "&quot;";
         }
+    });
+}
 
 alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 //&lt;p class=&quot;greeting&quot;&gt;Hello world!&lt;/p&gt;
 ```
 
-
 ### 方括号`[]`
+
 - **方括号用于查找某个范围内的字符：**
 
 |表达式|描述|
@@ -196,11 +221,12 @@ alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 |`[^adgk]`|查找给定集合外的任何字符。|
 |`(red\|blue\|green)`|查找任何指定的选项。|
 
-
 ### 元字符
+
 - **是拥有特殊含义的字符：**
+
 |元字符|描述|
-|---|---|
+| --- | --- |
 |`.`|查找单个字符，除了换行和行结束符。|
 |`\w`|查找单词字符。|
 |`\W`|查找非单词字符。|
@@ -220,8 +246,8 @@ alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 |`\xdd`|查找以十六进制数 dd 规定的字符。|
 |`\uxxxx`|查找以十六进制数 xxxx 规定的 Unicode 字符。|
 
-
 ### 量词
+
 |量词|描述|
 |---|---|
 |`n+`|匹配任何包含**至少一个 n** 的字符串。|
@@ -235,8 +261,6 @@ alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 |`?=n`|匹配任何**其后紧接指定字符串 n** 的字符串。|
 |`?!n`|匹配任何**其后没有紧接指定字符串 n** 的字符串。|
 
-
-
 ### 运算符优先级
 
 |运算符|描述|
@@ -247,8 +271,8 @@ alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 |^, $, \任何元字符、任何字符|定位点和序列（即：位置和顺序）|
 |`\|`|替换，"或"操作字符具有高于替换运算符的优先级，使得`"m\|food"`匹配`"m"或"food"`。若要匹配`"mood"或"food"`，请使用括号创建子表达式，从而产生`"(m\|f)ood"`。|
 
-
 ### RegExp 对象属性
+
 |属性|描述|
 |---|---|
 |global  RegExp|对象是否具有标志 g|
@@ -257,16 +281,16 @@ alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 |multiline  RegExp|对象是否具有标志 m|
 |source|正则表达式的源文本|
 
-
 ### RegExp 对象方法
+
 |方法|描述|
 |---|---|
 |compile|编译正则表达式|
 |exec|检索字符串中指定的值。返回找到的值，并确定其位置|
 |test|检索字符串中指定的值。返回 true 或 false|
 
-
 ### 支持正则表达式的 String 对象的方法
+
 |方法|描述|
 |---|---|
 |search|检索与正则表达式相匹配的值|
@@ -274,8 +298,8 @@ alert(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
 |replace|替换与正则表达式匹配的子串|
 |split|把字符串分割为字符串数组|
 
-
 #### 正则表达式中的replace的用法
+
 ```javascript
 var sStr = '讨论一下正则表达式中的replace的正则表达式用法';
 sStr.replace(/(正则).+?(式)/g, function () {
@@ -287,6 +311,7 @@ sStr.replace(/(正则).+?(式)/g, function () {
 ```
 
 ### 理解应用举例
+
 - `\d`一个元字符
   - 匹配一个字符
   - `'00\d'`可以匹配`'007'`，但无法匹配`'00A'`
@@ -301,7 +326,6 @@ sStr.replace(/(正则).+?(式)/g, function () {
 - `[0-9a-zA-Z\_]+`中括号包括元字符或表示范围的字符串加量词
   - 匹配至少由一个数字、字母或者下划线组成的字符串
 - `[a-zA-Z\_\$][0-9a-zA-Z\_\$]*`
-  - 可以匹配由字母或下划线、$开头，后接任意个由一个数字、字母或者下划线、$组成的字符串，也就是JavaScript允许的变量名
+  - 可以匹配由字母或下划线、`$`开头，后接任意个由一个数字、字母或者下划线、`$`组成的字符串，也就是JavaScript允许的变量名
 - `[a-zA-Z\_\$][0-9a-zA-Z\_\$]{0, 19}`
   - 更精确地限制了变量的长度是1-20个字符（前面1个字符+后面最多19个字符）
-  -

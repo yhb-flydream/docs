@@ -1,70 +1,83 @@
 # MS
+
 [TOC]
-####  1、JavaScript支持两种定义函数的方式，请说出主要区别
-- `function myFunction () {}`
-  - **函数声明式**
+
+## 1、JavaScript支持两种定义函数的方式，请说出主要区别
+
+- **函数声明式**`function myFunction () {}`
   - 以`function关键字开头`定义的函数
   - 并且定义在全局，或直接嵌套在另一个函数内
   - 会被预解析
   - 必须有函数名
-- `var myFunction = function () {}`
-  - **函数表达式**
+- **函数表达式**`var myFunction = function () {}`
   - `不是以function关键字开头`定义的函数
   - 要么在表达式中，要么在语句中
   - 不会被预解析
   - 函数名字可有可无
   - 函数名字只能在函数内部使用
-  -
   - **特殊情况：**
     - 写在非函数代码块
     - 名字是必须的
     - 名字可被预解析
     - 函数名可在外面使用
 
-#### 2、描述一下变量的区别：null，undefined，undeclared，该如何检测它们？
-- `JavaScript` 有两个表示‘空’的值，其中比较有用的是 `undefined`
+## 2、描述一下变量的区别：`null，undefined，undeclared`，该如何检测它们？
 
-- `undefined`
-  - 值为` undefined `的类型
-  - 这个语言也定义了一个全局变量，它的值是 `undefined`这个变量也被称为` undefined `
+- `null` 表示 **没有对象**，即此处不应该以有值，转换为数值为 0
+  - 作为函数的参数，表示该函数的参数不是对象。
+  - 作为对象原型链的终点。
 
-####  3、请说出`constructor`，`__proto__`，`prototype`的区别
+- `undefined` 表示 **缺少值**，就是此处应该有一个值，但是还没有定义，转为数值时为NaN。
+  - 变量被声明了，但没有赋值时，就等于 `undefined`。
+  - 调用函数时，应该提供的参数没有提供，该参数等于 `undefined`。
+  - 对象没有赋值的属性，该属性的值为 `undefined`。
+  - 函数没有返回值时，默认返回 `undefined`。
+- `undeclared` js语法错误，没有申明直接使用，js无法找到对应的上下文。
+
+## 3、请说出`constructor`，`__proto__`，`prototype`的区别
+
 - `__proto__`
   - 每个对象都有`__proto__`这个属性，
   - 通过这个属性可以找到这个对象所继承的对象
-  - 这个属性的值与构造函数的`prototype`的属性值一致，都存储着同一个对象的**地址**
+  - 这个属性的值与构造函数的 `prototype` 的属性值一致，都存储着同一个对象的**地址**
 
 - `prototype`
   - 只有**函数**才拥有`prototype`属性
   - 指向了构造函数的原型对象
-  -  函数也是对象，所以它既有`prototype`属性，又有`__proto__`属性
+  - 函数也是对象，所以它既有`prototype`属性，又有`__proto__`属性
 
 - `constructor`
   - 构造函数**原型对象**里的属性
   - 指向了构造函数
 
-####  4、如何扩展JavaScript内置对象，这样做有什么问题
+## 4、如何扩展JavaScript内置对象，这样做有什么问题
+
 - 利用`Object.prototype`进行扩展
 - 问题是，兼容性，安全性，实用性
 
-####  5、addEventListener的第三个参数你了解吗？请说出这个参数的作用
+## 5、addEventListener的第三个参数你了解吗？请说出这个参数的作用
+
 - true，表示在捕获阶段调用事件处理程序
 - false，表示在冒泡阶段调用事件处理程序。 （默认，可以省略不写）
 
-####  6、如何copy一个Array
+## 6、如何copy一个Array
+
 ```
 var arr = [1,2,3,4,5,6];
 var newArr = [];
+
 for(var i = 0; i < arr.length; i++) {
   newArr.push(arr[i]);
 }
 
 ([]).push.apply(newArr, arr);
 console.log(newArr);
+
+newArr.push(...arr);
 ```
 
+## 7、你做的页面在哪些流览器测试过？这些浏览器的内核分别是什么?
 
-#### 7、你做的页面在哪些流览器测试过？这些浏览器的内核分别是什么?
 - `IE: trident`内核
 - `Firefox：gecko`内核
 - `Safari:webkit`内核 (苹果浏览器)
@@ -75,8 +88,8 @@ console.log(newArr);
 > **渲染引擎：**它负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入 CSS 等），以及计算网页的显示方式，然后会输出至显示器或打印机。
 > **JS 引擎：**则是解析 Javascript 语言，执行 javascript 语言来实现网页的动态效果
 
+## 8、每个HTML文件里开头都有个很重要的东西，`Doctype`，知道这是干什么的吗
 
-#### 8、每个HTML文件里开头都有个很重要的东西，Doctype，知道这是干什么的吗
 - `<!DOCTYPE>` 声明位于文档中的最前面的位置，处于 `<html>`标签之前。此标签可告知浏览器文档使用哪种*( HTML 或 XHTML )*规范
 - **重点：告诉浏览器按照何种规范解析页面**
 
@@ -589,8 +602,8 @@ Null+100=100
 2.alert(typeof 'abc'); //string
 3.var i = true;
   alert(typeof i); //boolean
-4. alert(typeof 1); //number
-5. var a;
+1. alert(typeof 1); //number
+2. var a;
   alert(typeof a); //undefined
 6、function a(){};
 alert(typeof a) //function
