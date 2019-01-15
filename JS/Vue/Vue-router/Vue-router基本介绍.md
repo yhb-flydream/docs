@@ -1,12 +1,26 @@
 # Vue-router
 
+[TOC]
+
+## 参考
+
+- [vue-router 基本使用](https://www.cnblogs.com/SamWeb/p/6610733.html)
+- []()
+
 ## 基本概念理解
 
 路由中有三个基本概念
 
-- `route` 一条路由
+- `route` 一条路由，由 `path` 和 `component` 组成
+  - `path` 路由路径
+  - `component` 路由页面组件
 - `routes` 一组路由
 - `router` 一个机制，相当于一个管理者，它来管理路由
+
+**客户端中的路由，实际上就是 `dom` 元素的显示和隐藏，有两种实现方式**
+
+- 基于hash
+- 基于html5 history api
 
 ## 安装使用
 
@@ -319,7 +333,7 @@ const router = new VueRouter({
 
 ## 重定向和别名
 
-### 重定向
+### 重定向 redirect
 
 通过 `routes` 配置来完成，下面例子是从 `/a` 重定向到 `/b`：
 
@@ -354,7 +368,7 @@ const router = new VueRouter({
 })
 ```
 
-### 别名
+### 别名 alias
 
 **`/a` 的别名是 `/b`，意味着，当用户访问 `/b` 时，`URL` 会保持为 `/b`，但是路由匹配则为 `/a`，就像用户访问 `/a` 一样**
 
