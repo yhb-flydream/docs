@@ -277,3 +277,54 @@ async function dbFuc(db) {
   })
 }
 ```
+
+上面代码会报错，因为 `await` 用在普通函数之中了。但是，如果将forEach方法的参数改成 `async` 函数，也有问题
+
+```js
+function dbFuc(db) { //这里不需要 async
+  let docs = [{}, {}, {}];
+
+  // 可能得到错误结果
+  docs.forEach(async function (doc) {
+    await db.post(doc);
+  });
+}
+```
+
+原因是这时三个`db.post`操作将是并发执行，也就是同时执行，而不是继发执行。正确的写法是采用`for`循环
+
+```js
+async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+
+  for (let doc of docs) {
+    await db.post(doc);
+  }
+}
+```
+
+如果确实希望多个请求并发执行，可以使用 `Promise.all` 方法。当三个请求都会`resolved`时，下面两种写法效果相同。
+
+```js
+async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+  let promises = docs.map((doc) => db.post(doc));
+
+  let results = await Promise.all(promises);
+  console.log(results);
+}
+
+// 或者下面写法
+
+async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+  let promises = docs.map(doc => db.post(doc));
+
+  let results = [];
+
+  for (let promise of promises) {
+    results.push(await promise);
+  }
+  console.log(results);
+}
+```
