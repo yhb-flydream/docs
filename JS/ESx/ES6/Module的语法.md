@@ -2,6 +2,10 @@
 
 > ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。
 > **ES6 模块不是对象，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入。**
+> ES6 模块的`import`加载模块的方式是 **“编译时加载”或者静态加载**，可以在编译时就完成模块加载
+> CommonJS 模块的`require`加载模块的方式是 **“运行时加载”或动态加载*
+> **`import`加载模块的方式比`require`加载模块的方式效率高**
+> 当然，这也导致了没法引用 ES6 模块本身，因为它不是对象。
 
 ## 严格模式
 
@@ -27,25 +31,32 @@
 
 一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。
 
-- **导出方式**
+### **导出方式**
+
+- 1 直接导出变量或方法
 
 ```js
-// 1
 export var firstName = 'hello';
 export var lastName = 'world';
 export function multiply(x, y) {
   return x * y;
 };
+```
 
-// 2 优先考虑使用这种写
+- 2 **优先考虑使用这种写**
+
+```js
 var firstName = 'hello';
 var lastName = 'world';
 function multiply(x, y) {
   return x * y;
 };
 export {firstName, lastName, multiply};
+```
 
-// 3
+- 3 使用as关键字重命名
+
+```js
 var firstName = 'hello';
 var lastName = 'world';
 function multiply(x, y) {
@@ -82,17 +93,21 @@ foo()
 
 使用export命令定义了模块的对外接口以后，其他 JS 文件就可以通过import命令加载这个模块。
 
-- **导入方式**
+### 导入方式
+
+- 1
 
 ```js
-// 1
 import {firstName, lastName, year} from './profile.js';
 
 function setName(element) {
   element.textContent = firstName + ' ' + lastName;
 }
+```
 
-// 2 取别名
+- 2 取别名
+
+```js
 import { lastName as surname } from './profile.js';
 ```
 
@@ -157,7 +172,6 @@ a.foo = 'hello'; // 合法操作
 
 ```js
 // circle.js
-
 export function area(radius) {
   return Math.PI * radius * radius;
 }
@@ -323,3 +337,186 @@ export someIdentifier, { namedIdentifier } from "someModule";
 
 ## 模块的继承
 
+一个模块继承另一个模块再导出后给第三个模块使用
+
+```js
+// circleplus.js
+export * from 'circle';
+export var e = 3333333;
+export default function(x) {
+  return Math.exp(x);
+}
+```
+
+上面代码中的`export *`，表示再输出circle模块的所有属性和方法。
+
+**注意，`export *`命令会忽略circle模块的`default`方法。然后，上面代码又输出了自定义的e变量和默认方法。**
+
+也可以将继承的模块的属性或方法改名后再输出
+
+```js
+export { area as circleArea } from 'circle'
+```
+
+加载上面模块的写法如下。
+
+```js
+// main.js
+
+import * as math from 'circleplus';
+import exp from 'circleplus';
+console.log(exp(math.e));
+```
+
+## 跨模块常量
+
+可以建一个专门的constants目录，将各种常量写在不同的文件里面，保存在该目录下。
+
+```js
+// constants/db.js
+export const db = {
+  url: 'http://xxx',
+  admin_username: 'admin',
+  admin_password: 'admin password'
+};
+
+// constants/user.js
+export const users = ['root', 'admin', 'staff', 'ceo', 'chief', 'moderator'];
+```
+
+然后，将这些文件输出的常量，合并在`index.js`里面。使用的时候，直接加载`index.js`就可以了。
+
+```js
+// constants/index.js
+export {db} from './db';
+export {users} from './users';
+
+// script.js
+import {db, users} from './constants/index';
+```
+
+## import()
+
+`import`命令会被 JavaScript 引擎静态分析，先于模块内的其他语句执，在编译时就执行，固然有利于编译器提高效率，但也导致无法在运行时动态加载模块
+
+一个提案建议使用 `import()` 完成动态加载
+
+```js
+import(foo);
+```
+
+`import()`函数接受一个参数，指定所要加载的模块的位置。
+
+**`import`命令能够接受什么参数，`import()`函数就能接受什么参数，两者区别主要是后者为动态加载。**
+
+`import()`返回一个 `Promise` 对象
+
+```js
+const main = document.querySelector('main');
+
+import(`./section-modules/${someVariable}.js`)
+  .then(module => {
+    module.loadPageInto(main);
+  })
+  .catch(err => {
+    main.textContent = err.message;
+  });
+```
+
+- `import()`函数可以用在任何地方，不仅仅是模块，非模块的脚本也可以使用。
+- 它是运行时执行，也就是说，什么时候运行到这一句，就会加载指定的模块。
+- `import()`函数与所加载的模块没有静态连接关系，这点也是与import语句不相同。
+- `import()`类似于 Node 的require方法，区别主要是前者是异步加载，后者是同步加载。
+
+### 适用场合
+
+- 1、按需加载
+
+```js
+button.addEventListener('click', event => {
+  import('./dialogBox.js')
+  .then(dialogBox => {
+    dialogBox.open();
+  })
+  .catch(error => {
+    /* Error handling */
+  })
+});
+```
+
+- 2、条件加载
+
+```js
+if (condition) {
+  import('moduleA').then(...);
+} else {
+  import('moduleB').then(...);
+}
+```
+
+- 3、动态的模块路径
+
+```js
+import(f())
+.then(...);
+```
+
+### 注意点
+
+- `import()`加载模块成功以后，这个模块会作为一个对象，当作then方法的参数。因此，可以使用**对象解构赋值**的语法，获取输出接口。
+
+```js
+import('./myModule.js')
+.then(({export1, export2}) => {
+  // ...·
+});
+
+// export1和export2都是myModule.js的输出接口，可以解构获得。
+```
+
+- 如果模块有`default`输出接口，可以用参数直接获得。
+
+```js
+import('./myModule.js')
+.then(myModule => {
+  console.log(myModule.default);
+});
+```
+
+- 上面的代码也可以使用具名输入的形式。
+
+```js
+import('./myModule.js')
+.then(({default: theDefault}) => {
+  console.log(theDefault);
+});
+```
+
+- 如果想同时加载多个模块，可以采用下面的写法。
+
+```js
+Promise.all([
+  import('./module1.js'),
+  import('./module2.js'),
+  import('./module3.js'),
+])
+.then(([module1, module2, module3]) => {
+   ···
+});
+```
+
+- import()也可以用在 async 函数之中。
+
+```js
+async function main() {
+  const myModule = await import('./myModule.js');
+  const {export1, export2} = await import('./myModule.js');
+  const [module1, module2, module3] =
+    await Promise.all([
+      import('./module1.js'),
+      import('./module2.js'),
+      import('./module3.js'),
+    ]);
+}
+main();
+```
