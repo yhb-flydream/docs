@@ -227,3 +227,189 @@ obj.foo() // "world"
 ```
 
 上面代码中，`super.foo`指向原型对象`proto`的`foo`方法，但是绑定的`this`却还是当前对象`obj`，因此输出的就是`world`。
+
+## 对象的扩展运算符 `...`
+
+### 解构赋值
+
+对象的解构赋值用于从一个对象取值，相当于将目标对象自身的所有可遍历的（enumerable）、但尚未被读取的属性，分配到指定的对象上面。所有的键和它们的值，都会拷贝到新对象上面。
+
+```js
+let { x, y, ...z } = {x: 1, y: 2, a: 3, b:4};
+x // 1
+y // 2
+z // {a: 3, b: 4}
+```
+
+- **解构赋值要求等号右边是一个对象，所以如果等号右边是`undefined`或`null`，就会报错，因为它们无法转为对象**
+
+```js
+let { x, y, ...z } = null; // 运行时错误
+let { x, y, ...z } = undefined; // 运行时错误
+```
+
+- **解构赋值必须是最后一个参数，否则会报错。**
+
+```js
+let { ...x, y, z } = someObject; // 句法错误
+let { x, ...y, ...z } = someObject; // 句法错误
+```
+
+<b style="color: red;">解构赋值的拷贝是`浅拷贝`，即如果一个键的值是复合类型的值（数组、对象、函数）、那么解构赋值拷贝的是这个`值的引用`，而不是这个值的副本。</b>
+
+```js
+let obj = { a: { b: 1 } };
+let { ...x } = obj;
+obj.a.b = 2;
+x.a.b // 2
+
+// x是解构赋值所在的对象，拷贝了对象obj的a属性。
+// a属性引用了一个对象，修改这个对象的值，会影响到解构赋值对它的引用
+```
+
+- 扩展运算符的解构赋值，**不能复制继承自原型对象的属性**。
+
+```js
+let o1 = { a: 1 };
+let o2 = { b: 2 };
+o2.__proto__ = o1;
+let { ...o3 } = o2;
+o3 // { b: 2 }
+o3.a // undefined
+```
+
+<b style="color: red;">ES6 规定，变量声明语句之中，如果使用解构赋值，扩展运算符后面必须是一个变量名，而不能是一个解构赋值表达式</b>
+
+```js
+let { x, ...{ y, z } } = o;
+// SyntaxError: ... must be followed by an identifier in declaration contexts
+```
+
+### 扩展运算符
+
+对象的扩展运算符（`...`）用于取出参数对象的所有可遍历属性，拷贝到当前对象之中。
+
+```js
+let z = { a: 3, b: 4 };
+let n = { ...z };
+n // { a: 3, b: 4 }
+```
+
+- 由于数组是特殊的对象，所以对象的扩展运算符也可以用于数组。
+
+```js
+let foo = { ...['a', 'b', 'c'] };
+foo
+// {0: "a", 1: "b", 2: "c"}
+```
+
+- 如果扩展运算符后面是一个空对象，则没有任何效果。
+
+```js
+{...{}, a: 1}
+// { a: 1 }
+```
+
+- 如果扩展运算符后面不是对象，则会自动将其转为对象。
+
+```js
+// 等同于 {...Object(1)}
+{...1} // {}
+
+// 等同于 {...Object(true)}
+{...true} // {}
+
+// 等同于 {...Object(undefined)}
+{...undefined} // {}
+
+// 等同于 {...Object(null)}
+{...null} // {}
+```
+
+- 如果扩展运算符后面是字符串，它会自动转成一个类似数组的对象，因此返回的不是空对象。
+
+```js
+{...'hello'}
+// {0: "h", 1: "e", 2: "l", 3: "l", 4: "o"}
+```
+
+- **对象的扩展运算符等同于使用`Object.assign()`方法**
+
+```js
+let aClone = { ...a };
+// 等同于
+let aClone = Object.assign({}, a);
+```
+
+- 上面的例子只是拷贝了对象实例的属性，如果想完整克隆一个对象，还拷贝对象原型的属性，可以采用下面的写法。
+
+```js
+// 写法一 （不推荐）
+const clone1 = {
+  __proto__: Object.getPrototypeOf(obj),
+  ...obj
+};
+
+// 写法二 （推荐）
+const clone2 = Object.assign(
+  Object.create(Object.getPrototypeOf(obj)),
+  obj
+);
+
+// 写法三 （推荐）
+const clone3 = Object.create(
+  Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj)
+)
+```
+
+- 扩展运算符可以用于合并两个对象
+
+```js
+let ab = { ...a, ...b };
+// 等同于
+let ab = Object.assign({}, a, b);
+```
+
+- 如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。
+
+```js
+let aWithOverrides = { ...a, x: 1, y: 2 };
+// 等同于
+let aWithOverrides = { ...a, ...{ x: 1, y: 2 } };
+// 等同于
+let x = 1, y = 2, aWithOverrides = { ...a, x, y };
+// 等同于
+let aWithOverrides = Object.assign({}, a, { x: 1, y: 2 });
+```
+
+- 对象的扩展运算符后面可以跟表达式
+
+```js
+const obj = {
+  ...(x > 1 ? {a: 1} : {}),
+  b: 2,
+};
+```
+
+- 扩展运算符的参数对象之中，如果有`取值函数get`，这个函数是会执行的。
+
+```js
+// 并不会抛出错误，因为 x 属性只是被定义，但没执行
+let aWithXGetter = {
+  ...a,
+  get x() {
+    throw new Error('not throw yet');
+  }
+};
+
+// 会抛出错误，因为 x 属性被执行了
+let runtimeError = {
+  ...a,
+  ...{
+    get x() {
+      throw new Error('throw now');
+    }
+  }
+};
+```
