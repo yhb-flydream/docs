@@ -108,6 +108,7 @@ function sendAjax(option) {
   $.ajax({
     type: option.type || 'GET',
     url: option.url,
+    headers: option.headers || {},
     dataType: 'json',
     data: option.formData,
     cache: false, // 不缓存
@@ -119,7 +120,7 @@ function sendAjax(option) {
     },
     success: function(res) {
       // 发送成功 do something
-      if (option.success) option.success();
+      if (option.success) option.success(res);
     },
     error: function() {
       // 发送失败 do something
