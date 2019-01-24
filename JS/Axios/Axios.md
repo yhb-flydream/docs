@@ -32,7 +32,7 @@ bower install axios
 
 ## 简单使用
 
-- `GET` 请求
+### `GET` 请求
 
 ```js
 axios.get('url').then(function(res) {
@@ -54,7 +54,7 @@ axios.get('url', {
 });
 ```
 
-- `POST` 请求
+### `POST` 请求
 
 ```js
 axios.post('url', {
@@ -67,7 +67,7 @@ axios.post('url', {
 });
 ```
 
-- 多个并发请求
+### 多个并发请求
 
 ```js
 function getUserName() {
