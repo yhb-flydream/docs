@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        #container {
+            height: 400px;
+            width: 200px;
+            margin: auto;
+            border: 1px solid red;
+            position: relative;
+        }
+
+        #scrollbar-box {
+            height: 100%;
+            width: 100%;
+        }
+        
+        #scrollbar-box::-webkit-scrollbar
+        {
+          height: 0px;
+          width: 0px;
+        }
+
+        #scrollbar-content {
+            height: 4000px;
+            width: 400px;
+            background: blue;
+        }
+    </style>
+    <script src="./customScrollbar.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="scrollbar-box">
+            <div id="scrollbar-content"></div>
+        </div>
+    </div>
+    <script>
+        scrollbar({
+            scrollbarBoxId: 'scrollbar-box',
+            scrollbarContentId: 'scrollbar-content',
+            scrollbarYId: 'scrollbar-y',  // 模拟滚动条的id
+            scrollbarXId: 'scrollbar-x',  // 模拟滚动条的id
+            scrollbarYWidth: '',  // 模拟滚动条的宽
+            scrollbarXWidth: '',  // 模拟滚动条的宽
+            scrollbarYColor: '',  // 模拟滚动条的颜色
+            scrollbarXColor: '',  // 模拟滚动条的颜色
+            scrollbarYRadius: 10,  // 模拟滚动条的圆角
+            scrollbarXRadius: 10,  // 模拟滚动条的圆角
+        })
+    </script>
+</body>
+
+</html>
