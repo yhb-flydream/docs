@@ -1,4 +1,4 @@
-# first&last&eq&filter&not
+# first&last&even&odd&eq&filter&gt&lt&not
 
 ## first
 
@@ -16,6 +16,22 @@ $("div p").first();
 ```js
 $("div p").last();
 // 选择最后一个 <div> 元素中的最后一个 <p> 元素
+```
+
+## even
+
+选取每个带有偶数 index 值的元素
+
+```js
+$("tr:even")
+```
+
+## odd
+
+选取每个带有奇数 index 值的元素
+
+```js
+$("tr:odd")
 ```
 
 ## eq
@@ -36,6 +52,22 @@ $("p").eq(1);
 ```js
 $("p").filter(".intro");
 // 返回带有类名 "intro" 的所有 <p> 元素
+```
+
+## gt
+
+选取 index 值高于指定数的元素
+
+```js
+$(":gt(index)")
+```
+
+## lt
+
+选取带有小于指定 index 值的元素
+
+```js
+$(":lt(index)")
 ```
 
 ## not
