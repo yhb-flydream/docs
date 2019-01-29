@@ -1,4 +1,4 @@
-# addClass&removeClass&toggleClass&attr&removeAttr
+# addClass&removeClass&toggleClass&hasClass&attr&removeAttr
 
 ## addClass
 
@@ -59,6 +59,16 @@ $(selector).toggleClass(class,switch)
 
 ```js
 $(selector).toggleClass(function(index,class){},switch)
+```
+
+## hasClass
+
+检查被选元素是否包含指定的 class，返回 Boolean
+
+```js
+$(selector).hasClass(class)
+
+$("p:first").hasClass("intro")
 ```
 
 ## attr
