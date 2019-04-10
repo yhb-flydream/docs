@@ -6,13 +6,13 @@
 
 ## 全局安装
 
-```
+```bash
 npm install -g http-server
 ```
 
 ## 使用
 
-```
+```bash
 http-server [path] [options]
 
 例如：
@@ -29,20 +29,20 @@ hs
 
 ## options 介绍
 
-- `-p`
-- `-a`
-- `-d`
-- `-i`
-- `-g or --gzip`
-- `-e or --ext`
-- `-s or --silent`
-- `--cors`
-- `-o`
-- `-c`
-- `-U or --utc`
-- `-P or --proxy`
-- `-S or --ssl`
-- `-C or --cert`
-- `-K or --key`
-- `-r or --robots`
-- `-h or --help`
+- `-p` 端口设置（默认 8080）
+- `-a` 设置地址（默认 0.0.0.0）
+- `-d` 是否显示目录列表（默认显示）
+- `-i` 是否显示自动索引（默认显示）
+- `-g or --gzip` 启用时（默认为'False'）当文件的gzip压缩版本存在并且请求接受gzip编码时，它将代替`./public/some-file.js`提供`./public/some-file.js.gz`
+- `-e or --ext` 如果没有提供默认文件扩展名（默认为'html'）
+- `-s or --silent` 不输出日志消息
+- `--cors` 可以启动 `Access-Control-Allow-Origin` 请求头
+- `-o` 启动服务器后自动打开浏览器窗口
+- `-c` 设置缓存控制`max-age`标头的缓存时间（以秒为单位），例如`-c10`持续`10`秒（默认为'3600'）。要禁用缓存，请使用`-c-1`。
+- `-U or --utc` 在日志消息中使用UTC时间格式。
+- `-P or --proxy` 将所有无法在本地解析的请求代理到给定的URL。例如：`-P http://someurl.com`
+- `-S or --ssl` 启用https。
+- `-C or --cert` ssl cert文件的路径（默认值：`cert.pem`）。
+- `-K or --key` ssl密钥文件的路径（默认值：`key.pem`）。
+- `-r or --robots` 提供`/robots.txt`（其内容默认为`'User-agent：* \ nDisisis：/'`）
+- `-h or --help` 打印帮助列表并退出。
