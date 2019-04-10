@@ -378,7 +378,7 @@ axios.interceptors.request.use(function(config) {
 });
 
 // 添加响应拦截器
-axios.interceptors.request.use(function(res) {
+axios.interceptors.response.use(function(res) {
   // 对响应数据 do something
   return res;
 }, function(error) {
