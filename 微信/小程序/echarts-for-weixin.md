@@ -42,7 +42,15 @@
 |   └ echarts-bar
 ├ pages
 |   ├ index
+|   |   ├ index.js
+|   |   ├ index.json
+|   |   ├ index.wxml
+|   |   └ index.wxss
 |   ├ demo
+|   |   ├ index.js
+|   |   ├ index.json
+|   |   ├ index.wxml
+|   |   └ index.wxss
 |   └ ... 你的页面
 ├ app.js
 ├ app.json
@@ -50,30 +58,31 @@
 └ project.config.json
 ```
 
+### `ec-canvas` 直接拿过来作为一个组件
+
+把 `ec-canvas` 当做一个组件，然后再按照 `echarts-for-weixin` 目录的 `pages` 里面页面（例如：`bar`）的写法在页面中使用
+
+示例：改造使用（以 `pages` 里面的 `bar` 为例，在 `demo` 页面中使用）
+
+- 1、修改 `demo` 页面的 `index.js` 头部的引入方式路径，为 `import * as echarts from '../../components/ec-canvas/echarts'`，把 `bar` 页面的js部分整合到 `index.js` 里面
+- 2、修改 `demo` 页面的 `index.json` 的 `usingComponents` 字段，为 `"usingComponents": { "echarts-bar":  "../../components/ec-canvas/ec-canvas" }`，此时一个基本组件就可以在页面中使用了
+- 3、在 `demo` 文件夹下的 `index.wxml` 中使用 `<echarts-bar></echarts-bar>`
+
 ### `ec-canvas` 作为一个组件的组件
 
-把 `ec-canvas` 当做一个组件，然后再按照 `pages` 里面页面的写法写一个组件在页面中使用
+把 `ec-canvas` 当做一个组件，然后再按照 `echarts-for-weixin` 目录的 `pages` 里面页面（例如：`bar`）的写法写一个组件在页面中使用
 
 示例：改造使用（以 `pages` 里面的 `bar` 为例，改造成组件 `echarts-bar`）
 
 - 1、把`pages`里面对应的`bar`的文件（`index.js`、`index.json`、`index.wxml`、`index.wxss`）全部拿到`echarts-bar`里
 - 2、修改 `index.js` 头部的引入方式路径，为 `import * as echarts from '../ec-canvas/echarts'`
-- 3、修改 `index.json` 的 `usingComponents` 字段，为 `"usingComponents": { "ec-canvas":  "../ec-canvas/ec-canvas" }`，此时一个基本组件就可以在你写的页面中使用了
+- 3、修改 `index.json` 的 `usingComponents` 字段，为 `"usingComponents": { "ec-canvas":  "../ec-canvas/ec-canvas" }`，此时一个基本组件就可以在页面中使用了
 - 4、在 `pages ---> index` 页面中使用。修改 `index` 文件夹下的 `index.json` 的 `usingComponents` 字段，为 `"usingComponents": { "echarts-bar": "/components/echarts-bar/index" }`
 - 5、在 `index` 文件夹下的 `index.wxml` 中使用 `<echarts-bar></echarts-bar>`
 
-**注意：因为图表显示需要设置宽高，没设置 `wxss` 可能导致图表不能正常显示，只显示空白，可以去修改 `echarts-bar` 的 `index.wxss` 和 `index` 的 `index.wxss`（这里设置 `echarts-bar` 的样式）**
+**注意：因为图表显示需要设置宽高，没设置 `wxss` 可能导致图表不能正常显示，只显示空白，可以去修改 `echarts-bar` 的 `index.wxss` 和 `index` 的 `index.wxss` 或 `demo` 的 `index.wxss`（这里设置 `echarts-bar` 的样式）**
 
-### `ec-canvas` 作为一个组件（）
+### 两种方式的区别
 
-把 `ec-canvas` 当做一个组件，然后再按照 `pages` 里面页面的写法在页面中使用
-
-示例：改造使用（以 `pages` 里面的 `bar` 为例，在 `demo` 页面中使用）
-
-- 1、修改 `demo` 页面的 `index.js` 头部的引入方式路径，为 `import * as echarts from '../../components/ec-canvas/echarts'`，把 `bar` 页面的js部分整合到 `index.js` 里面
-- 2、修改 `demo` 页面的 `index.json` 的 `usingComponents` 字段，为 `"usingComponents": { "echarts-bar":  "../../components/ec-canvas/ec-canvas" }`，此时一个基本组件就可以在你写的页面中使用了
-- 3、在 `pages ---> demo` 页面中使用。修改 `demo` 文件夹下的 `index.json` 的 `usingComponents` 字段，为 `"usingComponents": { "echarts-bar": "/components/echarts-bar/index" }`
-- 4、
-- 5、在 `index` 文件夹下的 `index.wxml` 中使用 `<echarts-bar></echarts-bar>`
-
-**注意：因为图表显示需要设置宽高，没设置 `wxss` 可能导致图表不能正常显示，只显示空白，可以去修改 `echarts-bar` 的 `index.wxss` 和 `index` 的 `index.wxss`（这里设置 `echarts-bar` 的样式）**
+- 1、直接作为一个组件来用的话，使用比较方便，但是数据配置都写在了一个页面中，使页面比较庞大
+- 2、作为一个组件的组件来用可以使页面简洁一些，但是数据需要通过组件父子传值方式传递
