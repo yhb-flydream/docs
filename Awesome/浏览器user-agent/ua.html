@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var ua = navigator.userAgent;
+    document.write(ua);
+    if (/Android (\d+\.\d+)|UCBrowser/.test(ua) && !/XiaoMi\/\/(\d+\.\d+)/.test(ua)){
+        var version = parseFloat(RegExp.$1);
+        if(version>2.3 && !/UCBrowser|MiuiBrowser/.test(ua)){
+            if(/Windows/.test(ua)){
+                document.write('<meta name="viewport" content="width=800, user-scalable=no"/>');
+            }else{
+                if(phoneScale<1){//pad纵向
+                    document.write('<meta name="viewport" content="width='+phoneWidth+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'"/>');
+                }else if (ua.indexOf('HUAWEINXT')>-1){//华为mate系列
+                    document.write('<meta name="viewport" content="width=720, user-scalable=no,minimal-ui"/>');
+                }else{//pad横向
+                    document.write('<meta name="viewport" content="width=device-width"/>');
+                }
+            }
+        }else {
+            if(phoneScale<1){
+                //mipad纵向
+                document.write('<meta name="viewport" content="width='+phoneWidth+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'"/>');
+            }else {//mipad 横向
+                if(/UCBrowser|MiuiBrowser/.test(ua)){
+                    document.write('<meta name="viewport" content="width=800, user-scalable=no,minimal-ui"/>')
+                    //document.write('<meta name="viewport" content="width=device-width'+',minimum-scale = 1'+', maximum-scale = '+phoneScale+'"/>');
+                }else{
+                    document.write('<meta name="viewport" content="width=device-width"/>');
+                }
+                /*document.write('<meta name="viewport" content="width='+phoneWidth+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'"/>');*/
+            }
+        }
+    }
+</script>
+<!-- <script>
+function browserRedirect() {
+  var sUserAgent = navigator.userAgent.toLowerCase();
+  var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+  var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+  var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+  var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+  var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+  var bIsAndroid = sUserAgent.match(/android/i) == "android";
+  var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+  var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+  if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+    //电脑端
+    console.log('PC');
+  } else {
+    //手机端
+    console.log('Mobile');
+  }
+}
+browserRedirect(); //调用判断当前访问页面是手机端还是移动端
+</script> -->
+</body>
+</html>

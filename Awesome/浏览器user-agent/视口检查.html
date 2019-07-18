@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试1</title>
+    <script type="text/javascript">
+        function show(){
+            var s = "";
+            s += "网页可见区域宽度："+document.body.clientWidth;
+            s += "\n网页可见区域高度："+document.body.clientHeight;
+            s += "\n网页可见区域宽度（包括边线）："+document.body.offsetWidth;
+            s += "\n网页可见区域高度（包括边线）："+document.body.offsetHeight;
+            s += "\n网页正文宽度："+document.body.scrollWidth;
+            s += "\n网页正文高度："+document.body.scrollHeight;
+            s += "\n屏幕可用工作区域宽度："+window.screen.availWidth;
+            s += "\n屏幕可用工作区域高度："+window.screen.availHeight;
+            s += "\n屏幕分辨率宽度："+window.screen.width;
+            s += "\n屏幕分辨率高度："+window.screen.height;
+            alert(s);
+        }
+    </script>
+</head>
+
+<body style="margin:0;border:0">
+<div style="">
+    <a onclick="show()" href="#">点击</a>
+</div>
+</body>
