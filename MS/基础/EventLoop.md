@@ -8,6 +8,7 @@
 [浅析 JS 中的 EventLoop 事件循环（新手向）](https://segmentfault.com/a/1190000019313028)
 [译文：JS事件循环机制（event loop）之宏任务、微任务](https://segmentfault.com/a/1190000014940904)
 [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly)
+[前端内参 壹.2.8 Event Loop](https://coffe1891.gitbook.io/frontend-hard-mode-interview/1/1.2.8)
 
 JavaScript 就是一门`单线程`的`非阻塞`的`脚本语言`。
 
@@ -44,7 +45,7 @@ JavaScript 是可以通过 Web Worker 开启多线程，但是这个新开线程
 4、主线程执行完毕，接下来检查任务队列中是否有宏（微）任务，如果有就放到主线程执行
 5、先执行微任务队列里面的微任务（如果微任务里面还会有宏任务，放到宏任务队列；如果微任务里面还会有微任务，放到微任务队列）
 6、再执行宏任务队列里面的宏任务（如果宏任务里面还会有微任务，放到微任务队列；如果宏任务里面还会有宏任务，放到宏任务队列）
-然后再依次执行`4 ~ 5`的过程
+然后再依次执行`4 ~ 6`的过程
 
 - **代码分析：**
 
@@ -60,6 +61,8 @@ setTimeout(() => {
   console.log(2)
   new Promise(() => {
     console.log(11)
+  }).then(() => {
+    console.log(13)
   })
 })
 // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback
@@ -90,20 +93,20 @@ function fn(){
 
 - **代码执行步骤分析：**
 
-1、js从上到下执行，先打印 1；
-2、`this.$nextTick` 属于微队列（microtask），并且当前主线程的代码还没有执行完毕，所以它被暂时扔到了微队列里；
-3、setTimeout 是属于宏队列（macrotask），跟 `this.$nextTick` 处理逻辑类似，当前主线程的代码还没有执行完毕，所以它被暂时扔到了宏队列里；
+1、js从上到下执行，先**打印 1**；
+2、`this.$nextTick` 属于微任务，并且当前主线程的代码还没有执行完毕，所以它被暂时扔到了微任务队列里；
+3、setTimeout 是属于宏任务，跟 `this.$nextTick` 处理逻辑类似，当前主线程的代码还没有执行完毕，所以它被暂时扔到了宏任务队列里；
 4、requestIdleCallback 这时也不会立即执行，这里参见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback);
-5、promise 在实例化的时候，这里的 setTimeout 继续被丢到了宏队列（macrotask）中，并立即执行了 resolve，和接下来的 console 打印了 4；
-6、fn 函数直接调用，直接打印 6；
-7、console 直接打印 3；
-8、promise.then 因为它属于微队列，所以被放到微队列里；
-9、到这里主线程里面就没有任何可以执行到东西了，下面开始走微队列（microtask）；
-10、第一个被放入微队列的是第2步的 `this.$nextTick`，执行后 console 打印了 8，`this.$nextTick` 里还有 setTimeout 是属于宏队列（macrotask），所以它被暂时扔到了宏队列里；
-11、第二个被放入微队列的是第8步的 promise.then，执行后 console 打印了 12；
-12、到这里微队列就走完了，下面开始走宏队列（macrotask）；
-13、第一个被放入宏队列的是第3步的 setTimeout，执行后 console 打印了 2；此时 new Promise 会立即执行 console 打印了 11；
-14、第二个被放入宏队列的是第5步的 promise 里面的 setTimeout，执行后 console 打印了 10；
-15、第三个被放入宏队列的是第10步的 `this.$nextTick` 里面的 setTimeout，执行后 console 打印了 9；
-16、到这里主线程、宏队列（macrotask）、微队列（microtask）就全都跑完了，在全部跑完的时候，requestIdleCallback 才会执行，打印 7；
-17、
+5、promise 在实例化的时候，这里的 setTimeout 继续被丢到了宏任务队列中，并立即执行了 resolve，和接下来的 console **打印 4**；
+6、fn 函数直接调用，直接**打印 6**；
+7、console 直接**打印 3**；
+8、promise.then 因为它属于微任务，所以被放到微任务队列里；
+9、到这里主线程里面就没有任何可以执行到东西了，下面开始走微任务队列；
+10、第一个被放入微任务队列的是第2步的 `this.$nextTick`，执行后 console **打印 8**，`this.$nextTick` 里还有 setTimeout 是属于宏任务，所以它被暂时扔到了宏任务队列里；
+11、第二个被放入微任务队列的是第8步的 promise.then，执行后 console **打印 12**；
+12、到这里微任务队列就走完了，下面开始走宏任务队列；
+13、第一个被放入宏任务队列的是第3步的 setTimeout，执行后 console **打印 2**；此时 new Promise 会立即执行 console **打印 11**；
+14、第二个被放入宏任务队列的是第5步的 promise 里面的 setTimeout，执行后 console **打印 10**；
+15、第三个被放入宏任务队列的是第10步的 `this.$nextTick` 里面的 setTimeout，执行后 console **打印 9**；
+16、到这里主线程、宏任务队列、微任务队列就全都跑完了，在全部跑完的时候，requestIdleCallback 才会执行，**打印 7**；
+17、requesIdleCallback 会在当前浏览器空闲时期去依次执行，在整个过程当中你可能添加了多个 requestIdleCallback，但是都不会执行，只会在空闲时期，去依次根据调用的顺序就执行。
