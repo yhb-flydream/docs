@@ -9,6 +9,8 @@
 [译文：JS事件循环机制（event loop）之宏任务、微任务](https://segmentfault.com/a/1190000014940904)
 [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly)
 [前端内参 壹.2.8 Event Loop](https://coffe1891.gitbook.io/frontend-hard-mode-interview/1/1.2.8)
+[你真的理解$nextTick么](https://juejin.im/post/5cd9854b5188252035420a13)
+[总是一知半解的Event Loop](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651226694&idx=1&sn=01908e1c5089010733e723c99947b311&chksm=bd495bc28a3ed2d4d92c024910eb2b0367d0b22ee8e2587fee9253a359ebf99dba63338f3ccb&scene=21#wechat_redirect)
 
 JavaScript 就是一门`单线程`的`非阻塞`的`脚本语言`。
 
