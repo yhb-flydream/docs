@@ -1,6 +1,9 @@
 # TypeScript
 
+- [Typescript](https://www.typescriptlang.org/)
+- [Typescript github](https://github.com/Microsoft/TypeScript)
 - [Typescript 中文网](https://www.tslang.cn/)
+- [TypeScript 中文手册](https://typescript.bootcss.com/)
 - [TypeScript 入门教程](https://ts.xcatliu.com/)
 - [深入理解 Typescript](https://jkchao.github.io/typescript-book-chinese/)
 - [TypeScript Handbook（中文版）](https://jkchao.github.io/typescript-book-chinese/)
@@ -793,3 +796,72 @@ tom.run();
 
 ### 声明文件
 
+#### 什么是声明语句 `declare var`
+
+使用 `jQuery` 时，一般方式是直接用 script 标签引入，然后就可以使用`$` 和 `jQuery` 了。
+
+但是在 ts 中，编译器并不知道 `$` 和 `jQuery`：
+
+```ts
+jQuery('#foo');
+// ERROR: Cannot find name 'jQuery'.
+```
+
+这时，我们就需要使用 `declare var` 来定义它的类型：
+
+```ts
+declare var jQuery:(selector: string) => any;
+jQuery('#foo');
+```
+
+上面，`declare var` 并没有真的定义一个变量，只是定义了全局变量 `jQuery` 的类型，仅仅会用于编译时的检查，在编译结果中会删除：
+
+```js
+jQuery('#foo');
+```
+
+#### 什么是声明文件 `*.d.ts`
+
+通常会把声明语句放在一个单独的文件中（比如 `jQuery.d.ts`）：
+
+```ts
+// src/jQuery.d.ts
+declare var jQuery:(selector: string) => any;
+```
+
+```ts
+// src/index.ts
+jQuery('#foo');
+```
+
+**声明文件必须以 `.d.ts` 为后缀。**
+
+一般来说，ts 会解析项目中所有的 `*.ts` 文件，当然也包括以 `.d.ts` 为后缀的文件。所以当我们将 `jQuery.d.ts` 放到项目中时，其他所有 `.ts` 文件都可以获得 `jQuery` 的类型定义
+
+```txt
+/path/to/project
+|- src
+|   |- index.ts
+|   |- jQuery.d.ts
+|- tsconfig.json
+```
+
+假如仍然无法解析，那么可以检查下 `tsconfig.json` 中的 `files`、`include`、`exclude` 配置，确定包含了 `jQuery.d.ts` 文件。
+
+##### 第三方声明文件
+
+当然 `jQuery` 的声明文件不需要再定义了，社区已经帮我们定义好了：[jQuery in DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery/index.d.ts)。
+
+我们可以直接下载下来使用，但是更推荐的是使用 `@types` 统一管理第三方库的声明文件。
+
+`@types` 的使用方式很简单，直接使用 npm 安装对应的声明模块即可，以 `jQuery` 举例：
+
+```bash
+npm install @types/jquery --save-dev
+或
+npm i @types/jquery -S
+```
+
+可以在[这里](https://microsoft.github.io/TypeSearch/)搜索你需要的声明文件
+
+#### 书写声明文件
