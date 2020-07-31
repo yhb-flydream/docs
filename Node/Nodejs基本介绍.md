@@ -1,7 +1,10 @@
 # Nodejs
 
-参照
-[七天学会NodeJS](http://nqdeng.github.io/7-days-nodejs/)
+- [Node.js 中文网](http://nodejs.cn/)
+- [《JavaScript 标准参考教程（alpha）》 - Node.js](https://javascript.ruanyifeng.com/nodejs/assert.html#)
+- [Node.js 入门](https://cnodejs.org/getstart)
+- [七天学会NodeJS](http://nqdeng.github.io/7-days-nodejs/)
+- [Node.js 包教不包会](https://github.com/alsotang/node-lessons)
 
 > Node.js 是一种服务器端框架，所以它的一个主要工作就是处理浏览器请求
 
