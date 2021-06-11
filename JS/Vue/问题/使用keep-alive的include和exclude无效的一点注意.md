@@ -34,8 +34,8 @@
         // 此处使用 store getters 计算过的 keepLive 数组
         //（在 store 拿到 routes，循环出 meta 里面带有 keepLive: true 的 route 的 name 放到 keepLive）
         return this.$store.getters.keepLive
-      }
-    }
+      },
+    },
   }
 </script>
 ```
@@ -49,15 +49,15 @@ export default new Router({
       path: '/a',
       name: 'a',
       component: () => import('src/views/a'),
-      meta: { keepAlive: true }
+      meta: { keepAlive: true },
     },
     {
       path: '/b',
       name: 'a',
       component: () => import('src/views/b'),
-      meta: { keepAlive: true }
-    }
-  ]
+      meta: { keepAlive: true },
+    },
+  ],
 })
 ```
 
@@ -73,13 +73,11 @@ export default new Router({
 
 当时以为是路由里面那个 name，然后又检查了所有路由的 name 属性，发现也没遗漏
 
-最后搜到了思否的一个问答[vue.js的keep-alive include无效](https://segmentfault.com/q/1010000009117672)，发现原来是要在**组件页面中声明 name 属性**
+最后搜到了思否的一个问答[vue.js 的 keep-alive include 无效](https://segmentfault.com/q/1010000009117672)，发现原来是要在**组件页面中声明 name 属性**
 
 ```html
 <transition>
-  <div class="a">
-    ...
-  </div>
+  <div class="a">...</div>
 </transition>
 
 <script>

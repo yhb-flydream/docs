@@ -1,22 +1,22 @@
 # Axios
 
-> 一个支持所有JavaScript运行环境的基于Promise的、支持请求转发、强大的http请求库。
+> 一个支持所有 JavaScript 运行环境的基于 Promise 的、支持请求转发、强大的 http 请求库。
 
 - [Fly github](https://github.com/wendux/fly)
 - [Fly 中文说明](https://wendux.github.io/dist/#/doc/flyio/readme)
 
 ## 简介
 
-目前Fly.js支持的平台包括：Node.js 、微信小程序 、Weex 、React Native 、Quick App 和浏览器，这些平台的 JavaScript 运行时都是不同的
+目前 Fly.js 支持的平台包括：Node.js 、微信小程序 、Weex 、React Native 、Quick App 和浏览器，这些平台的 JavaScript 运行时都是不同的
 
 - 提供统一的 Promise API
 - 浏览器环境下，轻量且非常轻量
-- 支持多种JavaScript 运行环境
+- 支持多种 JavaScript 运行环境
 - 支持请求／响应拦截器
 - 自动转换 JSON 数据
 - 支持切换底层 Http Engine，可轻松适配各种运行环境
-- 浏览器端支持全局Ajax拦截
-- H5页面内嵌到原生 APP 中时，支持将 http 请求转发到 Native。支持直接请求图片
+- 浏览器端支持全局 Ajax 拦截
+- H5 页面内嵌到原生 APP 中时，支持将 http 请求转发到 Native。支持直接请求图片
 
 ## 安装
 
@@ -33,41 +33,41 @@ bower install flyio
 <script src="https://unpkg.com/flyio/dist/umd/fly.umd.min.js"></script>
 ```
 
-## 不同平台引入flyio
+## 不同平台引入 flyio
 
-### 浏览器、Node、React Native中引入
+### 浏览器、Node、React Native 中引入
 
 ```js
-var fly = require("flyio")
+var fly = require('flyio')
 ```
 
-上面方式引入的是Fly的默认实例（浏览器、Node、React Native中相同），你也可以自己创建Fly实例：
+上面方式引入的是 Fly 的默认实例（浏览器、Node、React Native 中相同），你也可以自己创建 Fly 实例：
 
 ```js
 // 浏览器和React Native
-var Fly = require("flyio/dist/npm/fly")
+var Fly = require('flyio/dist/npm/fly')
 // Node 入口
 // var Fly=require("flyio/src/node")
-var fly = new Fly;
+var fly = new Fly()
 ```
 
 ### 在微信小程序中引入
 
 ```js
-var Fly = require("flyio/dist/npm/wx")
-var fly = new Fly
+var Fly = require('flyio/dist/npm/wx')
+var fly = new Fly()
 ```
 
-如果微信小程序项目没有使用npm来管理依赖，需要下载源码到小程序工程，[wx.js](https://github.com/wendux/fly/tree/master/dist/npm/wx.js) 或 [wx.umd.min.js](https://github.com/wendux/fly/tree/master/dist/umd/wx.umd.min.js) .下载任意一个，保存到本地工程目录，假设在“lib”目录，接下来引入：
+如果微信小程序项目没有使用 npm 来管理依赖，需要下载源码到小程序工程，[wx.js](https://github.com/wendux/fly/tree/master/dist/npm/wx.js) 或 [wx.umd.min.js](https://github.com/wendux/fly/tree/master/dist/umd/wx.umd.min.js) .下载任意一个，保存到本地工程目录，假设在“lib”目录，接下来引入：
 
 ```js
-var Fly = require("../lib/wx") //wx.js为您下载的源码文件
-var fly = new Fly; //创建fly实例
+var Fly = require('../lib/wx') //wx.js为您下载的源码文件
+var fly = new Fly() //创建fly实例
 ```
 
 ### 快应用中引入
 
-快应用中Fly依赖 fetch模块，需要先在 `manifest.json` 中添加引用：
+快应用中 Fly 依赖 fetch 模块，需要先在 `manifest.json` 中添加引用：
 
 ```js
 "features": [
@@ -76,20 +76,20 @@ var fly = new Fly; //创建fly实例
 ]
 ```
 
-然后创建fly实例
+然后创建 fly 实例
 
 ```js
 // 依赖快应用中的fetch模块，需要在
-var fetch = require("@system.fetch")
-var Fly = require("flyio/dist/npm/hap")
+var fetch = require('@system.fetch')
+var Fly = require('flyio/dist/npm/hap')
 var fly = new Fly(fetch)
 ```
 
-### Weex中引入
+### Weex 中引入
 
 ```js
-var Fly = require("flyio/dist/npm/weex")
-var fly = new Fly
+var Fly = require('flyio/dist/npm/weex')
+var fly = new Fly()
 ```
 
 ## 简单使用
@@ -97,29 +97,31 @@ var fly = new Fly
 ### `GET` 请求
 
 ```js
-var fly=require("flyio")
+var fly = require('flyio')
 
 // 参数直接写在url中
-fly.get('/user?id=133')
+fly
+  .get('/user?id=133')
   .then(function (response) {
-    console.log(response);
+    console.log(response)
   })
   .catch(function (error) {
-    console.log(error);
-  });
+    console.log(error)
+  })
 
 或
 
 // query参数通过对象传递
-fly.get('/user', {
-    id: 133
+fly
+  .get('/user', {
+    id: 133,
   })
   .then(function (response) {
-    console.log(response);
+    console.log(response)
   })
   .catch(function (error) {
-    console.log(error);
-  });
+    console.log(error)
+  })
 ```
 
 ### `POST` 请求
@@ -142,18 +144,21 @@ fly.post('/user', {
 
 ```js
 function getUserName() {
-  return fly.get('user/name');
+  return fly.get('user/name')
 }
 
 function getUserAge() {
-  return fly.get('user/age');
+  return fly.get('user/age')
 }
 
-fly.all([getUserName(), getUserAge()])
-  .then(fly.spread(function(acct, perms) {
-    // 两个请求现在都执行完成
-  }))
-  .catch(function(error){
+fly
+  .all([getUserName(), getUserAge()])
+  .then(
+    fly.spread(function (acct, perms) {
+      // 两个请求现在都执行完成
+    })
+  )
+  .catch(function (error) {
     console.log(error)
   })
 ```
@@ -162,104 +167,117 @@ fly.all([getUserName(), getUserAge()])
 
 ```js
 // 直接调用request函数发起post请求
-fly.request("/test",{hh:5},{
-  method:"post",
-  timeout:5000 // 超时设置为5s
- })
-.then(d=>{ console.log("request result:",d)})
-.catch((e) => console.log("error", e))
+fly
+  .request(
+    '/test',
+    { hh: 5 },
+    {
+      method: 'post',
+      timeout: 5000, // 超时设置为5s
+    }
+  )
+  .then((d) => {
+    console.log('request result:', d)
+  })
+  .catch((e) => console.log('error', e))
 ```
 
 ### 发送 URLSearchParams
 
 ```js
-const params = new URLSearchParams();
-params.append('a', 1);
-fly.post("",params)
-.then(d=>{ console.log("request result:",d)})
+const params = new URLSearchParams()
+params.append('a', 1)
+fly.post('', params).then((d) => {
+  console.log('request result:', d)
+})
 ```
 
-**注：Node环境不存在`URLSearchParams`。各个浏览器对`URLSearchParams`的支持程度也不同，使用时务必注意**
+**注：Node 环境不存在`URLSearchParams`。各个浏览器对`URLSearchParams`的支持程度也不同，使用时务必注意**
 
 ### 发送 FormData
 
 ```js
-var formData = new FormData();
+var formData = new FormData()
 var log = console.log
-formData.append('username', 'Chris');
-fly.post("../package.json", formData).then(log).catch(log)
+formData.append('username', 'Chris')
+fly.post('../package.json', formData).then(log).catch(log)
 ```
 
-**注：Fly目前只在支持 `FormData` 的浏览器环境中运行，node环境下对 formData 的支持方式稍有不同，详情查看[Node 下增强的API] **
+**注：Fly 目前只在支持 `FormData` 的浏览器环境中运行，node 环境下对 formData 的支持方式稍有不同，详情查看[Node 下增强的 API] **
 
 ### 请求二进制数据
 
 ```js
-fly.get("/Fly/v.png", null, {
-  responseType:"arraybuffer"
-}).then(d => {
-  // d.data 为ArrayBuffer实例
-})
+fly
+  .get('/Fly/v.png', null, {
+    responseType: 'arraybuffer',
+  })
+  .then((d) => {
+    // d.data 为ArrayBuffer实例
+  })
 ```
 
 ## 拦截器
 
-Fly支持请求／响应拦截器，可以通过它在请求发起之前和收到响应数据之后做一些预处理
+Fly 支持请求／响应拦截器，可以通过它在请求发起之前和收到响应数据之后做一些预处理
 
 ```js
 // 添加请求拦截器
-fly.interceptors.request.use(function(config) {
+fly.interceptors.request.use(function (config) {
   // 在发送请求前 do something
   // 给所有请求添加自定义header
-  config.headers["X-Tag"] = "flyio";
+  config.headers['X-Tag'] = 'flyio'
   // 打印出请求体
   console.log(config.body)
   // 可以显式返回 config, 也可以不返回，没有返回值时拦截器中默认返回config
-  return config;
-});
+  return config
+})
 
 // 添加响应拦截器，响应拦截器会在then/catch处理之前执行
-fly.interceptors.response.use(function(res) {
-  // 对响应数据 do something
-  return res;
-}, function(error) {
-  // 对响应错误 do something
-  return Promise.reject(error);
-});
+fly.interceptors.response.use(
+  function (res) {
+    // 对响应数据 do something
+    return res
+  },
+  function (error) {
+    // 对响应错误 do something
+    return Promise.reject(error)
+  }
+)
 ```
 
-- 请求拦截器中的config对象结构如下：
+- 请求拦截器中的 config 对象结构如下：
 
 ```js
 {
-  baseURL,  // 请求的基地址
-  body, // 请求的参数
-  headers, // 自定义的请求头
-  method, // 请求方法
-  timeout, // 本次请求的超时时间
-  url, // 本次请求的地址
-  withCredentials // 跨域请求是否发送第三方cookie
+  baseURL, // 请求的基地址
+    body, // 请求的参数
+    headers, // 自定义的请求头
+    method, // 请求方法
+    timeout, // 本次请求的超时时间
+    url, // 本次请求的地址
+    withCredentials // 跨域请求是否发送第三方cookie
 }
 ```
 
-- 响应拦截器中的config对象结构如下：
+- 响应拦截器中的 config 对象结构如下：
 
 ```js
 {
   data, // 服务器返回的数据
-  engine, // 请求使用的http engine(见下面文档),浏览器中为本次请求的XMLHttpRequest对象
-  headers, // 响应头信息
-  request  // 本次响应对应的请求信息
+    engine, // 请求使用的http engine(见下面文档),浏览器中为本次请求的XMLHttpRequest对象
+    headers, // 响应头信息
+    request // 本次响应对应的请求信息
 }
 ```
 
 #### 移除拦截器
 
-如果你想移除拦截器，只需要将拦截器设为null即可：
+如果你想移除拦截器，只需要将拦截器设为 null 即可：
 
 ```js
 fly.interceptors.request.use(null)
-fly.interceptors.response.use(null,null)
+fly.interceptors.response.use(null, null)
 ```
 
 ## 错误处理
@@ -278,32 +296,32 @@ fly.interceptors.response.use(null,null)
 
 - 错误码
 
-|错误码|含义|
-|---|---|
-|0|网络错误|
-|1|请求超时|
-|2|文件下载成功，但保存失败，此错误只出现node环境下|
-|>=200|http请求状态码|
+| 错误码 | 含义                                               |
+| ------ | -------------------------------------------------- |
+| 0      | 网络错误                                           |
+| 1      | 请求超时                                           |
+| 2      | 文件下载成功，但保存失败，此错误只出现 node 环境下 |
+| >=200  | http 请求状态码                                    |
 
 ```js
-axios.get('user/name').catch(function(error) {
-  console.log('Error', error.message);
+axios.get('user/name').catch(function (error) {
+  console.log('Error', error.message)
   console.log('Error engine:', error.engine)
   // The request was made but no response was received
   // `error.request` holds the request info.
-  console.log('Error request info:', error.request);
+  console.log('Error request info:', error.request)
   if (error.response) {
     // 请求已发送，但服务器响应的状态码不在 `2xx` 范围内
-    console.log(error.response.data);
-    console.log(error.response.status);
-    console.log(error.response.statusText);
-    console.log(error.response.headers);
+    console.log(error.response.data)
+    console.log(error.response.status)
+    console.log(error.response.statusText)
+    console.log(error.response.headers)
   } else {
     // 在设置触发错误的请求时发生了一些事情
-    console.log('Error', error.message);
+    console.log('Error', error.message)
   }
-  console.log(error.config);
-});
+  console.log(error.config)
+})
 ```
 
 ## 请求配置选项
@@ -325,15 +343,15 @@ axios.get('user/name').catch(function(error) {
 
 ### 实例级配置
 
-实例级配置可用于当前Fly实例发起的所有请求
+实例级配置可用于当前 Fly 实例发起的所有请求
 
 ```js
 // 定义公共headers
-fly.config.headers = {xx: 5, bb: 6, dd: 7}
+fly.config.headers = { xx: 5, bb: 6, dd: 7 }
 // 设置超时
-fly.config.timeout = 10000;
+fly.config.timeout = 10000
 // 设置请求基地址
-fly.config.baseURL = "https://wendux.github.io/"
+fly.config.baseURL = 'https://wendux.github.io/'
 ```
 
 ### 单次请求配置
@@ -341,10 +359,14 @@ fly.config.baseURL = "https://wendux.github.io/"
 需要对单次请求配置时，配置只对当次请求有效。
 
 ```js
-fly.request("/test",{hh:5},{
-  method:"post",
-  timeout:5000 //超时设置为5s
-})
+fly.request(
+  '/test',
+  { hh: 5 },
+  {
+    method: 'post',
+    timeout: 5000, //超时设置为5s
+  }
+)
 ```
 
 **注：若单次配置和实例配置冲突，则会优先使用单次请求配置**
@@ -353,7 +375,7 @@ fly.request("/test",{hh:5},{
 
 - `fly.get(url, data, options)`
 
-发起 get 请求，url请求地址，data为请求数据，在浏览器环境下类型可以是:
+发起 get 请求，url 请求地址，data 为请求数据，在浏览器环境下类型可以是:
 
 ```txt
 String|Json|Object|Array|Blob|ArrayBuffer|FormData
@@ -363,11 +385,11 @@ options 为请求配置项
 
 - `fly.post(url, data, options)`
 
-发起post请求，参数含义同 `fly.get`
+发起 post 请求，参数含义同 `fly.get`
 
 - `fly.request(url, data, options)`
 
-发起请求，参数含义同上，在使用此API时需要指定 options 的 method：
+发起请求，参数含义同上，在使用此 API 时需要指定 options 的 method：
 
 ```js
 //GET请求
@@ -378,7 +400,7 @@ fly.request("/user/8/delete", null, {method:"delete"})
 fly.request("/user/register", {name:"doris"}, {method:"PUT"})
 ```
 
-request 适合在 RESTful API 的场景下使用，为了方便使用，fly提供了响应的别名方法
+request 适合在 RESTful API 的场景下使用，为了方便使用，fly 提供了响应的别名方法
 
 - 别名方法
   - `fly.put(url, data, options)`
@@ -387,39 +409,39 @@ request 适合在 RESTful API 的场景下使用，为了方便使用，fly提�
   - `fly.all([])`
   - `fly.spread([])`
 
-发起多个并发请求，参数是一个 **`promise` 数组**；当所有请求都成功后才会调用then，只要有一个失败，就会调catch
+发起多个并发请求，参数是一个 **`promise` 数组**；当所有请求都成功后才会调用 then，只要有一个失败，就会调 catch
 
 ## 使用 `application/x-www-form-urlencoded` 编码
 
-Fly默认会将 JavaScript objects 序列化为 JSON 发送（RequestBody），如果想以 `application/x-www-form-urlencoded` 编码格式发送，你可以使用如下方式：
+Fly 默认会将 JavaScript objects 序列化为 JSON 发送（RequestBody），如果想以 `application/x-www-form-urlencoded` 编码格式发送，你可以使用如下方式：
 
 ### 浏览器
 
 在浏览器中，可以使用 `URLSearchParams`:
 
 ```js
-var params = new URLSearchParams();
-params.append('param1', 'value1');
-params.append('param2', 'value2');
-fly.post('/foo', params);
+var params = new URLSearchParams()
+params.append('param1', 'value1')
+params.append('param2', 'value2')
+fly.post('/foo', params)
 ```
 
-**注意，现在不是所有浏览器都支持 `URLSearchParams` (参考 [caniuse.com](caniuse.com)), 但是有一个 [polyfill](https://github.com/WebReflection/url-search-params) 可用 (确保polyfill为全局变量).**
+**注意，现在不是所有浏览器都支持 `URLSearchParams` (参考 [caniuse.com](caniuse.com)), 但是有一个 [polyfill](https://github.com/WebReflection/url-search-params) 可用 (确保 polyfill 为全局变量).**
 
 另一种方法，你可以使用 qs 库:
 
 ```js
-var qs = require('qs');
-fly.post('/foo', qs.stringify({ 'bar': 123 }));
+var qs = require('qs')
+fly.post('/foo', qs.stringify({ bar: 123 }))
 ```
 
 ### Node.js
 
-在node中，你可以使用 `querystring` 模块，如:
+在 node 中，你可以使用 `querystring` 模块，如:
 
 ```js
-var querystring = require('querystring');
-fly.post('http://something.com/', querystring.stringify({ foo: 'bar' }));
+var querystring = require('querystring')
+fly.post('http://something.com/', querystring.stringify({ foo: 'bar' }))
 ```
 
 仍然可以使用 qs 库.
@@ -430,24 +452,24 @@ Fly 依赖 ES6 Promise. 如果你的环境不支持 ES6 Promises, 你需要 [pol
 
 ## TypeScript
 
-Fly 提供了 TypeScript 描述文件.你可以在TypeScript中方便使用：
+Fly 提供了 TypeScript 描述文件.你可以在 TypeScript 中方便使用：
 
 ```ts
-import fly from 'flyio';
-fly.get('/user?ID=12345');
+import fly from 'flyio'
+fly.get('/user?ID=12345')
 ```
 
-## 创建Fly实例
+## 创建 Fly 实例
 
-为方便使用，在引入flyio库之后，会创建一个默认实例，一般情况下大多数请求都是通过默认实例发出的，但在一些场景中需要多个实例（可能使用不同的配置请求），这时你可以手动new一个：
+为方便使用，在引入 flyio 库之后，会创建一个默认实例，一般情况下大多数请求都是通过默认实例发出的，但在一些场景中需要多个实例（可能使用不同的配置请求），这时你可以手动 new 一个：
 
 ```js
 // npm、node环境下
-var Fly = require("flyio/dist/npm/fly") // 注意！此时引入的是 "flyio/dist/npm/fly"
-var nFly = new Fly();
+var Fly = require('flyio/dist/npm/fly') // 注意！此时引入的是 "flyio/dist/npm/fly"
+var nFly = new Fly()
 
 // CDN引入时直接new
-var nFly=new Fly();
+var nFly = new Fly()
 ```
 
 ## Http Engine
@@ -461,17 +483,17 @@ axios({
   method: 'post',
   url: 'user/name',
   data: {
-    id: 1111
-  }
-});
+    id: 1111,
+  },
+})
 
 或
 
 axios('user/name', {
   method: 'post',
   data: {
-    id: 1111
-  }
+    id: 1111,
+  },
 })
 ```
 
@@ -502,8 +524,8 @@ axios('user/name', {
 let instance = axios.create({
   baseURL: 'https://www.demo.com/api/',
   temeout: 5000,
-  headers: { 'X-Custom-Header': 'foobar' }
-});
+  headers: { 'X-Custom-Header': 'foobar' },
+})
 ```
 
 ## 实例方法
@@ -674,14 +696,13 @@ let instance = axios.create({
 使用 `then` 时，你将接收下面这样的响应：
 
 ```js
-axios.get('user/name')
-  .then(function(res) {
-    console.log(res.data);
-    console.log(res.status);
-    console.log(res.statusText);
-    console.log(res.headers);
-    console.log(res.config);
-  })
+axios.get('user/name').then(function (res) {
+  console.log(res.data)
+  console.log(res.status)
+  console.log(res.statusText)
+  console.log(res.headers)
+  console.log(res.config)
+})
 ```
 
 在使用 `catch` 时，或传递 `rejection callback` 作为 `then` 的第二个参数时，响应可以通过 `error` 对象可被使用
@@ -691,9 +712,9 @@ axios.get('user/name')
 ### 全局的 `axios` 默认值
 
 ```js
-axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.baseURL = 'https://api.example.com'
 axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 ```
 
 ### 自定义实例默认值
@@ -701,11 +722,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 ```js
 // 创建实例时设置配置的默认值
 var instance = axios.create({
-  baseURL: ''
-});
+  baseURL: '',
+})
 
 // 在实例已经创建后修改默认值
-instance.defaults.headers.common['Auth'] = AUTH_TOKEN;
+instance.defaults.headers.common['Auth'] = AUTH_TOKEN
 ```
 
 ### 配置的优先顺序
@@ -719,66 +740,68 @@ instance.defaults.headers.common['Auth'] = AUTH_TOKEN;
 ```js
 // 使用由库提供的配置的默认值来创建实例
 // 此时超时配置的默认值是 `0`
-var instance = axios.create();
+var instance = axios.create()
 
 // 覆写库的超时默认值
 // 现在，在超时前，所有请求都会等待 2.5 秒
-instance.defaults.timeout = 2500;
+instance.defaults.timeout = 2500
 
 // 为已知需要花费很长时间的请求覆写超时设置
 instance.get('/longRequest', {
-  timeout: 5000
-});
+  timeout: 5000,
+})
 ```
 
 ## 取消
 
 使用 `cancel/token` 取消请求
 
-> Axios 的 cancel token API 基于cancelable promises proposal，它还处于第一阶段。
+> Axios 的 cancel token API 基于 cancelable promises proposal，它还处于第一阶段。
 
 可以使用 `CancelToken.source` 工厂方法创建 `cancel token`，像这样：
 
 ```js
-var CancelToken = axios.CancelToken;
-var source = CancelToken.source();
+var CancelToken = axios.CancelToken
+var source = CancelToken.source()
 
-axios.get('/user/12345', {
-  cancelToken: source.token
-}).catch(function(thrown) {
-  if (axios.isCancel(thrown)) {
-    console.log('Request canceled', thrown.message);
-  } else {
-    // 处理错误
-  }
-});
+axios
+  .get('/user/12345', {
+    cancelToken: source.token,
+  })
+  .catch(function (thrown) {
+    if (axios.isCancel(thrown)) {
+      console.log('Request canceled', thrown.message)
+    } else {
+      // 处理错误
+    }
+  })
 
 // 取消请求（message 参数是可选的）
-source.cancel('Operation canceled by the user.');
+source.cancel('Operation canceled by the user.')
 ```
 
 还可以通过传递一个 `executor` 函数到 `CancelToken` 的构造函数来创建 `cancel token`：
 
 ```js
-var CancelToken = axios.CancelToken;
-var cancel;
+var CancelToken = axios.CancelToken
+var cancel
 
 axios.get('/user/12345', {
   cancelToken: new CancelToken(function executor(c) {
     // executor 函数接收一个 cancel 函数作为参数
-    cancel = c;
-  })
-});
+    cancel = c
+  }),
+})
 
 // 取消请求
-cancel();
+cancel()
 ```
 
 **可以使用同一个 `cancel token` 取消多个请求**
 
 ## 使用 `application/x-www-form-urlencoded` 格式数据
 
-默认情况下，`axios` 将JavaScript对象序列化为JSON。
+默认情况下，`axios` 将 JavaScript 对象序列化为 JSON。
 
 要以 `application / x-www-form-urlencoded` 格式发送数据，您可以使用以下选项之一。
 
@@ -828,25 +851,27 @@ axios.post('http://something.com/', querystring.stringify({ foo: 'bar' }));
 ## Demo
 
 ```js
-import axios from 'axios';
+import axios from 'axios'
 
 const service = axios.create({
   baseURL: '',
-  timeout: 5000
-});
+  timeout: 5000,
+})
 
-service.interceptors.request.use(config => {
-  // Do something before request
-  return config;
-}, error => {
-  // Do something with request error
-  console.log(error);
-});
+service.interceptors.request.use(
+  (config) => {
+    // Do something before request
+    return config
+  },
+  (error) => {
+    // Do something with request error
+    console.log(error)
+  }
+)
 
-service.interceptors.response.use(response => {
-  const res = response.data;
+service.interceptors.response.use((response) => {
+  const res = response.data
   if (res.code === 200) {
-
   }
 })
 ```

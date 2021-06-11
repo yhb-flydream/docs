@@ -4,43 +4,43 @@
 
 [git book](https://git-scm.com/book/zh/v2)
 [Pro Git](https://progit.bootcss.com/)
-[阮一峰 Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
-[廖雪峰 Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-[码云 Git大全](https://gitee.com/all-about-git)
+[阮一峰 Git 远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
+[廖雪峰 Git 教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+[码云 Git 大全](https://gitee.com/all-about-git)
 
 - git 分布式管理
 - svn 集中式管理
 
 ## Git
 
-- Git是分布式版本控制系统
-- 集中式VS分布式，`SVN vs Git`
-  - SVN和Git主要的区别在于历史版本维护的位置
-  - 这两个工具主要的区别在于历史版本维护的位置Git本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史而SVN的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行。
+- Git 是分布式版本控制系统
+- 集中式 VS 分布式，`SVN vs Git`
+  - SVN 和 Git 主要的区别在于历史版本维护的位置
+  - 这两个工具主要的区别在于历史版本维护的位置 Git 本地仓库包含代码库还有历史库，在本地的环境开发就可以记录历史而 SVN 的历史库存在于中央仓库，每次对比与提交代码都必须连接到中央仓库才能进行。
   - 这样的好处在于：
     - 自己可以在脱机环境查看开发的版本历史。
-    - 多人开发时如果充当中央仓库的Git仓库挂了，可以随时创建一个新的中央仓库然后同步就立刻恢复了中央库。
+    - 多人开发时如果充当中央仓库的 Git 仓库挂了，可以随时创建一个新的中央仓库然后同步就立刻恢复了中央库。
 
-### Git安装
+### Git 安装
 
-#### Linux安装Git
+#### Linux 安装 Git
 
-- 输入`git`验证是否安装了Git，如果没有安装会出现提示
+- 输入`git`验证是否安装了 Git，如果没有安装会出现提示
 
 ```bash
 The program 'git' is currently not installed. You can install it by typing:
 sudo apt-get install git
 ```
 
-- 如果是用Debian或Ubuntu Linux 输入`sudo apt-get install git` 安装
-- 老一点的Debian或Ubuntu Linux，要把命令改为`sudo apt-get install git-core`
+- 如果是用 Debian 或 Ubuntu Linux 输入`sudo apt-get install git` 安装
+- 老一点的 Debian 或 Ubuntu Linux，要把命令改为`sudo apt-get install git-core`
 
-#### Mac OS X 上安装Git
+#### Mac OS X 上安装 Git
 
-- 一，可以安装`homebrew`，通过homebrew安装Git，方法参考[http://brew.sh/](http://brew.sh/)
-- 二，可以在App Store安装Xcode，它集成了Git，不过默认没有安装，你需要运行Xcode，选择菜单`Xcode->Preferences`，在弹出窗口中找到`Downloads`，选择`Command Line Tools`，点`Install`就可以完成安装了
+- 一，可以安装`homebrew`，通过 homebrew 安装 Git，方法参考[http://brew.sh/](http://brew.sh/)
+- 二，可以在 App Store 安装 Xcode，它集成了 Git，不过默认没有安装，你需要运行 Xcode，选择菜单`Xcode->Preferences`，在弹出窗口中找到`Downloads`，选择`Command Line Tools`，点`Install`就可以完成安装了
 
-#### Window 上安装Git
+#### Window 上安装 Git
 
 - 去官网[下载](https://git-scm.com/downloads)，或者使用[国内镜像](https://pan.baidu.com/s/1kU5OCOB#list/path=%2Fpub%2Fgit)
 - 安装好以后，右键弹出菜单中有`git bash here`
@@ -51,9 +51,9 @@ git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
 ```
 
-- `git config`命令的`--global`参数，表明这台机器上的所有Git仓库都会使用这个配置，也可以对某个仓库指定不同的用户名和邮箱地址。
+- `git config`命令的`--global`参数，表明这台机器上的所有 Git 仓库都会使用这个配置，也可以对某个仓库指定不同的用户名和邮箱地址。
 
-### Git命令使用
+### Git 命令使用
 
 #### 创建版本库
 
@@ -64,15 +64,15 @@ pwb
 ```
 
 - `pwb`用于显示当前目录
-- **如果使用Windows系统，为了避免遇到各种莫名其妙的问题，请确保目录名（包括父目录）不包含中文**
+- **如果使用 Windows 系统，为了避免遇到各种莫名其妙的问题，请确保目录名（包括父目录）不包含中文**
 
-#### 初始化Git仓库
+#### 初始化 Git 仓库
 
 ```bash
 git init
 ```
 
-- 初始化后会有一个隐藏的`.git`文件，这是Git用来跟踪版本的，一般情况下不要动里面的东西
+- 初始化后会有一个隐藏的`.git`文件，这是 Git 用来跟踪版本的，一般情况下不要动里面的东西
 
 ```txt
 branches/
@@ -101,7 +101,7 @@ git diff <file>
 > `git diff --cached` 可以查看暂存区(stage)和分支(master)的区别
 > `git diff HEAD -- <file>` 可以查看工作区和版本库里面最新版本的区别
 
-#### 添加文件到Git仓库
+#### 添加文件到 Git 仓库
 
 - 包括两步：
 
@@ -140,10 +140,10 @@ git reset --hard HEAD^
 ```
 
 - 以上命令是返回上一个版本，
-- 在Git中，用`HEAD`表示当前版本，
+- 在 Git 中，用`HEAD`表示当前版本，
 - 上一个版本就是`HEAD^`，
 - 上上一个版本是`HEAD^^`，
-- 往上100个版本写成`HEAD~100`。
+- 往上 100 个版本写成`HEAD~100`。
 
 ##### 回退(或者前进)指定版本号
 
@@ -151,7 +151,7 @@ git reset --hard HEAD^
 git reset --hard commit_id
 ```
 
-- `commit_id`是版本号，是一个用SHA1计算出的序列
+- `commit_id`是版本号，是一个用 SHA1 计算出的序列
 - 可以通过`git reflog`查看每次提交的历史，前面的一串数字就是每次提交的版本号
 
 ##### 工作区、暂存区和版本库
@@ -159,9 +159,9 @@ git reset --hard commit_id
 - 工作区
   - 在电脑里能看到的目录；
 - 版本库
-  - 在工作区有一个隐藏目录`.git`，是Git的版本库。
-  - Git的版本库中存了很多东西，其中最重要的就是称为stage（或者称为index）的暂存区，
-  - 还有Git自动创建的`master`，以及指向`master`的指针`HEAD`。
+  - 在工作区有一个隐藏目录`.git`，是 Git 的版本库。
+  - Git 的版本库中存了很多东西，其中最重要的就是称为 stage（或者称为 index）的暂存区，
+  - 还有 Git 自动创建的`master`，以及指向`master`的指针`HEAD`。
 
 ![理解](https://cdn.liaoxuefeng.com/cdn/files/attachments/001384907720458e56751df1c474485b697575073c40ae9000/0)
 
@@ -178,10 +178,11 @@ git checkout -- <file>
 ```
 
 - 该命令是指将文件在工作区的修改全部撤销，这里有两种情况：
-  - 一种是file自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
-  - 一种是file已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
 
-- 总之，就是让这个文件回到最近一次git commit或git add时的状态。
+  - 一种是 file 自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+  - 一种是 file 已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+- 总之，就是让这个文件回到最近一次 git commit 或 git add 时的状态。
 
 - 丢弃暂存区的修改
 - 分两步：
@@ -228,7 +229,7 @@ git add <file>
 
 Q：比如执行了`rm text.txt` 误删了怎么恢复？
 A：执行`git checkout -- text.txt` 把版本库的东西重新写回工作区就行了
-Q：如果执行了`git rm text.txt`我们会发现工作区的text.txt也删除了，怎么恢复？
+Q：如果执行了`git rm text.txt`我们会发现工作区的 text.txt 也删除了，怎么恢复？
 A：先撤销暂存区修改，重新放回工作区，然后再从版本库写回到工作区
 
 ```bash
@@ -241,7 +242,7 @@ A：执行`git commit -m "delete text.txt"`，提交后最新的版本库将不�
 
 #### 远程仓库
 
-##### 创建SSH Key
+##### 创建 SSH Key
 
 - 本地设置创建`SSH Key`
 
@@ -249,7 +250,7 @@ A：执行`git commit -m "delete text.txt"`，提交后最新的版本库将不�
 ssh-keygen -t rsa -C "youremail@example.com"
 ```
 
-- [登陆GitHub，点击头像，打开“settings”，在“SSH and GPG Keys”页面，设置"SSH Key"](https://github.com/settings/keys)
+- [登陆 GitHub，点击头像，打开“settings”，在“SSH and GPG Keys”页面，设置"SSH Key"](https://github.com/settings/keys)
 
 ##### 关联远程仓库
 
@@ -263,7 +264,7 @@ git remote add origin https://github.com/username/repositoryname.git
 git push -u origin master
 ```
 
-`-u` 表示第一次推送master分支的所有内容，并把本地和远程`master`分支关联起来，此后，每次本地提交后，只要有必要，就可以使用命令`git push origin master`推送最新修改。
+`-u` 表示第一次推送 master 分支的所有内容，并把本地和远程`master`分支关联起来，此后，每次本地提交后，只要有必要，就可以使用命令`git push origin master`推送最新修改。
 
 ##### 从远程克隆
 
@@ -285,7 +286,7 @@ git branch <branchname>
 git branch
 ```
 
-`git branch`命令会列出所有分支，当前分支前面会标一个*号。
+`git branch`命令会列出所有分支，当前分支前面会标一个\*号。
 
 ##### 切换分支
 
@@ -325,7 +326,7 @@ git branch -D <分支名>
 git log --graph
 ```
 
-当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。用`git log --graph`命令可以看到分支合并图。
+当 Git 无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。用`git log --graph`命令可以看到分支合并图。
 
 ##### 普通模式合并分支
 
@@ -333,7 +334,7 @@ git log --graph
 git merge --no-ff -m "description" <branchname>
 ```
 
-因为本次合并要创建一个新的commit，所以加上`-m`参数，把commit描述写进去。合并分支时，加上`--no-ff`参数就可以用普通模式合并，能看出来曾经做过合并，包含作者和时间戳等信息，而fast forward合并就看不出来曾经做过合并。
+因为本次合并要创建一个新的 commit，所以加上`-m`参数，把 commit 描述写进去。合并分支时，加上`--no-ff`参数就可以用普通模式合并，能看出来曾经做过合并，包含作者和时间戳等信息，而 fast forward 合并就看不出来曾经做过合并。
 
 ##### 丢弃一个没有合并过的分支(强制删除)
 
@@ -389,7 +390,7 @@ git branch --set-upstream branch-name origin/branch-name；
 git push origin branch-name
 ```
 
-如果推送失败，先用git pull抓取远程的新提交；
+如果推送失败，先用 git pull 抓取远程的新提交；
 
 #### 从远程抓取分支
 
@@ -401,7 +402,7 @@ git pull
 
 #### 标签
 
-> tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+> tag 就是一个让人容易记住的有意义的名字，它跟某个 commit 绑在一起。
 > 注意，标签不是按时间顺序列出，而是按字母排序的
 
 ##### 新建一个标签
@@ -410,7 +411,7 @@ git pull
 git tag <tagname>或commit_id(版本号，可省略)
 ```
 
-命令`git tag <tagname>`用于新建一个标签，默认为HEAD，也可以指定一个commit id。
+命令`git tag <tagname>`用于新建一个标签，默认为 HEAD，也可以指定一个 commit id。
 
 ##### 指定标签信息
 
@@ -420,13 +421,13 @@ git tag -a <tagname> -m <description> <branchname> or commit_id
 
 `git tag -a <tagname> -m "blablabla..."`可以指定标签信息。
 
-##### PGP签名标签
+##### PGP 签名标签
 
 ```bash
 git tag -s <tagname> -m <description> <branchname> or commit_id
 ```
 
-`git tag -s <tagname> -m "blablabla..."`可以用PGP签名标签。
+`git tag -s <tagname> -m "blablabla..."`可以用 PGP 签名标签。
 
 ##### 查看所有标签
 

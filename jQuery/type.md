@@ -5,7 +5,7 @@
 所有 `<input>` 元素
 
 ```js
-$(":input")
+$(':input')
 ```
 
 ## :text
@@ -13,7 +13,7 @@ $(":input")
 所有 `type="text"` 的 `<input>` 元素
 
 ```js
-$(":text")
+$(':text')
 ```
 
 ## :password
@@ -21,7 +21,7 @@ $(":text")
 所有 `type="password"` 的 `<input>` 元素
 
 ```js
-$(":password")
+$(':password')
 ```
 
 ## :radio
@@ -29,7 +29,7 @@ $(":password")
 所有 `type="radio"` 的 `<input>` 元素
 
 ```js
-$(":radio")
+$(':radio')
 ```
 
 ## :checkbox
@@ -37,7 +37,7 @@ $(":radio")
 所有 `type="checkbox"` 的 `<input>` 元素
 
 ```js
-$(":checkbox")
+$(':checkbox')
 ```
 
 ## :submit
@@ -45,7 +45,7 @@ $(":checkbox")
 所有 `type="submit"` 的 `<input>` 元素
 
 ```js
-$(":submit")
+$(':submit')
 ```
 
 ## :reset
@@ -53,7 +53,7 @@ $(":submit")
 所有 `type="reset"` 的 `<input>` 元素
 
 ```js
-$(":reset")
+$(':reset')
 ```
 
 ## :button
@@ -61,7 +61,7 @@ $(":reset")
 所有 `type="button"` 的 `<input>` 元素
 
 ```js
-$(":button")
+$(':button')
 ```
 
 ## :image
@@ -69,7 +69,7 @@ $(":button")
 所有 `type="image"` 的 `<input>` 元素
 
 ```js
-$(":image")
+$(':image')
 ```
 
 ## :file
@@ -77,7 +77,7 @@ $(":image")
 所有 `type="file"` 的 `<input>` 元素
 
 ```js
-$(":file")
+$(':file')
 ```
 
 ## :enabled
@@ -85,7 +85,7 @@ $(":file")
 所有激活的 `input` 元素
 
 ```js
-$(":enabled")
+$(':enabled')
 ```
 
 ## :disabled
@@ -93,7 +93,7 @@ $(":enabled")
 所有禁用的 `input` 元素
 
 ```js
-$(":disabled")
+$(':disabled')
 ```
 
 ## :selected
@@ -101,7 +101,7 @@ $(":disabled")
 所有被选取的 `input` 元素
 
 ```js
-$(":selected")
+$(':selected')
 ```
 
 ## :checked
@@ -109,5 +109,5 @@ $(":selected")
 所有被选中的 `input` 元素
 
 ```js
-$(":checked")
+$(':checked')
 ```

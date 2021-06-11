@@ -1,32 +1,34 @@
 # shell
 
-> 在计算机科学中，Shell俗称壳，用来区别于Kernel（核），是指“提供使用者使用界面”的软件（命令解析器）。
+> 在计算机科学中，Shell 俗称壳，用来区别于 Kernel（核），是指“提供使用者使用界面”的软件（命令解析器）。
 >
-> 它类似于DOS下的command和后来的cmd.exe。它接收用户命令，然后调用相应的应用程序。
+> 它类似于 DOS 下的 command 和后来的 cmd.exe。它接收用户命令，然后调用相应的应用程序。
 
-- shell分类：
-  - 1、图形界面shell：
+- shell 分类：
+
+  - 1、图形界面 shell：
+
     - 通过提供友好的可视化界面，调用相应应用程序，
-      - 如windows系列操作系统，Linux系统上的图形化应用程序Unity、KDE等。
+      - 如 windows 系列操作系统，Linux 系统上的图形化应用程序 Unity、KDE 等。
 
-  - 2、命令行shell：
+  - 2、命令行 shell：
     - 通过键盘输入特定命令的方式，调用相应的应用程序，
-    - 如windows系统的cmd.exe、Windows PowerShell，
-    - Linux系统的Bourne shell ( sh)、Bourne Again shell ( bash)、zsh等
+    - 如 windows 系统的 cmd.exe、Windows PowerShell，
+    - Linux 系统的 Bourne shell ( sh)、Bourne Again shell ( bash)、zsh 等
 
 ## bash
 
-- 一个shell
-- 在window系统下使用bash，需要一个软件，这个软件模拟集成了bash大部分命令。
-- 各个 shell 的功能都差不多， Linux 默认使用 bash ，所以我们主要学习bash的使用
+- 一个 shell
+- 在 window 系统下使用 bash，需要一个软件，这个软件模拟集成了 bash 大部分命令。
+- 各个 shell 的功能都差不多， Linux 默认使用 bash ，所以我们主要学习 bash 的使用
 
-### bash命令格式
+### bash 命令格式
 
 - 命令 [-options] [参数]，
-  - 如：mkdir blog   如果有`<>`表示必须要有这个参数,`[]`可选参数
-- 查看帮助：--help是命令的一个参数,命令后面加上 --help 或者 -h , -h是--help的缩写形式 可以打开命令的一个说明，说明中有这个命令的参数的具体的解释
+  - 如：mkdir blog 如果有`<>`表示必须要有这个参数,`[]`可选参数
+- 查看帮助：--help 是命令的一个参数,命令后面加上 --help 或者 -h , -h 是--help 的缩写形式 可以打开命令的一个说明，说明中有这个命令的参数的具体的解释
 
-### bash常见命令
+### bash 常见命令
 
 - mkdir 文件夹名
   - 创建一个文件或文件夹
@@ -37,13 +39,13 @@
 - cd `..`
   - 返回上级目录
 - cd `d:`
-  - 切换到d盘
+  - 切换到 d 盘
 - ls
   - 查看当前目录下所有文件(Linux)
 - dir
   - 查看当前目录下所有文件(cmd)
 - touch index.html
-  - 创建一个index.html文件
+  - 创建一个 index.html 文件
 - cat index.html
   - 查看文件里的内容
 - rm index.html
@@ -65,12 +67,13 @@
 - curl 网络地址
   - 发送网络请求
 
-### vi编辑器
+### vi 编辑器
 
-> 如同Windows下的记事本，vi编辑器是Linux下的标配，通过它我们可以创建、编辑文件。
+> 如同 Windows 下的记事本，vi 编辑器是 Linux 下的标配，通过它我们可以创建、编辑文件。
 > 它是一个随系统一起安装的文本编辑软件
 
 - 三种模式
+
   - 命令模式、
   - 插入模式、
   - 底行模式
@@ -122,4 +125,4 @@
 - O
   - 进入编辑模式，当前行上面插入新行
 
-> 当我们处在编辑模式下，编辑内容时，和我们在Windows编辑器的使用相似。
+> 当我们处在编辑模式下，编辑内容时，和我们在 Windows 编辑器的使用相似。

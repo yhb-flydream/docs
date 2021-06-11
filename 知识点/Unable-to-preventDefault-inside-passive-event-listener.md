@@ -8,7 +8,8 @@
 `chrome` 的控制台看到如下提示：
 
 ```html
-Unable to preventDefault inside passive event listener due to target being treated as passive. See https://www.chromestatus.com/features/5093566007214080
+Unable to preventDefault inside passive event listener due to target being treated as passive. See
+https://www.chromestatus.com/features/5093566007214080
 ```
 
 由于浏览器必须要在执行事件处理函数之后，才能知道有没有掉用过 `preventDefault()` ，这就导致了浏览器不能及时响应滚动，略有延迟。

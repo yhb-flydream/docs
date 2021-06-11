@@ -2,7 +2,7 @@
 
 [TOC]
 
-> npm（node package manager）nodejs的包管理器，用于node插件管理（包括安装、卸载、管理依赖等）
+> npm（node package manager）nodejs 的包管理器，用于 node 插件管理（包括安装、卸载、管理依赖等）
 
 ## 安装`npm`
 
@@ -12,9 +12,9 @@
 ## 检查 `node` 及 `npm` 安装成功
 
 - `node -v`
-  - 查看node 的版本
+  - 查看 node 的版本
 - `npm -v`
-  - 查看npm 的版本
+  - 查看 npm 的版本
 - 使用 `node -v` 或 `npm -v` 可以在命令行看到版本号就证明已经安装了 `node` 或 `npm`
 
 ## 用`npm`安装插件
@@ -82,6 +82,6 @@
 
 - 使用 `--save-dev` 安装的插件，被写入到 `package.json` 中的 `devDependencies` 域里面去 **里面的插件只用于开发环境，不用于生产环境**
 - 使用 `--save` 安装的插件，被写入到 `package.json` 中的 `dependencies` 域里面去 **需要发布到生产环境**
-> 比如我们写一个项目要依赖于jQuery，没有这个包的依赖运行就会报错，这时候就把这个依赖写入 `dependencies` ；
->
-> 而我们使用的一些构建工具比如glup、webpack这些只是在开发中使用的包，上线以后就和他们没关系了，所以将它写入 `devDependencies`
+  > 比如我们写一个项目要依赖于 jQuery，没有这个包的依赖运行就会报错，这时候就把这个依赖写入 `dependencies` ；
+  >
+  > 而我们使用的一些构建工具比如 glup、webpack 这些只是在开发中使用的包，上线以后就和他们没关系了，所以将它写入 `devDependencies`

@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Vue 没有完全遵循 [MVVM模型](https://zh.wikipedia.org/wiki/MVVM)
+## Vue 没有完全遵循 [MVVM 模型](https://zh.wikipedia.org/wiki/MVVM)
 
 ## 如果知道晚些时候会需要一个属性，但一开始它不存在，那么最好先声明一下这个属性，并设置一些初始值
 
@@ -11,14 +11,14 @@
 ## Vue 实例包含了一些属性和方法，它们都有 `$` 前缀，以便与用户自定义属性区分
 
 ```js
-var data = { a: 1 };
+var data = { a: 1 }
 var vm = new Vue({
   el: '#example',
-  data: data
+  data: data,
 })
 
 vm.$data === data // true
-vm.el === document.getElementById('example'); // true
+vm.el === document.getElementById('example') // true
 
 vm.watch('a', function (nerwValue, oldValue) {
   // 这个回调将在 `vm.a` 改变后调用
@@ -37,11 +37,11 @@ vm.watch('a', function (nerwValue, oldValue) {
 ```js
 new Vue({
   data: {
-    a: 1
+    a: 1,
   },
-  created: function() {
-    console.log('a is' + this.a);
-  }
+  created: function () {
+    console.log('a is' + this.a)
+  },
 })
 
 // "a is 1"
@@ -100,21 +100,21 @@ this 不会是如你所预期的 Vue 实例，经常导致
 var vm = new Vue({
   el: '#example',
   data: {
-    message: 'Hello'
+    message: 'Hello',
   },
   // 在组件中
   methods: {
     reversedMessage: function () {
       return this.message.split('').reverse().join('')
-    }
+    },
   },
   computed: {
     // 计算属性的 getter
     reversedMessage: function () {
       // `this` 指向 vm 实例
       return this.message.split('').reverse().join('')
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -129,14 +129,14 @@ var vm = new Vue({
 使用 `watch`
 
 ```js
-<div id="demo">{{ fullName }}</div>
+;<div id="demo">{{ fullName }}</div>
 
 var vm = new Vue({
   el: '#demo',
   data: {
     firstName: 'Foo',
     lastName: 'Bar',
-    fullName: 'Foo Bar'
+    fullName: 'Foo Bar',
   },
   watch: {
     firstName: function (val) {
@@ -144,8 +144,8 @@ var vm = new Vue({
     },
     lastName: function (val) {
       this.fullName = this.firstName + ' ' + val
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -156,13 +156,13 @@ var vm = new Vue({
   el: '#demo',
   data: {
     firstName: 'Foo',
-    lastName: 'Bar'
+    lastName: 'Bar',
   },
   computed: {
-    fullName: function() {
+    fullName: function () {
       return this.firstName + '' + this.lastName
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -210,11 +210,11 @@ computed: {
 ```html
 <template v-if="loginType === 'username'">
   <label>Username</label>
-  <input placeholder="Enter your username">
+  <input placeholder="Enter your username" />
 </template>
 <template v-else>
   <label>Email</label>
-  <input placeholder="Enter your email address">
+  <input placeholder="Enter your email address" />
 </template>
 ```
 
@@ -225,11 +225,11 @@ computed: {
 ```html
 <template v-if="loginType === 'username'">
   <label>Username</label>
-  <input placeholder="Enter your username" key="username-input">
+  <input placeholder="Enter your username" key="username-input" />
 </template>
 <template v-else>
   <label>Email</label>
-  <input placeholder="Enter your email address" key="email-input">
+  <input placeholder="Enter your email address" key="email-input" />
 </template>
 ```
 
@@ -254,16 +254,12 @@ computed: {
 ```html
 <!-- in -->
 <ul id="example-2">
-  <li v-for="(item, index) in items">
-    {{ parentMessage }} - {{ index }} - {{ item.message }}
-  </li>
+  <li v-for="(item, index) in items">{{ parentMessage }} - {{ index }} - {{ item.message }}</li>
 </ul>
 
 <!-- of -->
 <ul id="example-2">
-  <li v-for="(item, index) of items">
-    {{ parentMessage }} - {{ index }} - {{ item.message }}
-  </li>
+  <li v-for="(item, index) of items">{{ parentMessage }} - {{ index }} - {{ item.message }}</li>
 </ul>
 ```
 
@@ -271,17 +267,13 @@ computed: {
 
 ```html
 <ul id="example-1">
-  <li v-for="item in items">
-    {{ item.message }}
-  </li>
+  <li v-for="item in items">{{ item.message }}</li>
 </ul>
 
 或
 
 <ul id="example-2">
-  <li v-for="(item, index) in items">
-    {{ parentMessage }} - {{ index }} - {{ item.message }}
-  </li>
+  <li v-for="(item, index) in items">{{ parentMessage }} - {{ index }} - {{ item.message }}</li>
 </ul>
 ```
 
@@ -292,25 +284,19 @@ computed: {
 
 ```html
 <ul id="v-for-object" class="demo">
-  <li v-for="value in object">
-    {{ value }}
-  </li>
+  <li v-for="value in object">{{ value }}</li>
 </ul>
 
 或
 
 <ul id="v-for-object" class="demo">
-  <li v-for="(value, key) in object">
-    {{ key }} --- {{ value }}
-  </li>
+  <li v-for="(value, key) in object">{{ key }} --- {{ value }}</li>
 </ul>
 
 或
 
 <ul id="v-for-object" class="demo">
-  <li v-for="(value, key, index) in object">
-    {{ index }}  {{ key }}  {{ value }}
-  </li>
+  <li v-for="(value, key, index) in object">{{ index }} {{ key }} {{ value }}</li>
 </ul>
 ```
 
@@ -367,8 +353,8 @@ example1.items = example1.items.filter(function (item) {
 ```js
 var vm = new Vue({
   data: {
-    items: ['a', 'b', 'c']
-  }
+    items: ['a', 'b', 'c'],
+  },
 })
 vm.items[1] = 'x' // 不是响应性的
 vm.items.length = 2 // 不是响应性的
@@ -405,8 +391,8 @@ vm.items.splice(newLength)
 ```js
 var vm = new Vue({
   data: {
-    a: 1
-  }
+    a: 1,
+  },
 })
 // `vm.a` 现在是响应式的
 
@@ -420,9 +406,9 @@ vm.b = 2
 var vm = new Vue({
   data: {
     userProfile: {
-      name: 'Anika'
-    }
-  }
+      name: 'Anika',
+    },
+  },
 })
 ```
 
@@ -443,7 +429,7 @@ vm.$set(vm.userProfile, 'age', 27)
 ```js
 Object.assign(vm.userProfile, {
   age: 27,
-  favoriteColor: 'Vue Green'
+  favoriteColor: 'Vue Green',
 })
 ```
 
@@ -452,7 +438,7 @@ Object.assign(vm.userProfile, {
 ```js
 vm.userProfile = Object.assign({}, vm.userProfile, {
   age: 27,
-  favoriteColor: 'Vue Green'
+  favoriteColor: 'Vue Green',
 })
 ```
 
@@ -463,33 +449,15 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 ```html
 <li v-for="n in evenNumbers">{{ n }}</li>
 
-data: {
-  numbers: [1, 2, 3, 4]
-},
-computed: {
-  evenNumbers: function() {
-    return this.numbers.filter(function(number) {
-      return number % 2 === 0
-    })
-  }
-}
+data: { numbers: [1, 2, 3, 4] }, computed: { evenNumbers: function() { return this.numbers.filter(function(number) { return number % 2 === 0 }) } }
 ```
 
-在计算属性不适用的情况下 (*例如，在嵌套 `v-for` 循环中*) 你可以使用一个 `method` 方法：
+在计算属性不适用的情况下 (_例如，在嵌套 `v-for` 循环中_) 你可以使用一个 `method` 方法：
 
 ```html
 <li v-for="n in even(numbers)">{{ n }}</li>
 
-data: {
-  numbers: [1, 2, 3, 4]
-},
-methods: {
-  even: function(numbers) {
-    return numbers.filter(function(number) {
-      return number % 2 === 0
-    })
-  }
-}
+data: { numbers: [1, 2, 3, 4] }, methods: { even: function(numbers) { return numbers.filter(function(number) { return number % 2 === 0 }) } }
 ```
 
 ## `v-for` 对于整数的循环
@@ -499,8 +467,7 @@ methods: {
   <span v-for="n in 10">{{ n }} </span>
 </div>
 
-结果：
-1 2 3 4 5 6 7 8 9 10
+结果： 1 2 3 4 5 6 7 8 9 10
 ```
 
 ## `v-for` with `v-if`
@@ -508,9 +475,7 @@ methods: {
 **当它们处于同一节点，v-for 的优先级比 v-if 更高**，这意味着 `v-if` 将分别重复运行于每个 `v-for` 循环中。当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用，如下：
 
 ```html
-<li v-for="todo in todos" v-if="!todo.isComplete">
-  {{ todo }}
-</li>
+<li v-for="todo in todos" v-if="!todo.isComplete">{{ todo }}</li>
 ```
 
 上面的代码只传递了未完成的 `todos`。
@@ -519,9 +484,7 @@ methods: {
 
 ```html
 <ul v-if="todos.length">
-  <li v-for="todo in todos">
-    {{ todo }}
-  </li>
+  <li v-for="todo in todos">{{ todo }}</li>
 </ul>
 <p v-else>No todos left!</p>
 ```
@@ -540,12 +503,7 @@ https://cn.vuejs.org/v2/guide/list.html#%E6%95%B0%E7%BB%84%E6%9B%B4%E6%96%B0%E6%
   <p>The button above has been clicked {{ counter }} times.</p>
 </div>
 
-var example1 = new Vue({
-  el: '#example-1',
-  data: {
-    counter: 0
-  }
-})
+var example1 = new Vue({ el: '#example-1', data: { counter: 0 } })
 ```
 
 ### 然而许多事件处理逻辑会更为复杂，所以直接把 JavaScript 代码写在 `v-on` 指令中是不可行的。因此 `v-on` 还可以`接收一个需要调用的方法名称`
@@ -556,25 +514,9 @@ var example1 = new Vue({
   <button v-on:click="greet">Greet</button>
 </div>
 
-var example2 = new Vue({
-  el: '#example-2',
-  data: {
-    name: 'Vue.js'
-  },
-  在 methods 对象中定义方法
-  methods: {
-    greet: function (event) {
-      alert('Hello' + this.name + '!')
-      // event 是原生 DOM 事件
-      if (event) {
-        alert(event.target.tagName)
-      }
-    }
-  }
-})
-
-// 也可以用 JavaScript 直接调用方法
-example2.greet() // 'Hello Vue.js'
+var example2 = new Vue({ el: '#example-2', data: { name: 'Vue.js' }, 在 methods 对象中定义方法 methods: { greet: function (event) { alert('Hello' +
+this.name + '!') // event 是原生 DOM 事件 if (event) { alert(event.target.tagName) } } } }) // 也可以用 JavaScript 直接调用方法 example2.greet() //
+'Hello Vue.js'
 ```
 
 ### 除了直接绑定到一个方法，也可以`在内联 JavaScript 语句中调用方法`
@@ -585,14 +527,7 @@ example2.greet() // 'Hello Vue.js'
   <button v-on:click="say('what')">Say what</button>
 </div>
 
-new Vue({
-  el: '#example-3',
-  methods: {
-    say: function(message) {
-      alert(message);
-    }
-  }
-})
+new Vue({ el: '#example-3', methods: { say: function(message) { alert(message); } } })
 ```
 
 ### 有时也需要在内联语句处理器中访问原始的 DOM 事件。`可以用特殊变量 $event 把它传入方法`
@@ -600,13 +535,7 @@ new Vue({
 ```html
 <button v-on:click="warn('Form cannot be submitted yet.', $event)"></button>
 
-//...
-methods: {
-  warn: function(message, event) {
-    if (event) event.preventDefault()
-    alert(message)
-  }
-}
+//... methods: { warn: function(message, event) { if (event) event.preventDefault() alert(message) } }
 ```
 
 ### 事件修饰符
@@ -635,7 +564,7 @@ methods: {
 #### `.self` 只当在 `event.target` 是当前元素自身时触发处理函数，即事件不是冲内部触发的
 
 ```html
-<div v-on:click.self="doThat">
+<div v-on:click.self="doThat"></div>
 ```
 
 #### `.once` 点击事件只会触发一次
@@ -670,17 +599,17 @@ methods: {
 
 ```html
 <!-- 只有在 `keyCode` 是 13 时调用 `vm.submit()` -->
-<input v-on:keyup.13="submit">
+<input v-on:keyup.13="submit" />
 ```
 
 记住所有的 `keyCode` 比较困难，所以 `Vue` 为最常用的按键提供了别名：
 
 ```html
 <!-- 同上 -->
-<input v-on:keyup.enter="submit">
+<input v-on:keyup.enter="submit" />
 
 <!-- 缩写语法 -->
-<input @keyup.enter="submit">
+<input @keyup.enter="submit" />
 ```
 
 #### `.enter`
@@ -708,15 +637,15 @@ methods: {
 Vue.config.keyCode.f1 = 112
 ```
 
-#### 也可以直接将 `KeyboardEvent.key` 暴露的任意有效按键名转换为kebab-case 来作为修饰符
+#### 也可以直接将 `KeyboardEvent.key` 暴露的任意有效按键名转换为 kebab-case 来作为修饰符
 
 ```html
-<input @keyup.page-down="onPageDown">
+<input @keyup.page-down="onPageDown" />
 ```
 
 此事件触发后近 `@event.key === 'PageDown'` 时被调用
 
-#### 有一些按键（`.esc` 以及所有的方向键）在IE9中有不同的 key，如果要支持IE9，它们的内置别名应该是首选
+#### 有一些按键（`.esc` 以及所有的方向键）在 IE9 中有不同的 key，如果要支持 IE9，它们的内置别名应该是首选
 
 ### [系统修饰键](https://cn.vuejs.org/v2/guide/events.html#%E7%B3%BB%E7%BB%9F%E4%BF%AE%E9%A5%B0%E9%94%AE)
 
@@ -728,21 +657,12 @@ Vue.config.keyCode.f1 = 112
 
 ```html
 <div id="components-demo">
-    <button-counter></button-counter>
+  <button-counter></button-counter>
 </div>
 
-Vue.component('button-counter', {
-  data: function () {
-    return {
-      count: 0
-    }
-  },
-  template: '<button @click="count++">You click me {{ count }} times</button>'
-});
-
-new Vue({
-  el: '#components-demo'
-})
+Vue.component('button-counter', { data: function () { return { count: 0 } }, template: '<button @click="count++">
+  You click me {{ count }} times</button
+>' }); new Vue({ el: '#components-demo' })
 ```
 
 ### 因为组件是可复用的 Vue 实例，所以它们与 `new Vue` 接收相同的选项，例如 `data`、`computed`、`watch`、`methods` 以及生命周期钩子等。仅有的例外是像 `el` 这样根实例特有的选项
@@ -772,7 +692,7 @@ data: function () {
 ```js
 Vue.component('component-demo', {
   props: ['title'],
-  template: '<h3>{{ title }}</h3>'
+  template: '<h3>{{ title }}</h3>',
 })
 ```
 
@@ -783,12 +703,7 @@ Vue.component('component-demo', {
 <component-demo title="demo title 2"></component-demo>
 <component-demo title="demo title 3"></component-demo>
 
-结果
-demo title 1
-
-demo title 2
-
-demo title 3
+结果 demo title 1 demo title 2 demo title 3
 ```
 
 ### 可能在 `data` 里有一个博文的数组
@@ -800,20 +715,16 @@ new Vue({
     posts: [
       { id: 1, title: 'blog post title 01' },
       { id: 2, title: 'blog post title 02' },
-      { id: 3, title: 'blog post title 03' }
-    ]
-  }
+      { id: 3, title: 'blog post title 03' },
+    ],
+  },
 })
 ```
 
 为每篇博文渲染一个组件
 
 ```html
-<blog-post-demo
-  v-for="post in posts"
-  v-bind:key="post.id"
-  v-bind:title="post.title">
-</blog-post-demo>
+<blog-post-demo v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"> </blog-post-demo>
 ```
 
 ### 可以使用 `v-bind` 来动态传递 `prop`。这在你一开始不清楚要渲染的具体内容，比如从一个 API 获取博文列表的时候，是非常有用的
@@ -830,11 +741,7 @@ new Vue({
 ### 当组件需要的内容比较多时，为每个相关的信息定义一个 prop 会变得很麻烦，我们可以修改让其接受一个单独 `post` prop
 
 ```js
-<blog-post
-  v-for="post in posts"
-  v-bind:key="post.id"
-  v-bind:post="post"
-></blog-post>
+;<blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post>
 
 Vue.component('blog-post', {
   props: ['post'],
@@ -843,7 +750,7 @@ Vue.component('blog-post', {
       <h3>{{ post.title }}</h3>
       <div v-html="post.content"></div>
     </div>
-  `
+  `,
 })
 ```
 
@@ -896,25 +803,19 @@ methods: {
 当普通使用 `v-model` 时
 
 ```html
-<input v-model="searchInput">
+<input v-model="searchInput" />
 ```
 
 等价于
 
 ```html
-<input
-  v-bind:value="searchInput"
-  v-on:input="searchInput = $event.target.value"
->
+<input v-bind:value="searchInput" v-on:input="searchInput = $event.target.value" />
 ```
 
 当在组件上使用 `v-model` 时
 
 ```html
-<custom-input
-  v-bind:value="searchInput"
-  v-on:input="searchInput = $event"
-></custom-input>
+<custom-input v-bind:value="searchInput" v-on:input="searchInput = $event"></custom-input>
 ```
 
 为了让它正常工作，这个组件内的 `<input>` 必须
@@ -938,21 +839,19 @@ Vue.component('custom-input', {
 如果直接这样向组件传递内容，是不可行的
 
 ```html
-<alert-box>
-  Something bad happend
-</alert-box>
+<alert-box> Something bad happend </alert-box>
 ```
 
 如果要向组件传递内容需要在自定义组件添加 `<solt>` 元素
 
 ```js
 Vue.component('alert-box', {
-  template:`
+  template: `
     <div class="demo-alert-box">
       ...
       <solt></solt>
     </div>
-  `
+  `,
 })
 ```
 
@@ -961,4 +860,3 @@ Vue.component('alert-box', {
 [示例](https://jsfiddle.net/chrisvfritz/o3nycadu/)
 
 ### [解析 DOM 模板时的注意事项](https://cn.vuejs.org/v2/guide/components.html#%E8%A7%A3%E6%9E%90-DOM-%E6%A8%A1%E6%9D%BF%E6%97%B6%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
-

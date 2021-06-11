@@ -26,42 +26,42 @@
 
 ```css
 input {
-    display: block;
-    height: auto; /* 根据需求设置 */
-    /*width: ;*/ /* 根据需求设置 */
-    line-height: 1.42857143; /* 根据 bootstrap 输入框设定 */
-    font-weight: 400;
-    font-size: 14px; /* 根据需求设置 */
-    padding: 1px; /* 去除不同的内边距，可根据需求设置 */
-    background-color: transparent; /* 统一背景色为其父元素也颜色，防止出现色差 */
-    border: 1px solid #000; /* 统一边框样式，可根据需求设置 */
-    -webkit-border-radius: 4px; /* 去除圆角不一致，可根据需求设置是否需要圆角 */
-    -moz-border-radius: 4px; /* 去除圆角不一致，可根据需求设置是否需要圆角 */
-    border-radius: 4px; /* 去除圆角不一致，可根据需求设置是否需要圆角 */
-    outline: none; /* 去除当为激活状态时的边框 */
-    -webkit-appearance: none; /* 去除iOS 内阴影，添加以后 Android端会出现3D内阴影，但去除了输入框为焦点状态是的背景音影 */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 去除iOS端 点击时弹出的一下遮罩阴影*/
+  display: block;
+  height: auto; /* 根据需求设置 */
+  /*width: ;*/ /* 根据需求设置 */
+  line-height: 1.42857143; /* 根据 bootstrap 输入框设定 */
+  font-weight: 400;
+  font-size: 14px; /* 根据需求设置 */
+  padding: 1px; /* 去除不同的内边距，可根据需求设置 */
+  background-color: transparent; /* 统一背景色为其父元素也颜色，防止出现色差 */
+  border: 1px solid #000; /* 统一边框样式，可根据需求设置 */
+  -webkit-border-radius: 4px; /* 去除圆角不一致，可根据需求设置是否需要圆角 */
+  -moz-border-radius: 4px; /* 去除圆角不一致，可根据需求设置是否需要圆角 */
+  border-radius: 4px; /* 去除圆角不一致，可根据需求设置是否需要圆角 */
+  outline: none; /* 去除当为激活状态时的边框 */
+  -webkit-appearance: none; /* 去除iOS 内阴影，添加以后 Android端会出现3D内阴影，但去除了输入框为焦点状态是的背景音影 */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 去除iOS端 点击时弹出的一下遮罩阴影*/
 }
 
 input::-webkit-input-placeholder {
-    color: #333;
-    font-size: 14px;
-    /*line-height: 20px;*/
+  color: #333;
+  font-size: 14px;
+  /*line-height: 20px;*/
 }
 input:-moz-placeholder {
-    color: #333;
-    font-size: 14px;
-    /*line-height: 20px;*/
+  color: #333;
+  font-size: 14px;
+  /*line-height: 20px;*/
 }
 input::-moz-placeholder {
-    color: #333;
-    font-size: 14px;
-    /*line-height: 20px;*/
+  color: #333;
+  font-size: 14px;
+  /*line-height: 20px;*/
 }
 input:-ms-input-placeholder {
-    color: #333;
-    font-size: 14px;
-    /*line-height: 20px;*/
+  color: #333;
+  font-size: 14px;
+  /*line-height: 20px;*/
 }
 ```
 

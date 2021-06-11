@@ -3,7 +3,7 @@
 [TOC]
 
 参考
-[《JavaScript 标准参考教程（alpha）》，by 阮一峰 package.json文件](http://javascript.ruanyifeng.com/nodejs/packagejson.html)
+[《JavaScript 标准参考教程（alpha）》，by 阮一峰 package.json 文件](http://javascript.ruanyifeng.com/nodejs/packagejson.html)
 [重新认识 package.json](https://juejin.im/post/5ebcd8b1e51d454dc20dd8a0)
 
 [npm package.json](https://docs.npmjs.com/files/package.json)
@@ -109,7 +109,7 @@ npm 包中的模块版本都需要遵循 SemVer 规范，该规范的标准版�
 
 - 内部版本(alpha)
 - 公测版本(beta)
-- 正式版本的候选版本rc（即 Release candiate）
+- 正式版本的候选版本 rc（即 Release candiate）
 
 可以执行以下命令查看模块的版本：
 

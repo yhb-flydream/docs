@@ -5,13 +5,11 @@
 为了使模板内的表达式更加简单化，而不至于难以维护
 
 ```html
-<div id="example">
-  {{ message.split('').reverse().join('') }}
-</div>
+<div id="example">{{ message.split('').reverse().join('') }}</div>
 ```
 
 ```js
-<div id="example">
+;<div id="example">
   <p>Original message: "{{ message }}"</p>
   <p>Computed reversed message: "{{ reversedMessage }}"</p>
 </div>
@@ -19,15 +17,15 @@
 var vm = new Vue({
   el: '#example',
   data: {
-    message: 'Hello'
+    message: 'Hello',
   },
   computed: {
     // 计算属性的 getter
     reversedMessage: function () {
       // `this` 指向 vm 实例
       return this.message.split('').reverse().join('')
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -56,14 +54,14 @@ computed: {
 ### 计算属性 vs 侦听属性
 
 ```js
-<div id="demo">{{ fullName }}</div>
+;<div id="demo">{{ fullName }}</div>
 
 var vm = new Vue({
   el: '#demo',
   data: {
     firstName: 'Foo',
     lastName: 'Bar',
-    fullName: 'Foo Bar'
+    fullName: 'Foo Bar',
   },
   watch: {
     firstName: function (val) {
@@ -71,8 +69,8 @@ var vm = new Vue({
     },
     lastName: function (val) {
       this.fullName = this.firstName + ' ' + val
-    }
-  }
+    },
+  },
 })
 
 /* 使用计算属性 */
@@ -80,13 +78,13 @@ var vm = new Vue({
   el: '#demo',
   data: {
     firstName: 'Foo',
-    lastName: 'Bar'
+    lastName: 'Bar',
   },
   computed: {
     fullName: function () {
       return this.firstName + ' ' + this.lastName
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -113,7 +111,7 @@ computed: {
 
 现在再运行 `vm.fullName = 'John Doe'` 时，`setter` 会被调用，`vm.firstName` 和 `vm.lastName` 也会相应地被更新
 
-## 侦听器*****
+## 侦听器**\***
 
 虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的侦听器。
 
@@ -125,7 +123,7 @@ computed: {
 <div id="watch-example">
   <p>
     Ask a yes/no question:
-    <input v-model="question">
+    <input v-model="question" />
   </p>
   <p>{{ answer }}</p>
 </div>
@@ -137,44 +135,45 @@ computed: {
 <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 <script>
-var watchExampleVM = new Vue({
-  el: '#watch-example',
-  data: {
-    question: '',
-    answer: 'I cannot give you an answer until you ask a question!'
-  },
-  watch: {
-    // 如果 `question` 发生改变，这个函数就会运行
-    question: function (newQuestion, oldQuestion) {
-      this.answer = 'Waiting for you to stop typing...'
-      this.debouncedGetAnswer()
-    }
-  },
-  created: function () {
-    // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
-    // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
-    // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
-    // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
-    // 请参考：https://lodash.com/docs#debounce
-    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
-  },
-  methods: {
-    getAnswer: function () {
-      if (this.question.indexOf('?') === -1) {
-        this.answer = 'Questions usually contain a question mark. ;-)'
-        return
-      }
-      this.answer = 'Thinking...'
-      var vm = this
-      axios.get('https://yesno.wtf/api')
-        .then(function (response) {
-          vm.answer = _.capitalize(response.data.answer)
-        })
-        .catch(function (error) {
-          vm.answer = 'Error! Could not reach the API. ' + error
-        })
-    }
-  }
-})
+  var watchExampleVM = new Vue({
+    el: '#watch-example',
+    data: {
+      question: '',
+      answer: 'I cannot give you an answer until you ask a question!',
+    },
+    watch: {
+      // 如果 `question` 发生改变，这个函数就会运行
+      question: function (newQuestion, oldQuestion) {
+        this.answer = 'Waiting for you to stop typing...'
+        this.debouncedGetAnswer()
+      },
+    },
+    created: function () {
+      // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+      // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+      // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+      // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+      // 请参考：https://lodash.com/docs#debounce
+      this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+    },
+    methods: {
+      getAnswer: function () {
+        if (this.question.indexOf('?') === -1) {
+          this.answer = 'Questions usually contain a question mark. ;-)'
+          return
+        }
+        this.answer = 'Thinking...'
+        var vm = this
+        axios
+          .get('https://yesno.wtf/api')
+          .then(function (response) {
+            vm.answer = _.capitalize(response.data.answer)
+          })
+          .catch(function (error) {
+            vm.answer = 'Error! Could not reach the API. ' + error
+          })
+      },
+    },
+  })
 </script>
 ```

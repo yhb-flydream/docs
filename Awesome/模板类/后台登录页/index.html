@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta name="force-rendering" content="webkit">
     <meta name="applicable-device" content="pc,mobile">
@@ -29,9 +31,17 @@
          * See the Getting Started docs for more information:
          * http://getbootstrap.com/getting-started/#support-ie10-width
          */
-        @-ms-viewport     { width: device-width; }
-        @-o-viewport      { width: device-width; }
-        @viewport         { width: device-width; }
+        @-ms-viewport {
+            width: device-width;
+        }
+
+        @-o-viewport {
+            width: device-width;
+        }
+
+        @viewport {
+            width: device-width;
+        }
     </style>
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
@@ -53,57 +63,57 @@
     <![endif]-->
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <script>
-      // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-      // IT'S JUST JUNK FOR OUR DOCS!
-      // ++++++++++++++++++++++++++++++++++++++++++
-      /*!
-       * Copyright 2014-2015 Twitter, Inc.
-       *
-       * Licensed under the Creative Commons Attribution 3.0 Unported License. For
-       * details, see https://creativecommons.org/licenses/by/3.0/.
-       */
-      // Intended to prevent false-positive bug reports about Bootstrap not working properly in old versions of IE due to folks testing using IE's unreliable emulation modes.
-      (function () {
-        'use strict';
+        // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
+        // IT'S JUST JUNK FOR OUR DOCS!
+        // ++++++++++++++++++++++++++++++++++++++++++
+        /*!
+         * Copyright 2014-2015 Twitter, Inc.
+         *
+         * Licensed under the Creative Commons Attribution 3.0 Unported License. For
+         * details, see https://creativecommons.org/licenses/by/3.0/.
+         */
+        // Intended to prevent false-positive bug reports about Bootstrap not working properly in old versions of IE due to folks testing using IE's unreliable emulation modes.
+        (function () {
+            'use strict';
 
-        function emulatedIEMajorVersion() {
-          var groups = /MSIE ([0-9.]+)/.exec(window.navigator.userAgent)
-          if (groups === null) {
-            return null
-          }
-          var ieVersionNum = parseInt(groups[1], 10)
-          var ieMajorVersion = Math.floor(ieVersionNum)
-          return ieMajorVersion
-        }
+            function emulatedIEMajorVersion() {
+                var groups = /MSIE ([0-9.]+)/.exec(window.navigator.userAgent)
+                if (groups === null) {
+                    return null
+                }
+                var ieVersionNum = parseInt(groups[1], 10)
+                var ieMajorVersion = Math.floor(ieVersionNum)
+                return ieMajorVersion
+            }
 
-        function actualNonEmulatedIEMajorVersion() {
-          // Detects the actual version of IE in use, even if it's in an older-IE emulation mode.
-          // IE JavaScript conditional compilation docs: https://msdn.microsoft.com/library/121hztk3%28v=vs.94%29.aspx
-          // @cc_on docs: https://msdn.microsoft.com/library/8ka90k2e%28v=vs.94%29.aspx
-          var jscriptVersion = new Function('/*@cc_on return @_jscript_version; @*/')() // jshint ignore:line
-          if (jscriptVersion === undefined) {
-            return 11 // IE11+ not in emulation mode
-          }
-          if (jscriptVersion < 9) {
-            return 8 // IE8 (or lower; haven't tested on IE<8)
-          }
-          return jscriptVersion // IE9 or IE10 in any mode, or IE11 in non-IE11 mode
-        }
+            function actualNonEmulatedIEMajorVersion() {
+                // Detects the actual version of IE in use, even if it's in an older-IE emulation mode.
+                // IE JavaScript conditional compilation docs: https://msdn.microsoft.com/library/121hztk3%28v=vs.94%29.aspx
+                // @cc_on docs: https://msdn.microsoft.com/library/8ka90k2e%28v=vs.94%29.aspx
+                var jscriptVersion = new Function('/*@cc_on return @_jscript_version; @*/')() // jshint ignore:line
+                if (jscriptVersion === undefined) {
+                    return 11 // IE11+ not in emulation mode
+                }
+                if (jscriptVersion < 9) {
+                    return 8 // IE8 (or lower; haven't tested on IE<8)
+                }
+                return jscriptVersion // IE9 or IE10 in any mode, or IE11 in non-IE11 mode
+            }
 
-        var ua = window.navigator.userAgent
-        if (ua.indexOf('Opera') > -1 || ua.indexOf('Presto') > -1) {
-          return // Opera, which might pretend to be IE
-        }
-        var emulated = emulatedIEMajorVersion()
-        if (emulated === null) {
-          return // Not IE
-        }
-        var nonEmulated = actualNonEmulatedIEMajorVersion()
+            var ua = window.navigator.userAgent
+            if (ua.indexOf('Opera') > -1 || ua.indexOf('Presto') > -1) {
+                return // Opera, which might pretend to be IE
+            }
+            var emulated = emulatedIEMajorVersion()
+            if (emulated === null) {
+                return // Not IE
+            }
+            var nonEmulated = actualNonEmulatedIEMajorVersion()
 
-        if (emulated !== nonEmulated) {
-          window.alert('WARNING: You appear to be using IE' + nonEmulated + ' in IE' + emulated + ' emulation mode.\nIE emulation modes can behave significantly differently from ACTUAL older versions of IE.\nPLEASE DON\'T FILE BOOTSTRAP BUGS based on testing in IE emulation modes!')
-        }
-      })();
+            if (emulated !== nonEmulated) {
+                window.alert('WARNING: You appear to be using IE' + nonEmulated + ' in IE' + emulated + ' emulation mode.\nIE emulation modes can behave significantly differently from ACTUAL older versions of IE.\nPLEASE DON\'T FILE BOOTSTRAP BUGS based on testing in IE emulation modes!')
+            }
+        })();
     </script>
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
     <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -119,12 +129,14 @@
             background-color: #222;
             border: none;
         }
+
         /* todo 3 此处 .navbar-brand 的 height  可根据你的项目修改页面顶部和底部的高度 line-height 需设置为 height - 30*/
         /* 顶部底部高 */
         .navbar-brand {
             height: 60px;
             line-height: 30px;
         }
+
         /* todo 4 此处 com-color 的 color 可根据你的项目修改页面输入框顶部 ‘后台管理’ 字体的颜色 */
         /* 页面主题字体色 */
         .com-color {
@@ -202,105 +214,107 @@
         }
     </style>
 </head>
+
 <body class="body-wrap">
-<div class="body-main">
-    <div class="login-header-wrap navbar navbar-inverse navbar-fixed-top">
-        <div class="login-header-main container">
-            <div class="navbar-header">
-                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+    <div class="body-main">
+        <div class="login-header-wrap navbar navbar-inverse navbar-fixed-top">
+            <div class="login-header-main container">
+                <div class="navbar-header">
+                    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>-->
-                <a class="navbar-brand" href="#">后台管理</a>
-            </div>
-            <!--<div id="navbar" class="collapse navbar-collapse">
+                    <a class="navbar-brand" href="#">后台管理</a>
+                </div>
+                <!--<div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>-->
-        </div>
-    </div>
-    <div class="login-wrap container">
-        <div class="login-main">
-            <div class="login_hd">
-                <h4 class="login_hd-t com-color">后台管理</h4>
             </div>
-            <div class="login_bd">
-                <div id="form" class="form-horizontal">
-                    <div class="form-group input-group username-group">
-                        <label for="username" class="input-group-addon">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        </label>
-                        <input type="text" class="form-control username" id="username" name="username" required
-                               placeholder="用户名" data-toggle="popover" data-placement="right" data-title="用户名错误">
-                    </div>
-                    <div class="form-group input-group password-group">
-                        <label for="password" class="input-group-addon">
-                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                        </label>
-                        <input type="password" class="form-control password" id="password" name="password" required
-                               placeholder="密码" data-toggle="popover" data-placement="right" data-title="密码错误">
-                    </div>
-                    <!--<div class="form-inline vcode-group">
+        </div>
+        <div class="login-wrap container">
+            <div class="login-main">
+                <div class="login_hd">
+                    <h4 class="login_hd-t com-color">后台管理</h4>
+                </div>
+                <div class="login_bd">
+                    <div id="form" class="form-horizontal">
+                        <div class="form-group input-group username-group">
+                            <label for="username" class="input-group-addon">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </label>
+                            <input type="text" class="form-control username" id="username" name="username" required
+                                placeholder="用户名" data-toggle="popover" data-placement="right" data-title="用户名错误">
+                        </div>
+                        <div class="form-group input-group password-group">
+                            <label for="password" class="input-group-addon">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                            </label>
+                            <input type="password" class="form-control password" id="password" name="password" required
+                                placeholder="密码" data-toggle="popover" data-placement="right" data-title="密码错误">
+                        </div>
+                        <!--<div class="form-inline vcode-group">
                         <div class="input-group">
                             <input type="password" class="form-control vcode" id="vcode" name="password" required
                                    placeholder="验证码" data-toggle="popover" data-placement="right" data-title="验证码错误">
                         </div>
                         <button type="button" class="btn btn-default vcode-btn">获取验证码</button>
                     </div>-->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">登录</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">登录</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="login_ft"></div>
-        </div>
-    </div>
-    <div class="login-footer-wrap navbar navbar-inverse navbar-fixed-bottom">
-        <div class="login-footer-main container">
-            <div class="navbar-header">
-                <div class="navbar-brand">©版权</div>
+                <div class="login_ft"></div>
             </div>
         </div>
+        <div class="login-footer-wrap navbar navbar-inverse navbar-fixed-bottom">
+            <div class="login-footer-main container">
+                <div class="navbar-header">
+                    <div class="navbar-brand">©版权</div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-  $(function () {
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
 
-    $('#form').find('.form-group').on('click', '.login-btn', function () {
-      var username = $('.username').val();
-      var password = $('.password').val();
-      // var vcode = $('.vcode').val();
-      console.log(username);
-      console.log(password);
-      // console.log(vcode);
+            $('#form').find('.form-group').on('click', '.login-btn', function () {
+                var username = $('.username').val();
+                var password = $('.password').val();
+                // var vcode = $('.vcode').val();
+                console.log(username);
+                console.log(password);
+                // console.log(vcode);
 
-      $.ajax({
-        type: 'POST',
-        url: '', // todo 6 你项目的接口地址
-        dataType: 'json',
-        data: {
-          username: username,
-          password: password
-        },
-        success: function (res) {
-          // res = JSON.parse(res);
-          if (res.code === -1) {
-            console.log(res.msg);
-            alert(res.msg);
-          } else if (res.code === 1) {
-            window.location.href = ''; // todo 7 验证成功后，你项目需要跳转到的页面的 URL
-          }
-        }
-      });
-    });
-  });
-</script>
+                $.ajax({
+                    type: 'POST',
+                    url: '', // todo 6 你项目的接口地址
+                    dataType: 'json',
+                    data: {
+                        username: username,
+                        password: password
+                    },
+                    success: function (res) {
+                        // res = JSON.parse(res);
+                        if (res.code === -1) {
+                            console.log(res.msg);
+                            alert(res.msg);
+                        } else if (res.code === 1) {
+                            window.location.href = ''; // todo 7 验证成功后，你项目需要跳转到的页面的 URL
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>

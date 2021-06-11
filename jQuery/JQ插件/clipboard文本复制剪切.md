@@ -11,7 +11,7 @@
 ## 实例化
 
 ```js
-new ClipboardJS('.btn');
+new ClipboardJS('.btn')
 ```
 
 **`.btn` 替换为点击元素，可以为**
@@ -29,8 +29,7 @@ var clipboard = new ClipboardJS('.btn');
 ```html
 <button id="btn" data-clipboard-text="1">Copy</button>
 
-var btn = document.getElementById('btn');
-var clipboard = new ClipboardJS(btn);
+var btn = document.getElementById('btn'); var clipboard = new ClipboardJS(btn);
 ```
 
 - HTML elements list
@@ -40,8 +39,7 @@ var clipboard = new ClipboardJS(btn);
 <button data-clipboard-text="2">Copy</button>
 <button data-clipboard-text="3">Copy</button>
 
-var btns = document.querySelectorAll('button');
-    var clipboard = new ClipboardJS(btns);
+var btns = document.querySelectorAll('button'); var clipboard = new ClipboardJS(btns);
 ```
 
 ## 使用

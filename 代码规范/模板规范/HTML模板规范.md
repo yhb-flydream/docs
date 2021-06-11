@@ -6,17 +6,17 @@
 
 `class` 类名设置中符号一般只有 `__`(标识下层元素) 和 `-`(标识分隔符)
 
-### `head` 部分(模板中也有标注如何取舍)
+## `head` 部分(模板中也有标注如何取舍)
 
-#### `viewport`
+### `viewport`
 
 ```html
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 ```
 
 - 在 `mobile 和 自适应` 模式下设置 `PC` 版不需要设置
 
-#### `applicable-device`
+### `applicable-device`
 
 ```html
 <!-- 手机版 content 替换成 mobile -->
@@ -25,22 +25,22 @@
 <!--<meta name="applicable-device" content="pc,mobile">-->
 ```
 
-#### `icon`
+### `icon`
 
 ```html
 <!-- 替换 浏览器标签图标 以 .ico 结尾的文件 -->
-<link rel="shortcut icon" type="image/x-icon" href="xxx/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="xxx/favicon.ico" />
 ```
 
-#### `stylesheet` (不推荐 添加 `type` 属性)
+### `stylesheet` (不推荐 添加 `type` 属性)
 
 ```html
-<link rel="stylesheet" href="">
+<link rel="stylesheet" href="" />
 ```
 
-### `body`
+## `body`
 
-- **在主要模块部分的 `class` 属性的开头位置有 `xxx`，此为项目标记*(例如：明星CP，则 xxx 为 CP)*，尽量用简化标记，只有最外层主要部分可以用`xxx`标注**
+- **在主要模块部分的 `class` 属性的开头位置有 `xxx`，此为项目标记*(例如：明星 CP，则 xxx 为 CP)*，尽量用简化标记，只有最外层主要部分可以用`xxx`标注**
 
 - `body` 标签 添加一个全局的 `class` 属性 `xxx-body-wrap`
 - 内层再添加一层 `div` `class` 属性设置为 `xxx-body-main`
@@ -48,21 +48,19 @@
 
 ```html
 <body class="xxx-body-wrap">
-<!-- body 主体 -->
-<div class="xxx-body-main">
-
-</div>
+  <!-- body 主体 -->
+  <div class="xxx-body-main"></div>
 </body>
 ```
 
-#### 主体内容模块结构
+### 主体内容模块结构
 
 - `xxx` 为项目标记
 - `yyy` 为模块名
 - `-wrap` 为最外层
 - `-main` 包括模块主体内容
 
-##### 模块主体部分可以分为两种组合
+#### 模块主体部分可以分为两种组合
 
 - 第一种：**上中下**结构
   - `__hd`
@@ -93,11 +91,12 @@
 </div>
 ```
 
-##### 当为列表数据时
+#### 当为列表数据时
 
 - 外层为 `-list`
 - 内部列表为 `-item`
-```
+
+```html
 <div class="yyy-list">
   <div class="yyy-item">
     <div class="yyy-item__hd"></div>
@@ -121,7 +120,7 @@
 </div>
 ```
 
-##### 模块的 `title`
+#### 模块的 `title`
 
 - 模块有可能会有一个标题
 - 那么结构一般用 **第一种：`上中下`结构** 标题就写在 `yyy__hd`里面，或者 `yyy-item__hd`
@@ -140,7 +139,7 @@
 - 这里结构就不用带 `xxx`了，直接写模块名 `yyy`，需要带上 `__hd` 模块区域标记
 - 添加一个 `h4-title` 是为了多个模块都有标题，且样式一致时，统一设置样式
 
-##### `icon` 小图标
+#### `icon` 小图标
 
 - 一般用 `span` 承载
 - 需设置 公共 `class` 类 `icon`，供设置统一样式
@@ -148,29 +147,29 @@
 - 小的图标(如：箭头等)，如果使用的 UI 模板，可以使用对应的 `class` 来设置图标
 - 如果没有则通过 **伪元素(`before, after`)** 来设置
 
-##### `a` 链接
+#### `a` 链接
 
 - 如果有链接需要设置 `class` 属性，需要在末尾加上 `-link` 标注它是链接
 
-##### `img` 图片部分
+#### `img` 图片部分
 
 - 图片有时候需要居中处理，所以单独嵌套一层
 
 ```html
 <div class="img-wrap">
-  <img class="img" src="" alt="">
+  <img class="img" src="" alt="" />
 </div>
 ```
 
 - 嵌套层 `class` 用 `img-wrap`
 - `img` 图片用 `img` 标注
 
-##### 其他内容部分
+#### 其他内容部分
 
 - 其他内容，如：时间(`time`)，性别(`sex`) ...
 - 比较简单的元素一般用 `span`来标注，`class` 属性可以直接写对应的英文
 
-#### 主体内容结构
+### 主体内容结构
 
 - 顶部导航 `xxx-nav-header`
 
@@ -202,7 +201,7 @@
 </div>
 ```
 
-- banner图 `xxx-banner`
+- banner 图 `xxx-banner`
 
 ```html
 <div class="xxx-banner-wrap">

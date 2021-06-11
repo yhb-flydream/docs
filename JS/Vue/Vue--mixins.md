@@ -13,16 +13,16 @@ var myMixin = {
   methods: {
     hello() {
       console.log('hello from mixin!')
-    }
-  }
+    },
+  },
 }
 
 // 定义一个使用混入对象的组件
 var Component = Vue.extend({
-  mixins: [myMixin]
+  mixins: [myMixin],
 })
 
-var Component = new Component();
+var Component = new Component()
 ```
 
 ## 选项合并
@@ -36,9 +36,9 @@ var mimin = {
   data() {
     return {
       message: 'mimin hello',
-      foo: 'mixin foo'
+      foo: 'mixin foo',
     }
-  }
+  },
 }
 
 new Vue({
@@ -46,12 +46,12 @@ new Vue({
   data() {
     return {
       message: 'component hello',
-      bar: 'component bar'
+      bar: 'component bar',
     }
   },
   created() {
     console.log(this.$data) // => { message: 'component hello', foo: 'mixin foo', bar: 'component bar' }
-  }
+  },
 })
 ```
 
@@ -63,14 +63,14 @@ new Vue({
 var mixin = {
   created() {
     console.log('混入对象的钩子被调用')
-  }
+  },
 }
 
 new Vue({
   mixins: [mixin],
   created() {
-    console.log('组件钩子被调用');
-  }
+    console.log('组件钩子被调用')
+  },
 })
 
 // 混入对象的钩子被调用
@@ -89,8 +89,8 @@ var mixin = {
     },
     conflicting() {
       console.log('from mixin')
-    }
-  }
+    },
+  },
 }
 
 var vm = new Vue({
@@ -101,8 +101,8 @@ var vm = new Vue({
     },
     conflicting() {
       console.log('from self')
-    }
-  }
+    },
+  },
 })
 
 vm.foo() // foo
@@ -127,17 +127,18 @@ Vue.mixin({
     if (myOption) {
       console.log(myOption)
     }
-  }
+  },
 })
 
 new Vue({
-  myOption: 'hello'
+  myOption: 'hello',
 })
 
 // hello
 ```
 
 ---
+
 谨慎使用全局混入对象，因为会影响到每个单独创建的 Vue 实例 (包括第三方模板)。
 
 大多数情况下，只应当应用于自定义选项，就像上面示例一样。也可以将其用作 `Plugins` 以避免产生重复应用

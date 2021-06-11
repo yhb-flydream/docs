@@ -34,41 +34,41 @@ export default {
 反例
 Vue.component('some-comp', {
   data: {
-    foo: 'bar'
-  }
+    foo: 'bar',
+  },
 })
 export default {
   data: {
-    foo: 'bar'
-  }
+    foo: 'bar',
+  },
 }
 ```
 
 ```js
 好例子
 Vue.component('some-comp', {
-  data: function() {
+  data: function () {
     return {
-      foo: 'bar'
+      foo: 'bar',
     }
-  }
+  },
 })
 
 // In a .vue file
 export default {
-  data () {
+  data() {
     return {
-      foo: 'bar'
+      foo: 'bar',
     }
-  }
+  },
 }
 
 // 在一个 Vue 的根实例上直接使用对象是可以的，
 // 因为只存在一个这样的实例。
 new Vue({
   data: {
-    foo: 'bar'
-  }
+    foo: 'bar',
+  },
 })
 ```
 
@@ -115,21 +115,14 @@ props: {
 ```html
 反例
 <ul>
-  <li v-for="todo in todos">
-    {{ todo.text }}
-  </li>
+  <li v-for="todo in todos">{{ todo.text }}</li>
 </ul>
 ```
 
 ```html
 好例子
 <ul>
-  <li
-    v-for="todo in todos"
-    :key="todo.id"
-  >
-    {{ todo.text }}
-  </li>
+  <li v-for="todo in todos" :key="todo.id">{{ todo.text }}</li>
 </ul>
 ```
 
@@ -138,42 +131,20 @@ props: {
 ```html
 反例
 <ul>
-  <li
-    v-for="user in users"
-    v-if="user.isActive"
-    :key="user.id"
-  >
-    {{ user.name }}
-  </li>
+  <li v-for="user in users" v-if="user.isActive" :key="user.id">{{ user.name }}</li>
 </ul>
 <ul>
-  <li
-    v-for="user in users"
-    v-if="shouldShowUsers"
-    :key="user.id"
-  >
-    {{ user.name }}
-  </li>
+  <li v-for="user in users" v-if="shouldShowUsers" :key="user.id">{{ user.name }}</li>
 </ul>
 ```
 
 ```html
 好例子
 <ul>
-  <li
-    v-for="user in activeUsers"
-    :key="user.id"
-  >
-    {{ user.name }}
-  </li>
+  <li v-for="user in activeUsers" :key="user.id">{{ user.name }}</li>
 </ul>
 <ul v-if="shouldShowUsers">
-  <li
-    v-for="user in users"
-    :key="user.id"
-  >
-    {{ user.name }}
-  </li>
+  <li v-for="user in users" :key="user.id">{{ user.name }}</li>
 </ul>
 ```
 
@@ -190,9 +161,9 @@ props: {
 </template>
 
 <style>
-.btn-close {
-  background-color: red;
-}
+  .btn-close {
+    background-color: red;
+  }
 </style>
 ```
 
@@ -204,14 +175,14 @@ props: {
 
 <!-- 使用 `scoped` 特性 -->
 <style scoped>
-.button {
-  border: none;
-  border-radius: 2px;
-}
+  .button {
+    border: none;
+    border-radius: 2px;
+  }
 
-.button-close {
-  background-color: red;
-}
+  .button-close {
+    background-color: red;
+  }
 </style>
 <template>
   <button :class="[$style.button, $style.buttonClose]">X</button>
@@ -219,14 +190,14 @@ props: {
 
 <!-- 使用 CSS Modules -->
 <style module>
-.button {
-  border: none;
-  border-radius: 2px;
-}
+  .button {
+    border: none;
+    border-radius: 2px;
+  }
 
-.buttonClose {
-  background-color: red;
-}
+  .buttonClose {
+    background-color: red;
+  }
 </style>
 <template>
   <button class="c-Button c-Button--close">X</button>
@@ -234,14 +205,14 @@ props: {
 
 <!-- 使用 BEM 约定 -->
 <style>
-.c-Button {
-  border: none;
-  border-radius: 2px;
-}
+  .c-Button {
+    border: none;
+    border-radius: 2px;
+  }
 
-.c-Button--close {
-  background-color: red;
-}
+  .c-Button--close {
+    background-color: red;
+  }
 </style>
 ```
 
@@ -260,32 +231,32 @@ var myGreatMixin = {
   methods: {
     update: function () {
       // ...
-    }
-  }
+    },
+  },
 }
 var myGreatMixin = {
   // ...
   methods: {
     _update: function () {
       // ...
-    }
-  }
+    },
+  },
 }
 var myGreatMixin = {
   // ...
   methods: {
     $update: function () {
       // ...
-    }
-  }
+    },
+  },
 }
 var myGreatMixin = {
   // ...
   methods: {
     $_update: function () {
       // ...
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -296,8 +267,8 @@ var myGreatMixin = {
   methods: {
     $_myGreatMixin_update: function () {
       // ...
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -328,47 +299,22 @@ components/
 ## 单文件组件的文件名应该要么始终是单词大写开头 (`PascalCase`)，要么始终是横线连接 (`kebab-case`)
 
 ```html
-反例
-components/
-|- mycomponent.vue
-components/
-|- myComponent.vue
+反例 components/ |- mycomponent.vue components/ |- myComponent.vue
 ```
 
 ```html
-好例子
-components/
-|- MyComponent.vue
-components/
-|- my-component.vue
+好例子 components/ |- MyComponent.vue components/ |- my-component.vue
 ```
 
 ## 基础组件名 应用特定样式和约定的基础组件 (也就是展示类的、无逻辑的或无状态的组件) 应该全部以一个特定的前缀开头，比如 `Base`、`App` 或 `V` [更多](https://cn.vuejs.org/v2/style-guide/#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%90%8D-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90)
 
 ```html
-反例
-components/
-|- MyButton.vue
-|- VueTable.vue
-|- Icon.vue
+反例 components/ |- MyButton.vue |- VueTable.vue |- Icon.vue
 ```
 
 ```html
-好例子
-components/
-|- BaseButton.vue
-|- BaseTable.vue
-|- BaseIcon.vue
-
-components/
-|- AppButton.vue
-|- AppTable.vue
-|- AppIcon.vue
-
-components/
-|- VButton.vue
-|- VTable.vue
-|- VIcon.vue
+好例子 components/ |- BaseButton.vue |- BaseTable.vue |- BaseIcon.vue components/ |- AppButton.vue |- AppTable.vue |- AppIcon.vue components/ |-
+VButton.vue |- VTable.vue |- VIcon.vue
 ```
 
 ## 只应该拥有单个活跃实例的组件应该以 `The` 前缀命名，以示其唯一性
@@ -376,17 +322,11 @@ components/
 这不意味着组件只可用于一个单页面，而是**每个页面只使用一次**。这些组件永远不接受任何 prop，因为它们是为你的应用定制的，而不是它们在你的应用中的上下文。如果你发现有必要添加 prop，那就表明这实际上是一个可复用的组件，只是目前在每个页面里只使用一次
 
 ```html
-反例
-components/
-|- Heading.vue
-|- MySidebar.vue
+反例 components/ |- Heading.vue |- MySidebar.vue
 ```
 
 ```html
-好例子
-components/
-|- TheHeading.vue
-|- TheSidebar.vue
+好例子 components/ |- TheHeading.vue |- TheSidebar.vue
 ```
 
 ## 和父组件紧密耦合的子组件应该以父组件名作为前缀命名
@@ -394,50 +334,22 @@ components/
 如果一个组件只在某个父组件的场景下有意义，这层关系应该体现在其名字上。因为编辑器通常会按字母顺序组织文件，所以这样做可以把相关联的文件排在一起
 
 ```html
-反例
-components/
-|- TodoList.vue
-|- TodoItem.vue
-|- TodoButton.vue
-
-components/
-|- SearchSidebar.vue
-|- NavigationForSearchSidebar.vue
+反例 components/ |- TodoList.vue |- TodoItem.vue |- TodoButton.vue components/ |- SearchSidebar.vue |- NavigationForSearchSidebar.vue
 ```
 
 ```html
-好例子
-components/
-|- TodoList.vue
-|- TodoListItem.vue
-|- TodoListItemButton.vue
-
-components/
-|- SearchSidebar.vue
-|- SearchSidebarNavigation.vue
+好例子 components/ |- TodoList.vue |- TodoListItem.vue |- TodoListItemButton.vue components/ |- SearchSidebar.vue |- SearchSidebarNavigation.vue
 ```
 
 ## 组件名应该以高级别的 (通常是一般化描述的) 单词开头，以描述性的修饰词结尾[更多](https://cn.vuejs.org/v2/style-guide/#%E7%BB%84%E4%BB%B6%E5%90%8D%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E9%A1%BA%E5%BA%8F-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90)
 
 ```html
-反例
-components/
-|- ClearSearchButton.vue
-|- ExcludeFromSearchInput.vue
-|- LaunchOnStartupCheckbox.vue
-|- RunSearchButton.vue
-|- SearchInput.vue
-|- TermsCheckbox.vue
+反例 components/ |- ClearSearchButton.vue |- ExcludeFromSearchInput.vue |- LaunchOnStartupCheckbox.vue |- RunSearchButton.vue |- SearchInput.vue |-
+TermsCheckbox.vue
 ```
 
 ```html
-好例子
-components/
-|- SearchButtonClear.vue
-|- SearchButtonRun.vue
-|- SearchInputQuery.vue
-|- SearchInputExcludeGlob.vue
-|- SettingsCheckboxTerms.vue
+好例子 components/ |- SearchButtonClear.vue |- SearchButtonRun.vue |- SearchInputQuery.vue |- SearchInputExcludeGlob.vue |- SettingsCheckboxTerms.vue
 |- SettingsCheckboxLaunchOnStartup.vue
 ```
 
@@ -448,13 +360,13 @@ components/
 <!-- 在单文件组件、字符串模板和 JSX 中 -->
 <MyComponent></MyComponent>
 <!-- 在 DOM 模板中 -->
-<my-component/>
+<my-component />
 ```
 
 ```html
 好例子
 <!-- 在单文件组件、字符串模板和 JSX 中 -->
-<MyComponent/>
+<MyComponent />
 <!-- 在 DOM 模板中 -->
 <my-component></my-component>
 ```
@@ -464,9 +376,9 @@ components/
 ```html
 反例
 <!-- 在单文件组件和字符串模板中 -->
-<mycomponent/>
+<mycomponent />
 <!-- 在单文件组件和字符串模板中 -->
-<myComponent/>
+<myComponent />
 <!-- 在 DOM 模板中 -->
 <MyComponent></MyComponent>
 ```
@@ -474,7 +386,7 @@ components/
 ```html
 好例子
 <!-- 在单文件组件和字符串模板中 -->
-<MyComponent/>
+<MyComponent />
 <!-- 在 DOM 模板中 -->
 <my-component></my-component>
 或者
@@ -530,67 +442,51 @@ export default {
 ## 组件名应该倾向于完整单词而不是缩写
 
 ```html
-反例
-components/
-|- SdSettings.vue
-|- UProfOpts.vue
+反例 components/ |- SdSettings.vue |- UProfOpts.vue
 ```
 
 ```html
-好例子
-components/
-|- StudentDashboardSettings.vue
-|- UserProfileOptions.vue
+好例子 components/ |- StudentDashboardSettings.vue |- UserProfileOptions.vue
 ```
 
 ## 在声明 `prop` 的时候，其命名应该始终使用 `camelCase`，而在模板和 JSX 中应该始终使用 `kebab-case`
 
 ```html
-反例
-props: {
-  'greeting-text': String
-}
-<WelcomeMessage greetingText="hi"/>
+反例 props: { 'greeting-text': String } <WelcomeMessage greetingText="hi" />
 ```
 
 ```html
-好例子
-props: {
-  greetingText: String
-}
-<WelcomeMessage greeting-text="hi"/>
+好例子 props: { greetingText: String } <WelcomeMessage greeting-text="hi" />
 ```
 
 ## 多个特性的元素应该分多行撰写，每个特性一行
 
 ```html
 反例
-<img src="https://vuejs.org/images/logo.png" alt="Vue Logo">
-<MyComponent foo="a" bar="b" baz="c"/>
+<img src="https://vuejs.org/images/logo.png" alt="Vue Logo" />
+<MyComponent foo="a" bar="b" baz="c" />
 ```
 
 ```html
 好例子
-<img
-  src="https://vuejs.org/images/logo.png"
-  alt="Vue Logo"
->
-<MyComponent
-  foo="a"
-  bar="b"
-  baz="c"
-/>
+<img src="https://vuejs.org/images/logo.png" alt="Vue Logo" />
+<MyComponent foo="a" bar="b" baz="c" />
 ```
 
 ## 组件模板应该只包含简单的表达式，复杂的表达式则应该重构为计算属性或方法
 
 ```js
 反例
-{{
-  fullName.split(' ').map(function (word) {
-    return word[0].toUpperCase() + word.slice(1)
-  }).join(' ')
-}}
+{
+  {
+    fullName
+      .split(' ')
+      .map(function (word) {
+        return word[0].toUpperCase() + word.slice(1)
+      })
+      .join(' ')
+  }
+}
 ```
 
 ```js
@@ -641,48 +537,30 @@ computed: {
 
 ```html
 反例
-<input type=text>
+<input type="text" />
 <AppSidebar :style={width:sidebarWidth+'px'}>
 ```
 
 ```html
 好例子
-<input type="text">
-<AppSidebar :style="{ width: sidebarWidth + 'px' }">
+<input type="text" />
+<AppSidebar :style="{ width: sidebarWidth + 'px' }"></AppSidebar>
 ```
 
 ## 指令缩写 (用 `:` 表示 `v-bind:` 和用 `@` 表示 `v-on:`) 应该要么都用要么都不用
 
 ```html
 反例
-<input
-  v-bind:value="newTodoText"
-  :placeholder="newTodoInstructions"
->
-<input
-  v-on:input="onInput"
-  @focus="onFocus"
->
+<input v-bind:value="newTodoText" :placeholder="newTodoInstructions" />
+<input v-on:input="onInput" @focus="onFocus" />
 ```
 
 ```html
 好例子
-<input
-  :value="newTodoText"
-  :placeholder="newTodoInstructions"
->
-<input
-  v-bind:value="newTodoText"
-  v-bind:placeholder="newTodoInstructions"
->
-<input
-  @input="onInput"
-  @focus="onFocus"
->
-<input
-  v-on:input="onInput"
-  v-on:focus="onFocus"
->
+<input :value="newTodoText" :placeholder="newTodoInstructions" />
+<input v-bind:value="newTodoText" v-bind:placeholder="newTodoInstructions" />
+<input @input="onInput" @focus="onFocus" />
+<input v-on:input="onInput" v-on:focus="onFocus" />
 ```
 
 ## [组件/实例的选项应该有统一的顺序](https://cn.vuejs.org/v2/style-guide/#%E7%BB%84%E4%BB%B6-%E5%AE%9E%E4%BE%8B%E7%9A%84%E9%80%89%E9%A1%B9%E7%9A%84%E9%A1%BA%E5%BA%8F-%E6%8E%A8%E8%8D%90)
@@ -742,79 +620,89 @@ computed: {
 }
 ```
 
-## 单文件组件应该总是让 `<script>、<template> 和 <style>` 标签的顺序保持一致。且 *`<style>` 要放在最后*，因为另外两个标签至少要有一个
+## 单文件组件应该总是让 `<script>、<template> 和 <style>` 标签的顺序保持一致。且 _`<style>` 要放在最后_，因为另外两个标签至少要有一个
 
 ```html
 反例
-<style>/* ... */</style>
-<script>/* ... */</script>
+<style>
+  /* ... */
+</style>
+<script>
+  /* ... */
+</script>
 <template>...</template>
 <!-- ComponentA.vue -->
-<script>/* ... */</script>
+<script>
+  /* ... */
+</script>
 <template>...</template>
-<style>/* ... */</style>
+<style>
+  /* ... */
+</style>
 
 <!-- ComponentB.vue -->
 <template>...</template>
-<script>/* ... */</script>
-<style>/* ... */</style>
+<script>
+  /* ... */
+</script>
+<style>
+  /* ... */
+</style>
 ```
 
 ```html
 好例子
 <!-- ComponentA.vue -->
-<script>/* ... */</script>
+<script>
+  /* ... */
+</script>
 <template>...</template>
-<style>/* ... */</style>
+<style>
+  /* ... */
+</style>
 
 <!-- ComponentB.vue -->
-<script>/* ... */</script>
+<script>
+  /* ... */
+</script>
 <template>...</template>
-<style>/* ... */</style>
+<style>
+  /* ... */
+</style>
 <!-- ComponentA.vue -->
 <template>...</template>
-<script>/* ... */</script>
-<style>/* ... */</style>
+<script>
+  /* ... */
+</script>
+<style>
+  /* ... */
+</style>
 
 <!-- ComponentB.vue -->
 <template>...</template>
-<script>/* ... */</script>
-<style>/* ... */</style>
+<script>
+  /* ... */
+</script>
+<style>
+  /* ... */
+</style>
 ```
 
 ## 如果一组 `v-if + v-else` 的元素类型相同，最好使用 `key` (比如两个 `<div>` 元素)
 
 ```html
 反例
-<div v-if="error">
-  错误：{{ error }}
-</div>
-<div v-else>
-  {{ results }}
-</div>
+<div v-if="error">错误：{{ error }}</div>
+<div v-else>{{ results }}</div>
 ```
 
 ```html
 好例子
-<div
-  v-if="error"
-  key="search-status"
->
-  错误：{{ error }}
-</div>
-<div
-  v-else
-  key="search-results"
->
-  {{ results }}
-</div>
+<div v-if="error" key="search-status">错误：{{ error }}</div>
+<div v-else key="search-results">{{ results }}</div>
 
-<p v-if="error">
-  错误：{{ error }}
-</p>
-<div v-else>
-  {{ results }}
-</div>
+<p v-if="error">错误：{{ error }}</p>
+<div v-else>{{ results }}</div>
 ```
 
 ## 元素选择器应该避免在 `scoped` 中出现，在 `scoped` 样式中，类选择器比元素选择器更好，因为大量使用元素选择器是很慢的
@@ -826,9 +714,9 @@ computed: {
 </template>
 
 <style scoped>
-button {
-  background-color: red;
-}
+  button {
+    background-color: red;
+  }
 </style>
 ```
 
@@ -839,9 +727,9 @@ button {
 </template>
 
 <style scoped>
-.btn-close {
-  background-color: red;
-}
+  .btn-close {
+    background-color: red;
+  }
 </style>
 ```
 
@@ -859,26 +747,26 @@ Vue.component('TodoItem', {
   props: {
     todo: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  template: '<input v-model="todo.text">'
+  template: '<input v-model="todo.text">',
 })
 
 Vue.component('TodoItem', {
   props: {
     todo: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
-    removeTodo () {
+    removeTodo() {
       var vm = this
       vm.$parent.todos = vm.$parent.todos.filter(function (todo) {
         return todo.id !== vm.todo.id
       })
-    }
+    },
   },
   template: `
     <span>
@@ -887,7 +775,7 @@ Vue.component('TodoItem', {
         X
       </button>
     </span>
-  `
+  `,
 })
 ```
 
@@ -897,23 +785,23 @@ Vue.component('TodoItem', {
   props: {
     todo: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   template: `
     <input
       :value="todo.text"
       @input="$emit('input', $event.target.value)"
     >
-  `
+  `,
 })
 
 Vue.component('TodoItem', {
   props: {
     todo: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   template: `
     <span>
@@ -922,7 +810,7 @@ Vue.component('TodoItem', {
         X
       </button>
     </span>
-  `
+  `,
 })
 ```
 
@@ -933,7 +821,7 @@ Vue.component('TodoItem', {
 // main.js
 new Vue({
   data: {
-    todos: []
+    todos: [],
   },
   created: function () {
     this.$on('remove-todo', this.removeTodo)
@@ -944,8 +832,8 @@ new Vue({
       this.todos = this.todos.filter(function (todo) {
         return todo.id !== todoIdToRemove
       })
-    }
-  }
+    },
+  },
 })
 ```
 

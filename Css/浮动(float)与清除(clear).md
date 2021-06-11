@@ -34,7 +34,7 @@
 
 ```css
 .box2 {
-    clear: both;
+  clear: both;
 }
 ```
 
@@ -48,11 +48,11 @@
 ```css
 .box:after,
 .box:before {
-    content: '';
-    display: inline-block;
-    height: 0;
-    line-height: 0;
-    clear: both;
+  content: '';
+  display: inline-block;
+  height: 0;
+  line-height: 0;
+  clear: both;
 }
 ```
 

@@ -7,11 +7,11 @@
 ```js
 $(content).replaceAll(selector)
 
-
-$("p").replaceAll("<b>Hello world!</b>");
+$('p').replaceAll('<b>Hello world!</b>')
 ```
 
 - content
+
   - 必需。规定替换被选元素的内容。
   - 可能的值:
     - HTML 代码 - 比如 ("`<div></div>`")
@@ -29,11 +29,11 @@ $("p").replaceAll("<b>Hello world!</b>");
 ```js
 $(selector).replaceWith(content)
 
-
-$("p").replaceWith("<b>Hello world!</b>");
+$('p').replaceWith('<b>Hello world!</b>')
 ```
 
 - content
+
   - 必需。规定替换被选元素的内容。
   - 可能的值:
     - HTML 代码 - 比如 (`"<div></div>"`)

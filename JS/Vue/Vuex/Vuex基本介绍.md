@@ -1,4 +1,4 @@
-# Vuex基本介绍
+# Vuex 基本介绍
 
 [TOC]
 
@@ -26,10 +26,10 @@
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
+    count() {
       return store.state.count
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -40,7 +40,7 @@ const app = new Vue({
   el: '#app',
   store,
   components: { Counter },
-  template: '<div id="app"><counter></counter></div>'
+  template: '<div id="app"><counter></counter></div>',
 })
 ```
 
@@ -52,8 +52,8 @@ const Counter = {
   computed: {
     count() {
       return this.$store.state.count
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -62,11 +62,11 @@ const Counter = {
 当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 mapState 辅助函数帮助我们生成计算属性，让你少按几次键：
 
 ```js
-import { mapState } from 'Vuex';
+import { mapState } from 'Vuex'
 
 export default {
   computed: mapState({
-    count: state => state.count,
+    count: (state) => state.count,
 
     // 传字符串参数 'count' 等同于 `state => state.count`
     countAlias: 'count',
@@ -74,8 +74,8 @@ export default {
     // 为了能够使用 this 获取局部状态，必须使用常规函数
     countPlusLoacalState(state) {
       return state.count + this.localCount
-    }
-  })
+    },
+  }),
 }
 ```
 
@@ -84,7 +84,7 @@ export default {
 ```js
 computed: mapState([
   // 映射 this.count 为 store.state.count
-  'count'
+  'count',
 ])
 ```
 
@@ -104,9 +104,9 @@ computed: {
 
 ### 组件仍然保有局部状态
 
-使用Vuex并不意味着你需要将所用状态放到Vuex。虽然将所有状态放到Vuex会使状态变化显示和易于调用，但也会使代码变得冗长不直观。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。你应该根据你的应用开发需要进行权衡和确定。
+使用 Vuex 并不意味着你需要将所用状态放到 Vuex。虽然将所有状态放到 Vuex 会使状态变化显示和易于调用，但也会使代码变得冗长不直观。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。你应该根据你的应用开发需要进行权衡和确定。
 
-## Getter（*可以认为是 store 的计算属性*）
+## Getter（_可以认为是 store 的计算属性_）
 
 有时候我们需要从 store 中的 state 中派生出一些状态，例如对列表进行过滤并计数：
 
@@ -120,7 +120,7 @@ computed: {
 
 如果有多个组件需要用到此属性，我们要么复制这个函数，或者抽取到一个共享函数然后在多处导入它——无论哪种方式都不是很理想。
 
-`Vuex` 允许我们在 `store` 中定义`“getter”`（*可以认为是 store 的计算属性*）。
+`Vuex` 允许我们在 `store` 中定义`“getter”`（_可以认为是 store 的计算属性_）。
 
 就像计算属性一样，`getter` 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
 
@@ -131,14 +131,14 @@ const store = new Vuex.Store({
   state: {
     todos: [
       { id: 1, text: '...', done: true },
-      { id: 2, text: '...', done: false }
-    ]
+      { id: 2, text: '...', done: false },
+    ],
   },
   getters: {
-    doneTodos: state => {
-      return state.todos.filter(todo => todo.done)
-    }
-  }
+    doneTodos: (state) => {
+      return state.todos.filter((todo) => todo.done)
+    },
+  },
 })
 ```
 
@@ -183,7 +183,7 @@ computed: {
 getters: {
   // ...
   getTodoById: (state) => (id) => {
-    return state.todos.find(todo => todo.id === id)
+    return state.todos.find((todo) => todo.id === id)
   }
 }
 
@@ -197,7 +197,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 `mapGetters` 辅助函数仅仅是将 `store` 中的 `getter` 映射到局部计算属性：
 
 ```js
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   // ...
@@ -208,8 +208,8 @@ export default {
       'doneTodosCount',
       'anotherGetter',
       // ...
-    ])
-  }
+    ]),
+  },
 }
 ```
 
@@ -218,11 +218,11 @@ export default {
 ```js
 mapGetters({
   // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
-  doneCount: 'doneTodosCount'
+  doneCount: 'doneTodosCount',
 })
 ```
 
-## Mutation (*类似于事件 methods*)
+## Mutation (_类似于事件 methods_)
 
 **更改 Vuex 的 store 中的状态的唯一方法是提交 `mutation`**
 
@@ -233,14 +233,14 @@ mapGetters({
 ```js
 const store = new Vue.Store({
   state: {
-    count: 1
+    count: 1,
   },
   mutations: {
     increment(state) {
       // 变更状态
       state.count++
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -249,7 +249,7 @@ const store = new Vue.Store({
 这个选项更像是事件注册：**当触发一个类型为 `increment` 的 `mutation` 时，调用此函数。** 要唤醒一个 mutation handler，你需要以相应的 type 调用 `store.commit` 方法：
 
 ```js
-store.commit('increment');
+store.commit('increment')
 ```
 
 ### 提交载荷（Payload）
@@ -289,7 +289,7 @@ store.commit('increment', {
 ```js
 store.commit({
   type: 'increment',
-  amount: 10
+  amount: 10,
 })
 ```
 
@@ -359,7 +359,7 @@ mutations: {
 你可以在组件中使用 `this.$store.commit('xxx')` 提交 `mutation`，或者使用 `mapMutations` 辅助函数将组件中的 `methods` 映射为 `store.commit` 调用（需要在根节点注入 store）。
 
 ```js
-import { mapMutations } from 'vuex';
+import { mapMutations } from 'vuex'
 
 export default {
   // ...
@@ -368,12 +368,12 @@ export default {
       'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
 
       // `mapMutations` 也支持载荷
-      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('increment', amount)`
+      'incrementBy', // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('increment', amount)`
     ]),
     ...mapMutations({
-      add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
-    })
-  }
+      add: 'increment', // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    }),
+  },
 }
 ```
 
@@ -381,24 +381,24 @@ export default {
 
 Action 类似于 mutation，不同在于：
 
-- Action 提交的是mutation，而不是直接变更状态
+- Action 提交的是 mutation，而不是直接变更状态
 - Action 可以包含任何异步操作
 
 ```js
 const store = new Vuex.Store({
   state: {
-    count: 0
+    count: 0,
   },
   mutations: {
     increment(state) {
       state.count++
-    }
+    },
   },
   actions: {
     increment(context) {
       context.commit('increment')
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -439,13 +439,13 @@ actions: {
 ```js
 // 以载荷形式分发
 store.dispatch('incrementAsync', {
-  amount: 10
+  amount: 10,
 })
 
 // 以对象形式分发
 store.dispatch({
   type: 'incrementAsync',
-  amount: 10
+  amount: 10,
 })
 ```
 
@@ -477,7 +477,7 @@ actions: {
 你在组件中使用 `this.$store.dispatch('xxx')` 分发 `action`，或者使用 `mapActions` 辅助函数将组件的 `methods` 映射为 `store.dispatch` 调用（需要先在根节点注入 `store`）：
 
 ```js
-import { mapActions } from 'vuex';
+import { mapActions } from 'vuex'
 
 export default {
   // ...
@@ -486,12 +486,12 @@ export default {
       'increment', // 将`this.increment()` 映射为 `this.$store.dispatch('increment')`
 
       // `mapActions` 也支持载荷：
-      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incremntBy', amount)`
+      'incrementBy', // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incremntBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
-    })
-  }
+      add: 'increment', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+    }),
+  },
 }
 ```
 
@@ -499,7 +499,7 @@ export default {
 
 Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
 
-首先，要明白 `store.dispatch` 可以处理被触发的action的处理函数返回的`Promise`，并且 `store.dispatch` 仍旧返回 `Promise`:
+首先，要明白 `store.dispatch` 可以处理被触发的 action 的处理函数返回的`Promise`，并且 `store.dispatch` 仍旧返回 `Promise`:
 
 ```js
 actions: {
@@ -590,14 +590,14 @@ const moduleA = {
     increment(state) {
       // 这里的 `state` 对象是模块的局部状态
       state.count++
-    }
+    },
   },
 
   getters: {
     doubleCount(state) {
       return state.count * 2
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -611,8 +611,8 @@ const moduleA = {
       if ((state.count + rootState.count) % 2 === 1) {
         commit('increment')
       }
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -622,10 +622,10 @@ const moduleA = {
 const moduleA = {
   // ...
   getters: {
-    sumWithRootCount (state, getters, rootState) {
+    sumWithRootCount(state, getters, rootState) {
       return state.count + rootState.count
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -769,17 +769,14 @@ export default {
   computed: {
     // 在 `some/nested/module` 中查找
     ...mapState({
-      a: state => state.a,
-      b: state => state.b
-    })
+      a: (state) => state.a,
+      b: (state) => state.b,
+    }),
   },
   methods: {
     // 在 `some/nested/module` 中查找
-    ...mapActions([
-      'foo',
-      'bar'
-    ])
-  }
+    ...mapActions(['foo', 'bar']),
+  },
 }
 ```
 
@@ -790,7 +787,7 @@ export default {
 ```js
 // 通过插件的参数对象得到空间名称
 // 然后返回 Vuex 插件函数
-export function createPlugin (options = {}) {
+export function createPlugin(options = {}) {
   return function (store) {
     // 把空间名字添加到插件莫魁岸的类型（type）中去
     const nameSpace = options.nameSpace || ''
@@ -840,9 +837,9 @@ store.registerModule(['nested', 'myModule'], {
 
 ```js
 const MyReusableModule = {
-  state () {
+  state() {
     return {
-      foo: 'bar'
+      foo: 'bar',
     }
   },
   // mutation, getter 和 action 等...
@@ -887,7 +884,7 @@ L store
 ```js
 const store = new Vuex.Store({
   // ...
-  strict: true
+  strict: true,
 })
 ```
 
@@ -904,7 +901,7 @@ const store = new Vuex.Store({
 ```js
 const store = new Vuex.Store({
   // ...
-  strict: process.env.NODE_ENV != 'production'
+  strict: process.env.NODE_ENV != 'production',
 })
 ```
 
@@ -913,7 +910,7 @@ const store = new Vuex.Store({
 当在严格模式中使用 `Vuex` 时，在属于 `Vuex` 的 `state` 上使用 `v-model` 会比较棘手：
 
 ```html
-<input v-model="obj.message">
+<input v-model="obj.message" />
 ```
 
 假设这里的 `obj` 是在计算属性中返回的一个属于 `Vuex store` 的对象，在用户输入时，`v-model` 会试图直接修改 `obj.message`。在严格模式中，由于这个修改不是在 `mutation` 函数中执行的, 这里会抛出一个错误。
@@ -1018,7 +1015,7 @@ if (module.hot) {
 `Vuex` 插件就是一个函数，它接收 `store` 作为唯一参数：
 
 ```js
-const myPlugin = store => {
+const myPlugin = (store) => {
   store.subscribe((mutation, state) => {
     // 每次mutation 之后调用
     // mutation 的格式为 { type， payload }
@@ -1031,7 +1028,7 @@ const myPlugin = store => {
 ```js
 const store = new Vuex.Store({
   // ...
-  plugins: [myplugin]
+  plugins: [myplugin],
 })
 ```
 
@@ -1044,12 +1041,12 @@ const store = new Vuex.Store({
 例如，同步 `websocket` 数据源到 `store`（下面是个大概例子，实际上 `createPlugin` 方法可以有更多选项来完成复杂任务）：
 
 ```js
-export default function createWebSocketPlugin (socket) {
-  return store => {
-    socket.on('data', data => {
+export default function createWebSocketPlugin(socket) {
+  return (store) => {
+    socket.on('data', (data) => {
       store.commit('receiveData', data)
     })
-    store.subscribe(mutation => {
+    store.subscribe((mutation) => {
       if (mutation.type === 'UPDATE_DATA') {
         socket.emit('update', mutation.payload)
       }
@@ -1062,7 +1059,7 @@ const plugin = createWebsocketPlugin(socket)
 const store = new Vuex.Store({
   state,
   mutations,
-  plugins: [pligin]
+  plugins: [pligin],
 })
 ```
 
@@ -1092,7 +1089,7 @@ const pyPluginWithSnapshot = store => {
 ```js
 const store = new Vuex.Store({
   // ...
-  plugins: process.env.NODE_ENV !== 'production'? [myPluginWithSnapshot]:[]
+  plugins: process.env.NODE_ENV !== 'production' ? [myPluginWithSnapshot] : [],
 })
 ```
 
@@ -1110,7 +1107,7 @@ const store = new Vuex.Store({
 import createLogger from 'vuex/dist/logger'
 
 const store = new Vuex.Store({
-  plugins: [createLogger()]
+  plugins: [createLogger()],
 })
 ```
 
@@ -1119,17 +1116,17 @@ const store = new Vuex.Store({
 ```js
 const logger = createLogger({
   collapsed: false, // 自动展开记录的 mutation
-  filter (mutation, stateBefore, stateAfter) {
+  filter(mutation, stateBefore, stateAfter) {
     // 若 mutation 需要被记录，就让它返回 true 即可
     // 顺便，`mutation` 是个 { type, payload } 对象
     return mutation.type !== 'aBlacklistedMutation'
   },
-  transformer (state) {
+  transformer(state) {
     // 在开始记录之前转换状态
     // 例如，只返回指定的子树
     return state.subTree
   },
-  mutationTransformer (mutation) {
+  mutationTransformer(mutation) {
     // mutation 按照{ type, payload } 格式记录
     // 我们可以按照任意方式格式化
     return state.subTree

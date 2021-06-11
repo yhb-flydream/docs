@@ -35,53 +35,63 @@ bower install axios
 ### `GET` 请求
 
 ```js
-axios.get('url').then(function(res) {
-  console.log(res);
-}).catch(function(error) {
-  console.log(error);
-});
+axios
+  .get('url')
+  .then(function (res) {
+    console.log(res)
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 
 或
 
-axios.get('url', {
-  params: {
-    id: 1234
-  }
-}).then(function(res) {
-  console.log(res);
-}).catch(function(error) {
-  console.log(error);
-});
+axios
+  .get('url', {
+    params: {
+      id: 1234,
+    },
+  })
+  .then(function (res) {
+    console.log(res)
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 ```
 
 ### `POST` 请求
 
 ```js
-axios.post('url', {
-  name: 'aaa',
-  age: 20
-}).then(function(res) {
-  console.log(res);
-}).catch(function(error) {
-  console.log(error);
-});
+axios
+  .post('url', {
+    name: 'aaa',
+    age: 20,
+  })
+  .then(function (res) {
+    console.log(res)
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 ```
 
 ### 多个并发请求
 
 ```js
 function getUserName() {
-  return axios.get('user/name');
+  return axios.get('user/name')
 }
 
 function getUserAge() {
-  return axiso.get('user/age');
+  return axiso.get('user/age')
 }
 
-axios.all([getUserName(), getUserAge()])
-  .then(axios.spread(function(acct, perms) {
+axios.all([getUserName(), getUserAge()]).then(
+  axios.spread(function (acct, perms) {
     // 两个请求现在都执行完成
-  }))
+  })
+)
 ```
 
 ## 通过传参配置请求
@@ -93,17 +103,17 @@ axios({
   method: 'post',
   url: 'user/name',
   data: {
-    id: 1111
-  }
-});
+    id: 1111,
+  },
+})
 
 或
 
 axios('user/name', {
   method: 'post',
   data: {
-    id: 1111
-  }
+    id: 1111,
+  },
 })
 ```
 
@@ -134,8 +144,8 @@ axios('user/name', {
 let instance = axios.create({
   baseURL: 'https://www.demo.com/api/',
   temeout: 5000,
-  headers: { 'X-Custom-Header': 'foobar' }
-});
+  headers: { 'X-Custom-Header': 'foobar' },
+})
 ```
 
 ## 实例方法
@@ -306,14 +316,13 @@ let instance = axios.create({
 使用 `then` 时，你将接收下面这样的响应：
 
 ```js
-axios.get('user/name')
-  .then(function(res) {
-    console.log(res.data);
-    console.log(res.status);
-    console.log(res.statusText);
-    console.log(res.headers);
-    console.log(res.config);
-  })
+axios.get('user/name').then(function (res) {
+  console.log(res.data)
+  console.log(res.status)
+  console.log(res.statusText)
+  console.log(res.headers)
+  console.log(res.config)
+})
 ```
 
 在使用 `catch` 时，或传递 `rejection callback` 作为 `then` 的第二个参数时，响应可以通过 `error` 对象可被使用
@@ -323,9 +332,9 @@ axios.get('user/name')
 ### 全局的 `axios` 默认值
 
 ```js
-axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.baseURL = 'https://api.example.com'
 axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 ```
 
 ### 自定义实例默认值
@@ -333,11 +342,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 ```js
 // 创建实例时设置配置的默认值
 var instance = axios.create({
-  baseURL: ''
-});
+  baseURL: '',
+})
 
 // 在实例已经创建后修改默认值
-instance.defaults.headers.common['Auth'] = AUTH_TOKEN;
+instance.defaults.headers.common['Auth'] = AUTH_TOKEN
 ```
 
 ### 配置的优先顺序
@@ -351,16 +360,16 @@ instance.defaults.headers.common['Auth'] = AUTH_TOKEN;
 ```js
 // 使用由库提供的配置的默认值来创建实例
 // 此时超时配置的默认值是 `0`
-var instance = axios.create();
+var instance = axios.create()
 
 // 覆写库的超时默认值
 // 现在，在超时前，所有请求都会等待 2.5 秒
-instance.defaults.timeout = 2500;
+instance.defaults.timeout = 2500
 
 // 为已知需要花费很长时间的请求覆写超时设置
 instance.get('/longRequest', {
-  timeout: 5000
-});
+  timeout: 5000,
+})
 ```
 
 ## 拦截器
@@ -369,62 +378,72 @@ instance.get('/longRequest', {
 
 ```js
 // 添加请求拦截器
-axios.interceptors.request.use(function(config) {
-  // 在发送请求前 do something
-  return config;
-}, function(error) {
-  // 对请求错误 do something
-  return Promise.reject(error);
-});
+axios.interceptors.request.use(
+  function (config) {
+    // 在发送请求前 do something
+    return config
+  },
+  function (error) {
+    // 对请求错误 do something
+    return Promise.reject(error)
+  }
+)
 
 // 添加响应拦截器
-axios.interceptors.response.use(function(res) {
-  // 对响应数据 do something
-  return res;
-}, function(error) {
-  // 对响应错误 do something
-  return Promise.reject(error);
-});
+axios.interceptors.response.use(
+  function (res) {
+    // 对响应数据 do something
+    return res
+  },
+  function (error) {
+    // 对响应错误 do something
+    return Promise.reject(error)
+  }
+)
 ```
 
 如果你想在稍后移除拦截器，可以这样：
 
 ```js
-var myInterceptor = axios.interceptors.request.use(function() { /*  */ });
-axios.interceptors.request.eject(myInterceptor);
+var myInterceptor = axios.interceptors.request.use(function () {
+  /*  */
+})
+axios.interceptors.request.eject(myInterceptor)
 ```
 
 可以为自定义 axios 实例添加拦截器
 
 ```js
-var instance = axios.create();
-instance.interceptors.request.use(function () {/*...*/});
+var instance = axios.create()
+instance.interceptors.request.use(function () {
+  /*...*/
+})
 ```
 
 ## 错误处理
 
 ```js
-axios.get('user/name').catch(function(error) {
+axios.get('user/name').catch(function (error) {
   if (error.response) {
     // 请求已发送，但服务器响应的状态码不在 `2xx` 范围内
-    console.log(error.response.data);
-    console.log(error.response.status);
-    console.log(error.response.headers);
+    console.log(error.response.data)
+    console.log(error.response.status)
+    console.log(error.response.headers)
   } else {
     // 在设置触发错误的请求时发生了一些事情
-    console.log('Error', error.message);
+    console.log('Error', error.message)
   }
-  console.log(error.config);
-});
+  console.log(error.config)
+})
 ```
 
 可以使用 `validateStatus` 配置选项定义一个自定义 `HTTP` 状态码的错误范围。
 
 ```js
 axios.get('user/name', {
-  validateStatus: function(status) {
-    return status < 500; // 状态码在大于或者等于500时才会 rejcet
-  }
+  validateStatus: function (status) {
+    return status < 500 // 状态码在大于或者等于500时才会 rejcet
+  },
 })
 ```
 
@@ -432,50 +451,52 @@ axios.get('user/name', {
 
 使用 `cancel/token` 取消请求
 
-> Axios 的 cancel token API 基于cancelable promises proposal，它还处于第一阶段。
+> Axios 的 cancel token API 基于 cancelable promises proposal，它还处于第一阶段。
 
 可以使用 `CancelToken.source` 工厂方法创建 `cancel token`，像这样：
 
 ```js
-var CancelToken = axios.CancelToken;
-var source = CancelToken.source();
+var CancelToken = axios.CancelToken
+var source = CancelToken.source()
 
-axios.get('/user/12345', {
-  cancelToken: source.token
-}).catch(function(thrown) {
-  if (axios.isCancel(thrown)) {
-    console.log('Request canceled', thrown.message);
-  } else {
-    // 处理错误
-  }
-});
+axios
+  .get('/user/12345', {
+    cancelToken: source.token,
+  })
+  .catch(function (thrown) {
+    if (axios.isCancel(thrown)) {
+      console.log('Request canceled', thrown.message)
+    } else {
+      // 处理错误
+    }
+  })
 
 // 取消请求（message 参数是可选的）
-source.cancel('Operation canceled by the user.');
+source.cancel('Operation canceled by the user.')
 ```
 
 还可以通过传递一个 `executor` 函数到 `CancelToken` 的构造函数来创建 `cancel token`：
 
 ```js
-var CancelToken = axios.CancelToken;
-var cancel;
+var CancelToken = axios.CancelToken
+var cancel
 
 axios.get('/user/12345', {
   cancelToken: new CancelToken(function executor(c) {
     // executor 函数接收一个 cancel 函数作为参数
-    cancel = c;
-  })
-});
+    cancel = c
+  }),
+})
 
 // 取消请求
-cancel();
+cancel()
 ```
 
 **可以使用同一个 `cancel token` 取消多个请求**
 
 ## 使用 `application/x-www-form-urlencoded` 格式数据
 
-默认情况下，`axios` 将JavaScript对象序列化为JSON。
+默认情况下，`axios` 将 JavaScript 对象序列化为 JSON。
 
 要以 `application / x-www-form-urlencoded` 格式发送数据，您可以使用以下选项之一。
 
@@ -525,25 +546,27 @@ axios.post('http://something.com/', querystring.stringify({ foo: 'bar' }));
 ## Demo
 
 ```js
-import axios from 'axios';
+import axios from 'axios'
 
 const service = axios.create({
   baseURL: '',
-  timeout: 5000
-});
+  timeout: 5000,
+})
 
-service.interceptors.request.use(config => {
-  // Do something before request
-  return config;
-}, error => {
-  // Do something with request error
-  console.log(error);
-});
+service.interceptors.request.use(
+  (config) => {
+    // Do something before request
+    return config
+  },
+  (error) => {
+    // Do something with request error
+    console.log(error)
+  }
+)
 
-service.interceptors.response.use(response => {
-  const res = response.data;
+service.interceptors.response.use((response) => {
+  const res = response.data
   if (res.code === 200) {
-
   }
 })
 ```

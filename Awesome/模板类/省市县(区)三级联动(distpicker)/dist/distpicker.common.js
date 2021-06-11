@@ -10,7 +10,7 @@
 
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+function _interopDefault(ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var $ = _interopDefault(require('jquery'));
 
@@ -4232,7 +4232,7 @@ var Distpicker = function () {
     key: 'output',
     value: function output(type) {
       var options = this.options,
-          placeholders = this.placeholders;
+        placeholders = this.placeholders;
 
       var $select = this['$' + type];
 

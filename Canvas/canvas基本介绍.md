@@ -8,7 +8,7 @@
 - `<canvas></canvas>`使用 canvas 标签, 即可在页面中开辟一格区域
 
 - 默认 canvas 的宽高为 300 和 150 **(设置不带单位)**
-- 用CSS设置canvas的宽高属性会拉伸内容，和设置图片类似，只是放大缩小了画布的缩放比，画布本身没改变，所以要**用属性来设置**
+- 用 CSS 设置 canvas 的宽高属性会拉伸内容，和设置图片类似，只是放大缩小了画布的缩放比，画布本身没改变，所以要**用属性来设置**
 
 - 如果浏览器不支持 canvas 标签, 那么就会将其解释为 div 标签.
 - 因此常常在 canvas 中嵌入文本, 以提示用户浏览器的能力
@@ -23,45 +23,47 @@
 <canvas id="cvs" width="500" height="500"></canvas>
 
 <script>
-    // 获取元素
-    var cvs = document.getElementById("cvs");
+  // 获取元素
+  var cvs = document.getElementById('cvs')
 
-    //调用 getContext 方法，得到CanvasRenderingContext2D 类型的对象
-    //使用 CanvasRenderingContext2D 对象提供的方法进行绘图
-    var context = cvs.getContext("2d");
+  //调用 getContext 方法，得到CanvasRenderingContext2D 类型的对象
+  //使用 CanvasRenderingContext2D 对象提供的方法进行绘图
+  var context = cvs.getContext('2d')
 
-    //设置开始绘图的位置(起点)
-    context.moveTo( 10, 10 );
+  //设置开始绘图的位置(起点)
+  context.moveTo(10, 10)
 
-    //设置从开始画直线到的位置
-    context.lineTo(110, 10);
-    context.lineTo(110, 110);
-    context.lineTo(10, 110);
-    context.lineTo(10, 10);
+  //设置从开始画直线到的位置
+  context.lineTo(110, 10)
+  context.lineTo(110, 110)
+  context.lineTo(10, 110)
+  context.lineTo(10, 10)
 
-    //闭合路径
-    context.closePath();
+  //闭合路径
+  context.closePath()
 
-    //描边绘制
-    context.stroke();
+  //描边绘制
+  context.stroke()
 
-    //填充绘制(颜色填充)
-    context.fill();
-
+  //填充绘制(颜色填充)
+  context.fill()
 </script>
 ```
 
 - **设置起点：**
+
   - 语法：
     - `context.moveTo(x坐标，y坐标);`
 
 - **画线：**
+
   - 语法：
     - `context.lineTo(x坐标，y坐标)`
     - `lineTo`也可以设置路径的起点
-    - 在一个没有路径起点的路径中，第一个lineTo就相当于moveTo
+    - 在一个没有路径起点的路径中，第一个 lineTo 就相当于 moveTo
 
 - **描边色：**
+
   - 语法：
     - `context.strokeStyle = "颜色样式"`
     - 写在`context.stroke()`之前；
@@ -76,18 +78,21 @@
 - 或在开始画图之前添加`context.beginPath()`清除之前的路径，避免和之后的路径重合
 
 - **闭合路径**
+
   - 语法：
     - `context.closePath()`
     - 写在画线之后，设置闭合路径可以不画最后一条线
     - 也可以解决因设置了线宽而带来的**锯齿问题**
 
 - **填充色：**
+
   - 语法：
     - `context.fillStyle = "颜色样式"`
     - 写在`context.fill()`之前
     - **写在`context.stroke()`之前，和之后效果不一样**
 
 - **颜色填充：**
+
   - 语法：
     - `context.fill()`
     - 默认为黑色
@@ -95,19 +100,21 @@
 
 - **非零环绕原则：**
   - 判断画布中的哪些地方需要填充
-> 原理：
->
-> 任意一个区域内，找一个点向外发射一条射线，然后会进行计数判断(初始值为0)，如果射线遇到的边是相对于这个点，如果是逆时针环绕的，就计数为-1，顺时针记+1，最终结果如果为0，则判断该区域被填充（射线经过奇数边肯定被填充）
+    > 原理：
+    >
+    > 任意一个区域内，找一个点向外发射一条射线，然后会进行计数判断(初始值为 0)，如果射线遇到的边是相对于这个点，如果是逆时针环绕的，就计数为-1，顺时针记+1，最终结果如果为 0，则判断该区域被填充（射线经过奇数边肯定被填充）
 
 ## 线
 
 - **线宽：**
+
   - 语法：
     - `context.lineWidth = 宽度`
     - 写在`context.stroke()`之前；
     - **设置线宽时，路径在线宽中间**
 
 - **线帽样式：**
+
   - 语法：
     - `context.lineCap = "butt"、"round"、"square";`
       - `butt`(默认样式)
@@ -124,12 +131,15 @@
 > **如果线帽与交点样式不一致，优先按照`交点`样式处理**
 
 - **虚线**
+
   - 1、设置虚线
+
     - 语法：
       - `context.setLineDash ([实线部分长度，虚线部分长度])`
       - 可以传入一个参数，或多个
 
   - 2、获取虚线
+
     - 语法：
       - `context.getLineDash()`
       - 直接调用
@@ -141,16 +151,19 @@
 ## 矩形
 
 - **矩形路径**
+
   - 语法：
     - `context.rect(x,y,w,h);`
     - 需要自己描边`context.stroke()`
 
 - **绘制描边矩形**
+
   - 语法：
     - `context.strokeRect(x,y,w,h)`
   - 不会产生任何路径
 
 - **绘制填充矩形**
+
   - 语法：
     - `context.fillRect(x,y,w,h)`
   - 不会产生任何路径
@@ -158,8 +171,8 @@
 - **清除画布(清除矩形区域)**
   - 语法：
     - `context.clearRect(x，y，w，h);`
-      - `x` 擦除图形左上角x轴坐标
-      - `y` 擦除图形左上角y轴坐标
+      - `x` 擦除图形左上角 x 轴坐标
+      - `y` 擦除图形左上角 y 轴坐标
       - `w` 擦除宽度
       - `h` 擦除高度
 
@@ -168,41 +181,46 @@
 - **绘制圆弧**
   - **语法：**
     - `context.arc(x, y, r, start, end, 是否逆时针画[true/false 可选])`
-      - `x` 圆心x坐标
-      - `y` 圆心y坐标
+      - `x` 圆心 x 坐标
+      - `y` 圆心 y 坐标
       - `r` 半径[`radius`]
       - `start` 起始弧度[`startAngle`]
       - `end` 结束弧度[`endAngle`]
 - **绘制相切弧**
   - **语法：**
     - `context.arc(x1, y1, x2, y2, r)`
-      - `x1` 线段1的起点x1坐标
-      - `y1` 线段1的终点y1坐标
-      - `x2` 线段2的起点x2坐标
-      - `y2` 线段2的终点y2
+      - `x1` 线段 1 的起点 x1 坐标
+      - `y1` 线段 1 的终点 y1 坐标
+      - `x2` 线段 2 的起点 x2 坐标
+      - `y2` 线段 2 的终点 y2
       - `r` 半径[`radius`]
 
 ## 文本
 
 - **描边文本：**
+
   - 语法
     - `context.strokeText("文本", x, y, 限制文本最大长度[可选])`
 
 - **填充文本：**
+
   - 语法
     - `context.FillText("文本", x, y, 限制文本最大长度[可选])`
 
 - **字体：**
+
   - 语法
     - `context.font = 粗细[100--900], 大小[px、em], 字体样式`
     - `style | variant | weight | size/line-height | family`
 
 - **水平排列方式：**
+
   - 语法
     - `context.textAlign = start(left)|center|end(right)`
     - 默认为值为`start(left)`
 
 - **垂直排列文本：**
+
   - 语法
     - `context.textBaseline= top|middle|bottom|alphabetic|hanging|ideographic`
       - 默认为值为`alphabetic(字母基线)`
@@ -224,14 +242,17 @@
 > 第一个参数可以是 img，canvas，video
 
 - **图片监听事件：**
+
   - `img.onload = function () {}`
-  - 图片加载后，再执行function里面的代码
+  - 图片加载后，再执行 function 里面的代码
 
 - **3 参数语法：**
+
   - `context.drawImage(图像资源, x坐标, y坐标)`
   - 把图像绘制到指定位置
 
 - **5 参数语法：**
+
   - `context.drawImage(图像资源, x坐标, y坐标, 图像显示的宽, 图片显示的高)`
   - 把图片按照指定大小，绘制到指定位置
 
@@ -242,6 +263,7 @@
 ## 状态
 
 - **状态保存：**
+
   - `context.save()`
   - 保存当前状态
   - 会把绘图环境自身的所有属性保存一份(可见和不可见)
@@ -277,7 +299,7 @@
 
 ## requestAnimationFrame
 
-- 请求动画帧，用法和setTimeout一致，只是不需要传时间
+- 请求动画帧，用法和 setTimeout 一致，只是不需要传时间
 - 浏览器刷新页面时，才会调用该方法的回掉函数，执行频率比较稳定，是专门制作动画用的
 
 ## 路径点判断
@@ -286,7 +308,7 @@
   - `context.isPointInPath(x坐标, y坐标)`
   - 判断指定坐标的点在不在**当前路径**内
 - 返回值
-  - Boolean(在为true)
+  - Boolean(在为 true)
 
 ## 画布保存
 

@@ -1,4 +1,4 @@
-# 网页跳转打开APP，如果没有则下载
+# 网页跳转打开 APP，如果没有则下载
 
 ```js
 window.onload = function () {

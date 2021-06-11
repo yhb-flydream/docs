@@ -7,13 +7,13 @@ jQuery 在 DOM 树中遍历元素的同胞元素
 返回被选元素的所有同胞元素
 
 ```js
-$("h2").siblings();
+$('h2').siblings()
 ```
 
 也可以使用可选参数来过滤对同胞元素的搜索
 
 ```js
-$("h2").siblings("p");
+$('h2').siblings('p')
 ```
 
 ## next
@@ -21,7 +21,7 @@ $("h2").siblings("p");
 返回被选元素的下一个同胞元素
 
 ```js
-$("h2").next();
+$('h2').next()
 ```
 
 ## nextAll
@@ -29,7 +29,7 @@ $("h2").next();
 返回被选元素的所有跟随的同胞元素
 
 ```js
-$("h2").nextAll();
+$('h2').nextAll()
 ```
 
 ## nextUntil
@@ -37,7 +37,7 @@ $("h2").nextAll();
 返回介于两个给定参数之间的所有跟随的同胞元素
 
 ```js
-$("h2").nextUntil("h6");
+$('h2').nextUntil('h6')
 ```
 
 ## prev, prevAll & prevUntil

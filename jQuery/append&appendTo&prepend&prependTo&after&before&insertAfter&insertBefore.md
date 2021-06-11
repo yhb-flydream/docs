@@ -1,11 +1,11 @@
-# append&appendTo&prepend&after&before&insertAfter&insertBefore
+# `append&appendTo&prepend&after&before&insertAfter&insertBefore`
 
 ## append()
 
 在被选元素**标签内的结尾**插入内容
 
 ```js
-$("p").append("Some appended text.");
+$('p').append('Some appended text.')
 ```
 
 ## appendTo()
@@ -15,7 +15,7 @@ $("p").append("Some appended text.");
 **`append()` 和 `appendTo()` 方法执行的任务相同。不同之处在于：内容和选择器的位置，以及 `append()` 能够使用函数来附加内容**
 
 ```js
-$("<b>Hello World!</b>").appendTo("p")
+$('<b>Hello World!</b>').appendTo('p')
 ```
 
 ## prepend()
@@ -23,7 +23,7 @@ $("<b>Hello World!</b>").appendTo("p")
 在被选元素**标签内的开头**插入内容
 
 ```js
-$("p").prepend("Some prepended text.");
+$('p').prepend('Some prepended text.')
 ```
 
 ## prependTo()
@@ -33,7 +33,7 @@ $("p").prepend("Some prepended text.");
 **`prepend()` 和 `prependTo()` 方法作用相同。差异在于语法：内容和选择器的位置，以及 `prepend()` 能够使用函数来插入内容。**
 
 ```js
-$("<b>Hello World!</b>").prependTo("p");
+$('<b>Hello World!</b>').prependTo('p')
 ```
 
 ## after()
@@ -41,7 +41,7 @@ $("<b>Hello World!</b>").prependTo("p");
 在被选元素**标签外之后**插入内容
 
 ```js
-$("img").after("Some text after");
+$('img').after('Some text after')
 ```
 
 ## before()
@@ -49,17 +49,17 @@ $("img").after("Some text after");
 在被选元素**标签外之前**插入内容
 
 ```js
-$("img").before("Some text before");
+$('img').before('Some text before')
 ```
 
 ## insertAfter()
 
 在被选元素**之后**插入 HTML 标记或已有的元素
 
-**如果该方法用于已有元素，这些元素会被从当前位置移走，然后被添加到被选元素之后**
+**如果该方法用于已有元素，这些元素会被从当前位置移走，然后被添加到被选元素之后。**
 
 ```js
-$("<span>Hello world!</span>").insertAfter("p");
+$('<span>Hello world!</span>').insertAfter('p')
 ```
 
 ## insertBefore()
@@ -69,5 +69,5 @@ $("<span>Hello world!</span>").insertAfter("p");
 如果该方法用于已有元素，这些元素会被从当前位置移走，然后被添加到被选元素之前
 
 ```js
-$("<span>Hello world!</span>").insertBefore("p");
+$('<span>Hello world!</span>').insertBefore('p')
 ```

@@ -1,20 +1,20 @@
-# XSS攻击
+# XSS 攻击
 
 参考
-[【前端黑客】XSS入门](https://zhuanlan.zhihu.com/p/37455061)
-[什么是XSS攻击？如何防范XSS攻击？](https://blog.csdn.net/weixin_43681537/article/details/84585554)
-[XSS攻击及防御](https://blog.csdn.net/ghsau/article/details/17027893)
-[浅谈XSS攻击的那些事（附常用绕过姿势）](https://zhuanlan.zhihu.com/p/26177815)
-[前端安全系列（一）：如何防止XSS攻击？](https://tech.meituan.com/2018/09/27/fe-security.html)
-[什么是XSS攻击，XSS攻击可以分为哪几类？如何防范XSS攻击？](https://github.com/YvetteLau/Step-By-Step/issues/18)
-[XSS攻击原理分析与防御技术](https://segmentfault.com/a/1190000013315450)
+[【前端黑客】XSS 入门](https://zhuanlan.zhihu.com/p/37455061)
+[什么是 XSS 攻击？如何防范 XSS 攻击？](https://blog.csdn.net/weixin_43681537/article/details/84585554)
+[XSS 攻击及防御](https://blog.csdn.net/ghsau/article/details/17027893)
+[浅谈 XSS 攻击的那些事（附常用绕过姿势）](https://zhuanlan.zhihu.com/p/26177815)
+[前端安全系列（一）：如何防止 XSS 攻击？](https://tech.meituan.com/2018/09/27/fe-security.html)
+[什么是 XSS 攻击，XSS 攻击可以分为哪几类？如何防范 XSS 攻击？](https://github.com/YvetteLau/Step-By-Step/issues/18)
+[XSS 攻击原理分析与防御技术](https://segmentfault.com/a/1190000013315450)
 [如何让前端更安全？——XSS 攻击和防御详解](https://juejin.im/entry/58a598dc570c35006b5cd6b4)
 
 XSS 攻击又称 CSS，全称`Cross Site Script（跨站脚本攻击）`，为了不和层叠样式表`（Cascading Style Sheets,CSS）`缩写混淆，所以将跨站脚本攻击缩写为 XSS。
 
-其原理是**攻击者向有 XSS 漏洞的网站中输入恶意的 HTML 代码，当用户浏览该网站时，这段 HTML 代码会自动执行**，从而达到攻击的目的。XSS 是 Web 程序中常见的漏洞，XSS 属于被动式且用于客户端的攻击方式。如，**盗取用户Cookie**、**破坏页面结构**、**重定向到其它网站**等。
+其原理是**攻击者向有 XSS 漏洞的网站中输入恶意的 HTML 代码，当用户浏览该网站时，这段 HTML 代码会自动执行**，从而达到攻击的目的。XSS 是 Web 程序中常见的漏洞，XSS 属于被动式且用于客户端的攻击方式。如，**盗取用户 Cookie**、**破坏页面结构**、**重定向到其它网站**等。
 
-## XSS类型
+## XSS 类型
 
 ### 反射型
 
@@ -26,9 +26,9 @@ echo $_GET['x'];
 ?>
 ```
 
-输入的x的值未经过任何过滤直接输出，一种触发XSS的一种方式如下：
+输入的 x 的值未经过任何过滤直接输出，一种触发 XSS 的一种方式如下：
 `http://www.foo.com/xss/1.php?x=<script>alert(1)</script>`
-服务器解析时，echo就会完整的输出`<script>alert(1)</script>`到响应体中，然后浏览器解析执行触发！！
+服务器解析时，echo 就会完整的输出`<script>alert(1)</script>`到响应体中，然后浏览器解析执行触发！！
 
 **反射型 XSS 的攻击步骤：**
 
@@ -39,11 +39,11 @@ echo $_GET['x'];
 
 ### 存储型
 
-存储型XSS和反射型XSS的区别：
-提交的XSS代码会存储在服务器上，下次请求目标页面的时候不需要再次提交XSS代码！！
+存储型 XSS 和反射型 XSS 的区别：
+提交的 XSS 代码会存储在服务器上，下次请求目标页面的时候不需要再次提交 XSS 代码！！
 存储的位置可以是数据库、内存、文件系统等。
 
-典型的例子就是**留言板 XSS**，用户提交一条包含XSS代码的留言存储到数据库，目标用户查看留言板时，那些留言的内容就会从数据库查询出来并显示，在浏览器上与正常的HTML和JS解析执行，触发XSS攻击！！
+典型的例子就是**留言板 XSS**，用户提交一条包含 XSS 代码的留言存储到数据库，目标用户查看留言板时，那些留言的内容就会从数据库查询出来并显示，在浏览器上与正常的 HTML 和 JS 解析执行，触发 XSS 攻击！！
 
 **存储型 XSS 的攻击步骤：**
 
@@ -54,20 +54,18 @@ echo $_GET['x'];
 
 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。
 
-### DOM型
+### DOM 型
 
-DOM型XSS和存储型、反射型XSS的区别：
-DOM型XSS代码不需要服务器解释响应的直接参与，触发XSS只需要浏览器的DOM解析，完全是客户端的问题，属于前端 JavaScript 自身的安全漏洞！！
+DOM 型 XSS 和存储型、反射型 XSS 的区别：
+DOM 型 XSS 代码不需要服务器解释响应的直接参与，触发 XSS 只需要浏览器的 DOM 解析，完全是客户端的问题，属于前端 JavaScript 自身的安全漏洞！！
 
 ```js
-<script>
-eval(location.hash.substr(1));
-</script>
+<script>eval(location.hash.substr(1));</script>
 ```
 
-触发XSS的一种方式如下:
+触发 XSS 的一种方式如下:
 `http://www.foo.com/xss.html#alert(1)`
-这个URL显然不会发送到服务端，仅仅是在客户端被接收并解析执行！！
+这个 URL 显然不会发送到服务端，仅仅是在客户端被接收并解析执行！！
 
 **DOM 型 XSS 的攻击步骤：**
 
@@ -76,13 +74,13 @@ eval(location.hash.substr(1));
 3、用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。
 4、恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。
 
-## XSS危害
+## XSS 危害
 
-### 窃取网页浏览中的cookie值
+### 窃取网页浏览中的 cookie 值
 
-在网页浏览中我们常常涉及到用户登录，登录完毕之后服务端会返回一个cookie值。这个cookie值相当于一个令牌，拿着这张令牌就等同于证明了你是某个用户。
+在网页浏览中我们常常涉及到用户登录，登录完毕之后服务端会返回一个 cookie 值。这个 cookie 值相当于一个令牌，拿着这张令牌就等同于证明了你是某个用户。
 
-如果你的cookie值被窃取，那么攻击者很可能能够直接利用你的这张令牌不用密码就登录你的账户。如果想要通过script脚本获得当前页面的cookie值，通常会用到`document.cookie`。
+如果你的 cookie 值被窃取，那么攻击者很可能能够直接利用你的这张令牌不用密码就登录你的账户。如果想要通过 script 脚本获得当前页面的 cookie 值，通常会用到`document.cookie`。
 
 ### 劫持流量实现恶意跳转
 
@@ -94,7 +92,7 @@ eval(location.hash.substr(1));
 
 那么所访问的网站就会被跳转到对应的网站。
 
-## XSS防御
+## XSS 防御
 
 ### 完善的过滤体系
 
@@ -122,13 +120,13 @@ http://xxx.xxx.xxx.xxx/xss/example2.php?name=<sCript>alert("hey!")</scRipt>
 比如：有的网站也对`<script>`标签进行了过滤，但是对过滤后的内容并没有做处理
 
 ```js
-http://xxx.xxx.xxx.xxx/xss/example2.php?name=<sCript>alert("hey!")</scRipt>
+//xxx.xxx.xxx.xxx/xss/example2.php?name=<sCript>alert("hey!")</scRipt>
 
 // 过滤后剩下了
-alert("hey!")
+http: alert('hey!')
 ```
 
-如果我们就可以人为的制造一种巧合，让过滤完`<script>`标签后的语句中还有`<script>`标签（毕竟alert函数还在），像这样：
+如果我们就可以人为的制造一种巧合，让过滤完`<script>`标签后的语句中还有`<script>`标签（毕竟 alert 函数还在），像这样：
 
 ```js
 http://xxx.xxx.xxx.xxx/xss/example3.php?name=<sCri<script>pt>alert("hey!")</scRi</script>pt>
@@ -138,9 +136,9 @@ http://xxx.xxx.xxx.xxx/xss/example3.php?name=<sCri<script>pt>alert("hey!")</scRi
 
 再有对于链接跳转，如 `<a href="xxx"` 或 `location.href="xxx"`，要检验其内容，禁止以 `javascript:` 开头的链接，和其他非法的 scheme。
 
-### 并不是只有script标签才可以插入代码
+### 并不是只有 script 标签才可以插入代码
 
-在`<script>`标签已经被完全过滤的情况下，能植入脚本代码的不止script标签。`<img>` 其实也可以
+在`<script>`标签已经被完全过滤的情况下，能植入脚本代码的不止 script 标签。`<img>` 其实也可以
 
 ```js
 http://xxx.xxx.xxx.xxx/xss/example4.php?name=<img
@@ -156,7 +154,7 @@ src='w.123' onerror='alert("hey!")'>
 
 ### 编码脚本代码绕过关键字过滤
 
-有的时候，服务器往往会对代码中的关键字（如alert）进行过滤，这个时候我们可以尝试将关键字进行编码后再插入，不过直接显示编码是不能被浏览器执行的，我们可以用另一个语句`eval()`来实现。`eval()`会将编码过的语句解码后再执行。
+有的时候，服务器往往会对代码中的关键字（如 alert）进行过滤，这个时候我们可以尝试将关键字进行编码后再插入，不过直接显示编码是不能被浏览器执行的，我们可以用另一个语句`eval()`来实现。`eval()`会将编码过的语句解码后再执行。
 
 例如`alert(1)`编码过后就是`\u0061\u006c\u0065\u0072\u0074(1)`
 

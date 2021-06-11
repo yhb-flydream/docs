@@ -1,53 +1,35 @@
-# a标签包括label标签后不跳转
+# a 标签包括 label 标签后不跳转
 
 **当 `type` 类型为 `radio`、`checkbox`、`file` 时，点击不跳转。其他类型都会跳转（原因暂时不明）**
 
 ```html
 <div class="box">
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="checkbox"> checkbox测试 <span>不跳转</span>
-      </label>
+    <label> <input type="checkbox" /> checkbox测试 <span>不跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="radio"> radio测试 <span>不跳转</span>
-      </label>
+    <label> <input type="radio" /> radio测试 <span>不跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="file"> file测试 <span>不跳转</span>
-      </label>
+    <label> <input type="file" /> file测试 <span>不跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="button" value="button"> button测试 <span>跳转</span>
-      </label>
+    <label> <input type="button" value="button" /> button测试 <span>跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="image" src="https://static.linkeddb.com/images/linkeddb_logo_small_200x200.png"> image测试 <span>跳转</span>
-      </label>
+    <label> <input type="image" src="https://static.linkeddb.com/images/linkeddb_logo_small_200x200.png" /> image测试 <span>跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="text"> text测试 <span>跳转</span>
-      </label>
+    <label> <input type="text" /> text测试 <span>跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="password"> password测试 <span>跳转</span>
-      </label>
+    <label> <input type="password" /> password测试 <span>跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="submit"> submit测试 <span>跳转</span>
-      </label>
+    <label> <input type="submit" /> submit测试 <span>跳转</span> </label>
   </a>
   <a href="https://yhb-flydream.github.io/">
-      <label>
-        <input type="reset"> reset测试 <span>跳转</span>
-      </label>
+    <label> <input type="reset" /> reset测试 <span>跳转</span> </label>
   </a>
 </div>
 ```

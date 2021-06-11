@@ -2,16 +2,16 @@
 
 > jQuery 效果
 
-该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+该方法通过 CSS 样式将元素从一个状态改变为另一个状态。CSS 属性值是逐渐改变的，这样就可以创建动画效果。
 
 ## 语法一
 
 ```js
-$(selector).animate(styles,speed,easing,callback)
+$(selector).animate(styles, speed, easing, callback)
 ```
 
 - `styles`规定产生动画效果的 CSS 样式和值，为对象形式
-  - 可用的css样式值
+  - 可用的 css 样式值
   - **CSS 样式使用 DOM 名称（比如 "`fontSize`"）来设置，而非 CSS 名称（比如 "`font-size`"）**
   - `backgroundPosition`
   - `borderWidth`
@@ -60,27 +60,28 @@ $(selector).animate(styles,speed,easing,callback)
 实例
 
 ```js
-$("button").click(function(){
-  $("div").animate({left:'250px'}, 500, 'linear', function () {
-
-  });
-});
-$("button").click(function(){
-  $("div").animate({
-    left:'250px',
-    opacity:'0.5',
-    height:'150px',
-    width:'150px'
-  }, 500, 'linear', function () {
-
-  });
-});
+$('button').click(function () {
+  $('div').animate({ left: '250px' }, 500, 'linear', function () {})
+})
+$('button').click(function () {
+  $('div').animate(
+    {
+      left: '250px',
+      opacity: '0.5',
+      height: '150px',
+      width: '150px',
+    },
+    500,
+    'linear',
+    function () {}
+  )
+})
 ```
 
 ## 语法二
 
 ```js
-$(selector).animate(styles,options)
+$(selector).animate(styles, options)
 ```
 
 - `styles`
@@ -99,23 +100,23 @@ $(selector).animate(styles,options)
 以定义相对值（该值相对于元素的当前值）。需要在值的前面加上 `+=` 或 `-=`：
 
 ```js
-$("button").click(function(){
-  $("div").animate({
-    left:'250px',
-    height:'+=150px',
-    width:'+=150px'
-  });
-});
+$('button').click(function () {
+  $('div').animate({
+    left: '250px',
+    height: '+=150px',
+    width: '+=150px',
+  })
+})
 ```
 
 ## 使用预定义的值
 
 ```js
-$("button").click(function(){
-  $("div").animate({
-    height:'toggle'
-  });
-});
+$('button').click(function () {
+  $('div').animate({
+    height: 'toggle',
+  })
+})
 ```
 
 ## 使用队列功能
@@ -125,11 +126,11 @@ $("button").click(function(){
 这意味着如果您在彼此之后编写多个 `animate()` 调用，jQuery 会创建包含这些方法调用的“内部”队列。然后逐一运行这些 `animate` 调用。
 
 ```js
-$("button").click(function(){
-  var div=$("div");
-  div.animate({height:'300px',opacity:'0.4'},"slow");
-  div.animate({width:'300px',opacity:'0.8'},"slow");
-  div.animate({height:'100px',opacity:'0.4'},"slow");
-  div.animate({width:'100px',opacity:'0.8'},"slow");
-});
+$('button').click(function () {
+  var div = $('div')
+  div.animate({ height: '300px', opacity: '0.4' }, 'slow')
+  div.animate({ width: '300px', opacity: '0.8' }, 'slow')
+  div.animate({ height: '100px', opacity: '0.4' }, 'slow')
+  div.animate({ width: '100px', opacity: '0.8' }, 'slow')
+})
 ```

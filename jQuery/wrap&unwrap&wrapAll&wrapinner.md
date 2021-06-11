@@ -2,14 +2,14 @@
 
 ## wrap
 
-把每个被选元素放置在指定的 HTML 内容或元素中(一个wrapper包括一个selector)
+把每个被选元素放置在指定的 HTML 内容或元素中(一个 wrapper 包括一个 selector)
 
 ```js
 $(selector).wrap(wrapper)
 
-$("p").wrap("<div></div>");
+$('p').wrap('<div></div>')
 
-$(selector).wrap(function(){})
+$(selector).wrap(function () {})
 ```
 
 - wrapper
@@ -26,12 +26,12 @@ $(selector).wrap(function(){})
 ```js
 $(selector).unwrap()
 
-$("p").unwrap();
+$('p').unwrap()
 ```
 
 ## wrapAll
 
-使用指定的 HTML 内容或元素中放置所有被选的元素(一个wrapper包括所有selector)
+使用指定的 HTML 内容或元素中放置所有被选的元素(一个 wrapper 包括所有 selector)
 
 ```js
 $(selector).wrapAll(wrapper)
@@ -50,7 +50,7 @@ $(selector).wrapAll(function()())
 
 ## wrapInner
 
-使用指定的 HTML 内容或元素，来包裹每个被选元素中的所有内容 (inner HTML)(一个wrapper包括一个selector里面的内容，wrapper在selector内)
+使用指定的 HTML 内容或元素，来包裹每个被选元素中的所有内容 (inner HTML)(一个 wrapper 包括一个 selector 里面的内容，wrapper 在 selector 内)
 
 ```js
 $(selector).wrapInner(wrapper)

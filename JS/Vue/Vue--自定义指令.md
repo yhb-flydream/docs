@@ -10,7 +10,7 @@
 Vue.directive('focus', {
   inserted(el) {
     el.focus()
-  }
+  },
 })
 ```
 
@@ -34,13 +34,13 @@ directive: {
 
 - `bind` 知道用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
 - `inserted` 被绑定元素插入父亲节点时调用（仅保证父节点存在，但不一定已被插入文档中）。
-- `update` 所在组件的VNode更新时调用，**但是可能发生在其子VNode更新之前。**指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下)
-- `componentUpdated` 指令所在组件的VNode**及其子VNode**全部更新后调用
+- `update` 所在组件的 VNode 更新时调用，**但是可能发生在其子 VNode 更新之前。**指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下)
+- `componentUpdated` 指令所在组件的 VNode**及其子 VNode**全部更新后调用
 - `unbind` 只调用一次，指令与元素解绑时调用
 
 ## 钩子函数参数
 
-- `el` 指令所绑定的元素，可以用来直接操作DOM
+- `el` 指令所绑定的元素，可以用来直接操作 DOM
 - `binding` 一个对象，包含以下属性：
   - `name` 指令名，不包括`v-`前缀
   - `value` 指令绑定值，例如： `v-my-directive="1 + 1"` 中，绑定值为 2
@@ -61,23 +61,34 @@ directive: {
 
 ```js
 Vue.directive('demo', {
-  bind: function(el, binding, vnode) {
+  bind: function (el, binding, vnode) {
     var s = JSON.stringify
     el.innerHTML =
-      'name: '       + s(binding.name) + '<br>' +
-      'value: '      + s(binding.value) + '<br>' +
-      'expression: ' + s(binding.expression) + '<br>' +
-      'argument: '   + s(binding.arg) + '<br>' +
-      'modifiers: '  + s(binding.modifiers) + '<br>' +
-      'vnode keys: ' + Object.keys(vnode).join(', ')
-  }
+      'name: ' +
+      s(binding.name) +
+      '<br>' +
+      'value: ' +
+      s(binding.value) +
+      '<br>' +
+      'expression: ' +
+      s(binding.expression) +
+      '<br>' +
+      'argument: ' +
+      s(binding.arg) +
+      '<br>' +
+      'modifiers: ' +
+      s(binding.modifiers) +
+      '<br>' +
+      'vnode keys: ' +
+      Object.keys(vnode).join(', ')
+  },
 })
 
 new Vue({
   el: '#hook-arguments-example',
   data: {
-    message: 'hello!'
-  }
+    message: 'hello!',
+  },
 })
 ```
 
@@ -86,7 +97,7 @@ new Vue({
 在很多时候，你可能想在 `bind` 和 `update` 时触发相同行为，而不关心其它的钩子。比如这样写:
 
 ```js
-Vue.directive('color-swatch', function(el, binding) {
+Vue.directive('color-swatch', function (el, binding) {
   el.style.backgroundColor = binding.value
 })
 ```
@@ -98,9 +109,9 @@ Vue.directive('color-swatch', function(el, binding) {
 **指令函数能够接受所有合法的 JavaScript 表达式。**
 
 ```js
-<div v-demo="{ color: 'white', text: 'hello!' }"></div>
+;<div v-demo="{ color: 'white', text: 'hello!' }"></div>
 
-Vue.directive('demo', function(el, binding) {
+Vue.directive('demo', function (el, binding) {
   console.log(binding.value.color) // white
   console.log(binding.value.text) // hello!
 })

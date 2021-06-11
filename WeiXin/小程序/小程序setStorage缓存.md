@@ -1,10 +1,10 @@
-# 小程序setStorage缓存
+# 小程序 setStorage 缓存
 
 - [小程序缓存踩过的坑](https://blog.csdn.net/weixin_42133469/article/details/81875125)
 
 ## 设置、获取缓存
 
-小程序的数据缓存，最大支持10M，可以写入多种类型数据（number、boolean、array、string、object 等）
+小程序的数据缓存，最大支持 10M，可以写入多种类型数据（number、boolean、array、string、object 等）
 
 小程序设置、获取缓存有**同步、异步**接口
 
@@ -23,7 +23,7 @@ function setStorage(key, value) {
 
 function getStorage(key) {
   try {
-    return wx,getStorageSync(key)
+    return wx, getStorageSync(key)
   } catch (e) {
     return getStorage(key)
   }

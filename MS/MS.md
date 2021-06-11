@@ -66,17 +66,17 @@
 ## 6、如何 copy 一个 Array
 
 ```js
-var arr = [1,2,3,4,5,6];
-var newArr = [];
+var arr = [1, 2, 3, 4, 5, 6]
+var newArr = []
 
-for(var i = 0; i < arr.length; i++) {
-  newArr.push(arr[i]);
+for (var i = 0; i < arr.length; i++) {
+  newArr.push(arr[i])
 }
 
-([]).push.apply(newArr, arr);
-console.log(newArr);
+;[].push.apply(newArr, arr)
+console.log(newArr)
 
-newArr.push(...arr);
+newArr.push(...arr)
 ```
 
 ## 7、你做的页面在哪些流览器测试过？这些浏览器的内核分别是什么
@@ -304,11 +304,13 @@ newArr.push(...arr);
 ## 27、行内元素和块级元素的具体区别是什么？行内元素的 padding 和 margin 可设置吗
 
 - 块级元素(block)特性
+
   - 总是独占一行，
   - 表现为另起一行开始，而且其后的元素也必须另起一行显示;
   - 宽度(width)、高度(height)、内边距(padding)和外边距(margin)都可控制
 
 - 内联元素(inline)特性
+
   - 和相邻的内联元素在同一行;
   - 宽度(width)、高度(height)、内边距的`top/bottom(padding-top/padding-bottom)`和外边距的`top/bottom(margin-top/margin-bottom)`都不可改变
   - **只有 padding 和 margin 的 left 和 right 是可以设置**
@@ -407,6 +409,7 @@ newArr.push(...arr);
 > 禁止在函数内部遍历调用栈
 
 - 混杂模式:
+
   - 不严格按照标准执行，主要用来兼容旧的浏览器，向后兼容
 
 - 设立"严格模式"的目的：
@@ -539,6 +542,7 @@ newArr.push(...arr);
 - 优先级
 
 - CSS3 新增伪类举例：
+
   - `p:first-of-type` 选择属于其父元素的首个 `<p>` 元素的每个 `<p>` 元素
   - `p:last-of-type` 选择属于其父元素的最后 `<p>`元素的每个`<p>`元素
   - `p:only-of-type` 选择属于其父元素唯一的 `<p>` 元素的每个 `<p>` 元素
@@ -1194,8 +1198,7 @@ str = str.split('').reverse().join('')
 - `window.location.hash()`
 
   - 返回锚点
-    > 比如打开某个地址 `http://www.example.com#archor`那么`window.location.hash`就是`http://www.example.com#archor`
-    > `window.location.hash`是`#archor`
+    > 比如打开某个地址 `http://www.example.com#archor`那么`window.location.hash`就是`http://www.example.com#archor` > `window.location.hash`是`#archor`
 
 - `window.location.reload()`
   - 刷新当前页面

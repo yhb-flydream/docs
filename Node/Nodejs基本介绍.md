@@ -3,7 +3,7 @@
 - [Node.js 中文网](http://nodejs.cn/)
 - [《JavaScript 标准参考教程（alpha）》 - Node.js](https://javascript.ruanyifeng.com/nodejs/assert.html#)
 - [Node.js 入门](https://cnodejs.org/getstart)
-- [七天学会NodeJS](http://nqdeng.github.io/7-days-nodejs/)
+- [七天学会 NodeJS](http://nqdeng.github.io/7-days-nodejs/)
 - [Node.js 包教不包会](https://github.com/alsotang/node-lessons)
 
 > Node.js 是一种服务器端框架，所以它的一个主要工作就是处理浏览器请求
@@ -51,12 +51,12 @@ module.exports = function () {
 
 ### 模块初始化
 
-一个模块中的js代码仅在模块第一次被使用时执行一次，并在执行过程中初始化模块的导出对象。
+一个模块中的 js 代码仅在模块第一次被使用时执行一次，并在执行过程中初始化模块的导出对象。
 之后缓存起来的导出对象被重复利用。
 
 ### 主模块
 
-通过命令行参数传递给NodeJS以启动程序的模块被称为主模块。
+通过命令行参数传递给 NodeJS 以启动程序的模块被称为主模块。
 主模块负责调动组成整个程序的其他模块完成工作。
 例如通过以下命令启动程序时，`main.js` 就是主模块。
 
@@ -66,10 +66,10 @@ node main.js
 
 ### 小结
 
-- NodeJS 是一个JS脚本解析器，在任何操作系统下安装NodeJS本质上做的事情都是把NodeJS执行程序复制到一个目录，然后保证这个目录在系统PATH环境变量下，以便终端下可以使用 `node` 命令。
-- 终端下直接输入 `node` 命令可以进入命令交互模式，很适合用来测试一些js代码片段，比如正则表达式。
+- NodeJS 是一个 JS 脚本解析器，在任何操作系统下安装 NodeJS 本质上做的事情都是把 NodeJS 执行程序复制到一个目录，然后保证这个目录在系统 PATH 环境变量下，以便终端下可以使用 `node` 命令。
+- 终端下直接输入 `node` 命令可以进入命令交互模式，很适合用来测试一些 js 代码片段，比如正则表达式。
 - NodeJS 使用 [CMD](https://github.com/seajs/seajs/issues/242) 模块系统，主模块作为程序入口点，所有模块在执行过程中只初始化一次。
-- 除非JS模块不能满足需求，否则不要轻易使用二进制模块。
+- 除非 JS 模块不能满足需求，否则不要轻易使用二进制模块。
 
 - 1、非阻塞或异步 I/O
 

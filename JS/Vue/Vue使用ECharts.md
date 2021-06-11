@@ -1,4 +1,4 @@
-# Vue使用ECharts
+# Vue 使用 ECharts
 
 - [v-charts github](https://github.com/ElemeFE/v-charts)
 - [v-charts 官网](https://v-charts.js.org)
@@ -9,7 +9,7 @@
 - [vue-echarts demo](https://ecomfe.github.io/vue-echarts/demo/)
 - [echarts 官网教程](https://ecomfe.github.io/echarts-doc/public/cn/tutorial.html)
 
-## v-charts 双y轴左右刻度不一致，如何像echarts一样可以分别设置
+## v-charts 双 y 轴左右刻度不一致，如何像 echarts 一样可以分别设置
 
 ```js
 yAxis(item) {

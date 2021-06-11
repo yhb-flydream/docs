@@ -2,10 +2,10 @@
 
 [CSS Grid 布局完全指南](http://www.css88.com/archives/8510)
 
-**CSS Grid(网格) **布局（又称为 “Grid(网格)” ），是一个`二维的基于网格的布局系统`它的目标是完全改变我们基于网格的用户界面的布局方式。
+**CSS Grid(网格)** 布局（又称为 “Grid(网格)” ），是一个`二维的基于网格的布局系统`它的目标是完全改变我们基于网格的用户界面的布局方式。
 CSS 一直用来布局我们的网页，但一直以来都存在这样或那样的问题。一开始我们用表格（table），然后是浮动（float），再是定位（postion）和内嵌块（inline-block），但是所有这些方法本质上都是只是 hack 而已，并且遗漏了很多重要的功能（例如垂直居中）。
 Flexbox 的出现很大程度上改善了我们的布局方式，但它的目的是为了解决更简单的一维布局，而不是复杂的二维布局（实际上 Flexbox 和 Grid 能结合在一起工作，而且配合得非常好）。
-Grid(网格) 布局是第一个专门为解决布局问题而创建的 CSS 模块，我们终于不需要想尽办法hack 页面布局样式了。
+Grid(网格) 布局是第一个专门为解决布局问题而创建的 CSS 模块，我们终于不需要想尽办法 hack 页面布局样式了。
 
 ## 基础
 
@@ -33,7 +33,7 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ### 网格区域
 
-4条网格线包围的总空间。一个 网格区域(Grid Area) 可以由任意数量的 网格单元格(Grid Cell) 组成。
+4 条网格线包围的总空间。一个 网格区域(Grid Area) 可以由任意数量的 网格单元格(Grid Cell) 组成。
 
 ## 网格容器（父元素）属性
 
@@ -45,7 +45,7 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ```css
 .container {
-    display: grid | inline-grid | subgrid;
+  display: grid | inline-grid | subgrid;
 }
 ```
 
@@ -60,17 +60,17 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ```css
 .container {
-    grid-template-columns: <track-size> ... | <line-name> <track-size> ...;
-    grid-template-rows: <track-size> ... | <line-name> <track-size> ...;
+  grid-template-columns: <track-size> ... | <line-name> <track-size> ...;
+  grid-template-rows: <track-size> ... | <line-name> <track-size> ...;
 }
 ```
 
 当在值之间留空格时，网格线会自动分配数字名称
 
 ```css
-.container{
-    grid-template-columns: 40px 50px auto 50px 40px;
-    grid-template-rows: 25% 100px auto;
+.container {
+  grid-template-columns: 40px 50px auto 50px 40px;
+  grid-template-rows: 25% 100px auto;
 }
 ```
 
@@ -81,16 +81,16 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ```css
 .container {
-    grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 40px [end];
-    grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [last-line];
+  grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 40px [end];
+  grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [last-line];
 }
 ```
 
-请注意，一条网格线(Grid Line)可以有多个名称。例如，这里的第二条 行网格线(row grid lines) 将有两个名字：row1-end 和row2-start ：
+请注意，一条网格线(Grid Line)可以有多个名称。例如，这里的第二条 行网格线(row grid lines) 将有两个名字：row1-end 和 row2-start ：
 
 ```css
-.container{
-    grid-template-rows: [row1-start] 25% [row1-end row2-start] 25% [row2-end];
+.container {
+  grid-template-rows: [row1-start] 25% [row1-end row2-start] 25% [row2-end];
 }
 ```
 
@@ -98,13 +98,13 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ```css
 .container {
-    grid-template-columns: repeat(3, 20px [col-start]) 5%;
+  grid-template-columns: repeat(3, 20px [col-start]) 5%;
 }
 
 /* 等价于 */
 
 .container {
-    grid-template-columns: 20px [col-start] 20px [col-start] 20px [col-start] 5%;
+  grid-template-columns: 20px [col-start] 20px [col-start] 20px [col-start] 5%;
 }
 ```
 
@@ -112,15 +112,15 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ```css
 .container {
-    grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 ```
 
-剩余可用空间是除去所有非灵活网格项之后计算得到的。在这个例子中，可用空间总量减去 50px 后，再给 fr 单元的值3等分：
+剩余可用空间是除去所有非灵活网格项之后计算得到的。在这个例子中，可用空间总量减去 50px 后，再给 fr 单元的值 3 等分：
 
 ```css
 .container {
-    grid-template-columns: 1fr 50px 1fr 1fr;
+  grid-template-columns: 1fr 50px 1fr 1fr;
 }
 ```
 
@@ -134,7 +134,7 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
 
 ```css
 .container {
-  grid-template-areas: " | . | none | ..." "...";
+  grid-template-areas: ' | . | none | ...' '...';
 }
 ```
 
@@ -156,8 +156,8 @@ Grid 布局由网格容器（父元素）和网格项（子元素）组成
   grid-template-columns: 50px 50px 50px 50px;
   grid-template-rows: auto;
   grid-template-areas:
-    "header header header header"
-    "main main . sidebar"
-    "footer footer footer footer";
+    'header header header header'
+    'main main . sidebar'
+    'footer footer footer footer';
 }
 ```

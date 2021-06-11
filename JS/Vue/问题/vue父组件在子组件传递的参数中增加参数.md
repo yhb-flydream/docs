@@ -1,7 +1,7 @@
-# vue父组件在子组件传递的参数中增加参数
+# vue 父组件在子组件传递的参数中增加参数
 
 参见[自定义事件传参问题](https://github.com/vuejs/vue/issues/5735)
-参见[vue父组件在子组件传递的参数中增加参数--2019-01-11](https://github.com/lizhongzhen11/dailyGain/issues/21)
+参见[vue 父组件在子组件传递的参数中增加参数--2019-01-11](https://github.com/lizhongzhen11/dailyGain/issues/21)
 
 - Child component:
 

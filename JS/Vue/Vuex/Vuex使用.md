@@ -3,14 +3,14 @@
 ## 全局注册 `store`
 
 ```js
-Vue.use(Vuex); // 使用前先调用 vuex
+Vue.use(Vuex) // 使用前先调用 vuex
 
 new Vue({
   el: '#app',
   store, // 添加到根实例中，就可在所有子组件中使用 `this.$store` 访问
   components: { App },
   template: '<App/>',
-});
+})
 ```
 
 ## 组件中使用 **`this.$store`**
@@ -21,10 +21,10 @@ new Vue({
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
+    count() {
       return this.$store.state.count
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -38,16 +38,16 @@ export default {
   // ...
   computed: mapState({
     // 箭头函数可使代码更简练
-    count: state => state.count,
+    count: (state) => state.count,
 
     // 传字符串参数 'count' 等同于 `state => state.count`
     countAlias: 'count',
 
     // 为了能够使用 `this` 获取局部状态，必须使用常规函数
-    countPlusLocalState (state) {
+    countPlusLocalState(state) {
       return state.count + this.localCount
-    }
-  })
+    },
+  }),
 }
 ```
 
@@ -56,11 +56,11 @@ export default {
 ```js
 computed: mapState([
   // 映射 this.count 为 store.state.count
-  'count'
+  'count',
 ])
 ```
 
-## Getter（*可以认为是 `store` 的计算属性*）
+## Getter（_可以认为是 `store` 的计算属性_）
 
 就像计算属性一样，`getter` 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
 
@@ -71,14 +71,14 @@ const store = new Vuex.Store({
   state: {
     todos: [
       { id: 1, text: '...', done: true },
-      { id: 2, text: '...', done: false }
-    ]
+      { id: 2, text: '...', done: false },
+    ],
   },
   getters: {
-    doneTodos: state => {
-      return state.todos.filter(todo => todo.done)
-    }
-  }
+    doneTodos: (state) => {
+      return state.todos.filter((todo) => todo.done)
+    },
+  },
 })
 ```
 
@@ -119,7 +119,7 @@ computed: {
 getters: {
   // ...
   getTodoById: (state) => (id) => {
-    return state.todos.find(todo => todo.id === id)
+    return state.todos.find((todo) => todo.id === id)
   }
 }
 
@@ -133,7 +133,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 `mapGetters` 辅助函数仅仅是将 `store` 中的 `getter` 映射到局部计算属性：
 
 ```js
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   // ...
@@ -144,8 +144,8 @@ export default {
       'doneTodosCount',
       'anotherGetter',
       // ...
-    ])
-  }
+    ]),
+  },
 }
 ```
 
@@ -154,11 +154,11 @@ export default {
 ```js
 mapGetters({
   // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
-  doneCount: 'doneTodosCount'
+  doneCount: 'doneTodosCount',
 })
 ```
 
-## Mutation (*类似于事件 methods*)
+## Mutation (_类似于事件 methods_)
 
 **更改 Vuex 的 store 中的状态的唯一方法是提交 `mutation`**
 
@@ -169,14 +169,14 @@ mapGetters({
 ```js
 const store = new Vue.Store({
   state: {
-    count: 1
+    count: 1,
   },
   mutations: {
     increment(state) {
       // 变更状态
       state.count++
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -185,7 +185,7 @@ const store = new Vue.Store({
 这个选项更像是事件注册：**当触发一个类型为 `increment` 的 `mutation` 时，调用此函数。** 要唤醒一个 mutation handler，你需要以相应的 type 调用 `store.commit` 方法：
 
 ```js
-store.commit('increment');
+store.commit('increment')
 ```
 
 - 提交载荷（Payload）
@@ -225,7 +225,7 @@ store.commit('increment', {
 ```js
 store.commit({
   type: 'increment',
-  amount: 10
+  amount: 10,
 })
 ```
 

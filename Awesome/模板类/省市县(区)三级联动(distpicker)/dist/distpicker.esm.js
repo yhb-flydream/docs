@@ -4228,7 +4228,7 @@ var Distpicker = function () {
     key: 'output',
     value: function output(type) {
       var options = this.options,
-          placeholders = this.placeholders;
+        placeholders = this.placeholders;
 
       var $select = this['$' + type];
 

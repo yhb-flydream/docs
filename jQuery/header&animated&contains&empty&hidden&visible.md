@@ -5,7 +5,7 @@
 选取所有标题元素（h1 - h6）
 
 ```js
-$(":header")
+$(':header')
 ```
 
 ## :animated
@@ -13,7 +13,7 @@ $(":header")
 选取当前的所有动画元素
 
 ```js
-$(":animated")
+$(':animated')
 ```
 
 ## :contains
@@ -23,7 +23,7 @@ $(":animated")
 **该字符串可以是直接包含在元素中的文本，或者被包含于子元素中**
 
 ```js
-$("p:contains(is)")
+$('p:contains(is)')
 ```
 
 ## :empty
@@ -31,7 +31,7 @@ $("p:contains(is)")
 选取空的元素
 
 ```js
-$(":empty")
+$(':empty')
 ```
 
 ## :hidden
@@ -39,7 +39,7 @@ $(":empty")
 选取所有隐藏的元素
 
 ```js
-$("p:hidden")
+$('p:hidden')
 ```
 
 ## :visible

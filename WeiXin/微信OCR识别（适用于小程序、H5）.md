@@ -1,4 +1,4 @@
-# 微信OCR识别
+# 微信 OCR 识别
 
 ## 一、接口介绍
 
@@ -15,15 +15,7 @@
 - 以下为申请邮件模版：
 
 ```html
-邮件标题：
-
-【微信 OCR】身份证识别接口权限申请
-
-邮件正文：
-
-1、申请微信 OCR 身份证识别接口的公众号或小程序 appid：
-
-2、使用场景/原因说明：
+邮件标题： 【微信 OCR】身份证识别接口权限申请 邮件正文： 1、申请微信 OCR 身份证识别接口的公众号或小程序 appid： 2、使用场景/原因说明：
 ```
 
 ### 1.3 使用 TIPS
@@ -32,9 +24,9 @@
 一起使用，即可完成身份证照片的采集、上传、识别、信息返回等流程，用于需要基于身份
 证、银行卡等实体卡或证，采集照片或文字信息等的业务场景。
 
-## 二、身份证OCR识别接口
+## 二、身份证 OCR 识别接口
 
-### 2.1请求示例
+### 2.1 请求示例
 
 ```html
 http://api.weixin.qq.com/cv/ocr/idcard?type=MODE&img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
@@ -43,24 +35,21 @@ http://api.weixin.qq.com/cv/ocr/idcard?type=MODE&img_url=ENCODE_URL&access_token
 - 示例
 
 ```html
-示例1：
-curl http://api.weixin.qq.com/cv/ocr/idcard?type=photo&img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
-
-示例2：
-curl -F ‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/idcard?type=photo&img_url=ENCODE_URL&access_token=ACCESS_TOCKEN”
+示例1： curl http://api.weixin.qq.com/cv/ocr/idcard?type=photo&img_url=ENCODE_URL&access_token=ACCESS_TOCKEN 示例2： curl -F
+‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/idcard?type=photo&img_url=ENCODE_URL&access_token=ACCESS_TOCKEN”
 ```
 
 - 说明：
   - img_url
-    - 图片支持使用img参数实时上传，也支持使用img_url参数传送图片地址，由微信后台下载图片进行识别。
+    - 图片支持使用 img 参数实时上传，也支持使用 img_url 参数传送图片地址，由微信后台下载图片进行识别。
   - type 有两种类型：
     - photo：拍照模型，带背景的图片
     - scan：扫描模式，不带背景的图片
   - ACCESS_TOCKEN
     - [参见](./公众号/获取access_token.md)
-  - **文件大小限制：小于2M**
+  - **文件大小限制：小于 2M**
 
-### 2.2返回参数样例
+### 2.2 返回参数样例
 
 ```json
 {
@@ -79,9 +68,9 @@ curl -F ‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/idcard?type=photo&
 }
 ```
 
-## 三、银行卡OCR识别接口
+## 三、银行卡 OCR 识别接口
 
-### 3.1请求示例
+### 3.1 请求示例
 
 ```html
 http://api.weixin.qq.com/cv/ocr/ bankcard? img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
@@ -90,44 +79,40 @@ http://api.weixin.qq.com/cv/ocr/ bankcard? img_url=ENCODE_URL&access_token=ACCES
 - 示例
 
 ```html
-示例1：
-curl http://api.weixin.qq.com/cv/ocr/ bankcard?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
-示例2：
-curl -F ‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/ bankcard? img_url=ENCODE_URL&access_token=ACCESS_TOCKEN”
+示例1： curl http://api.weixin.qq.com/cv/ocr/ bankcard?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN 示例2： curl -F
+‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/ bankcard? img_url=ENCODE_URL&access_token=ACCESS_TOCKEN”
 ```
 
 - 说明：
-  - **文件大小限制：小于2M**
+  - **文件大小限制：小于 2M**
 
-### 3.2返回参数样例
+### 3.2 返回参数样例
 
 ```json
 {
   "errcode": 0,
   "errmsg": "ok",
-  "number": "000000000000000", // 银行卡号
+  "number": "000000000000000" // 银行卡号
 }
 ```
 
-## 四、行驶证OCR识别接口
+## 四、行驶证 OCR 识别接口
 
-### 4.1请求示例
+### 4.1 请求示例
 
 ```html
 http://api.weixin.qq.com/cv/ocr/ driving? img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 ```
 
 ```html
-示例1：
-curl http://api.weixin.qq.com/cv/ocr/ driving?img_url= ENCODE_URL&access_token=ACCESS_TOCKEN
-示例2：
-curl -F ‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/ driving? img_url= ENCODE_URL&access_token=ACCESS_TOCKEN”
+示例1： curl http://api.weixin.qq.com/cv/ocr/ driving?img_url= ENCODE_URL&access_token=ACCESS_TOCKEN 示例2： curl -F
+‘img=@test.jpg’“http://api.weixin.qq.com/cv/ocr/ driving? img_url= ENCODE_URL&access_token=ACCESS_TOCKEN”
 ```
 
 - 说明：
-  - **⽂件大⼩限制：小于2M**
-  
-### 4.2返回参数样例
+  - **⽂件大⼩限制：小于 2M**
+
+### 4.2 返回参数样例
 
 ```json
 {

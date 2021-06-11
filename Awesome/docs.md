@@ -14,7 +14,7 @@
 - [carbon.now.sh](https://carbon.now.sh/)
 - [博客文章](https://dawnlabs.io/blog/carbon/)
 
-### CSS3动力悬停效果的集合，适用于链接，按钮，徽标，SVG，特色图像等
+### CSS3 动力悬停效果的集合，适用于链接，按钮，徽标，SVG，特色图像等
 
 - [github](https://github.com/IanLunn/Hover)
 - [Hover.css](http://ianlunn.github.io/Hover/)

@@ -7,7 +7,7 @@
 ```js
 $(selector).clearQueue(queueName)
 
-$("#box").clearQueue();
+$('#box').clearQueue()
 ```
 
 - queueName
@@ -21,9 +21,9 @@ $("#box").clearQueue();
 停止当前正在运行的动画，**可立即停止当前动画，也可等当前动画执行完，依据参数而定**
 
 ```js
-$(selector).stop(stopAll,goToEnd)
+$(selector).stop(stopAll, goToEnd)
 
-$("#box").stop();
+$('#box').stop()
 ```
 
 - stopAll

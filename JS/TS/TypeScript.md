@@ -6,7 +6,7 @@
 - [TypeScript 中文手册](https://typescript.bootcss.com/)
 - [TypeScript 入门教程](https://ts.xcatliu.com/)
 - [深入理解 Typescript](https://jkchao.github.io/typescript-book-chinese/)
-- [TypeScript Handbook（中文版）](https://jkchao.github.io/typescript-book-chinese/)
+- [TypeScript Handbook（中文版）](https://zhongsp.gitbooks.io/typescript-handbook/content/)
 - [TypeScript 精通指南](https://nodelover.gitbook.io/typescript/)
 
 [TOC]
@@ -31,10 +31,10 @@ yarn global add typescript
 
 ```ts
 function sayHello(name: string) {
-  return 'Hello ' + name;
+  return 'Hello ' + name
 }
-let myName: string = 'TypeScript';
-console.log(sayHello(myName));
+let myName: string = 'TypeScript'
+console.log(sayHello(myName))
 ```
 
 运行
@@ -47,10 +47,10 @@ tsc hello.ts
 
 ```js
 function sayHello(name) {
-  return 'Hello ' + name;
+  return 'Hello ' + name
 }
-var myName = 'TypeScript';
-console.log(sayHello(myName));
+var myName = 'TypeScript'
+console.log(sayHello(myName))
 ```
 
 ## 基础
@@ -99,9 +99,9 @@ a = '1'
 - 初始声明变量时，没有声明类型的变量为任意值
 
 ```ts
-let a;
-a = 1;
-a = '1';
+let a
+a = 1
+a = '1'
 ```
 
 ### 类型推论
@@ -113,12 +113,12 @@ a = '1';
 联合类型（Union Types）表示取值可以为多种类型中的一种。使用 `|` 分隔每个类型。
 
 ```ts
-let myFavoriteNumber: string | number;
-myFavoriteNumber = 'seven';
-myFavoriteNumber = 7;
+let myFavoriteNumber: string | number
+myFavoriteNumber = 'seven'
+myFavoriteNumber = 7
 ```
 
-*当 TypeScript 不确定一个联合类型的变量到底是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或方法。*
+_当 TypeScript 不确定一个联合类型的变量到底是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或方法。_
 
 ### 对象的类型——接口
 
@@ -131,13 +131,13 @@ myFavoriteNumber = 7;
 
 ```ts
 interface Person {
-  name: string;
-  age: number;
+  name: string
+  age: number
 }
 
 let tom: Person = {
   name: 'Tom',
-  age: 25
+  age: 25,
 }
 ```
 
@@ -146,35 +146,35 @@ let tom: Person = {
 
 #### 可选属性
 
-有时我们希望不要完全匹配一个形状，那么可以用可选属性(*该属性可以不存在*)：
+有时我们希望不要完全匹配一个形状，那么可以用可选属性(_该属性可以不存在_)：
 
 ```ts
 interface Person {
-  name: string;
-  age?: number;
+  name: string
+  age?: number
 }
 
 let tom: Person = {
-  name: 'Tom'
+  name: 'Tom',
 }
 
 // OR
 
 let tom: Person = {
   name: 'Tom',
-  age: 25
+  age: 25,
 }
 ```
 
-**但此时仍不能添加未定义属性**
+**但此时仍不能添加未定义属性。**
 
 #### 任意属性
 
 ```ts
 interface Person {
-  name: string;
-  age: number;
-  [propName: string]: any;
+  name: string
+  age: number
+  [propName: string]: any
 }
 ```
 
@@ -184,16 +184,16 @@ interface Person {
 
 ```ts
 interface Person {
-  name: string;
-  age?: number;
-  [propName: string]: string;
+  name: string
+  age?: number
+  [propName: string]: string
 }
 
 let tom: Person = {
   name: 'Tom',
   age: 25,
-  gender: 'male'
-};
+  gender: 'male',
+}
 
 // 此时编译会报错，因为 任意属性的类型为 string，但是 age 的类型为 number
 ```
@@ -202,9 +202,9 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string;
-  age?: number;
-  [propName: string]: string | number;
+  name: string
+  age?: number
+  [propName: string]: string | number
 }
 ```
 
@@ -214,9 +214,9 @@ interface Person {
 
 ```ts
 interface Person {
-  readonly id: number;
-  name: string;
-  age: number;
+  readonly id: number
+  name: string
+  age: number
   [propName: string]: string | number
 }
 ```
@@ -228,7 +228,7 @@ interface Person {
 #### 「类型 + 方括号」表示法
 
 ```ts
-let arr: number[] = [1,2,3];
+let arr: number[] = [1, 2, 3]
 ```
 
 此时规定数组中只能出现 number 类型，不允许出现其他类型
@@ -236,8 +236,8 @@ let arr: number[] = [1,2,3];
 **数组的一些方法的参数也会根据数组在定义时约定的类型进行限制：**
 
 ```ts
-let arr: number[] = [1,2,3];
-arr.push('4');
+let arr: number[] = [1, 2, 3]
+arr.push('4')
 
 // Argument of type '"4"' is not assignable to parameter of type 'number'.
 ```
@@ -245,7 +245,7 @@ arr.push('4');
 #### 数组泛型
 
 ```ts
-let arr: Array<number> = [1,2,3];
+let arr: Array<number> = [1, 2, 3]
 ```
 
 #### 用接口表示数组
@@ -254,7 +254,7 @@ let arr: Array<number> = [1,2,3];
 interface NumberArray {
   [index: number]: number
 }
-let arr: NumberArray = [1,2,3];
+let arr: NumberArray = [1, 2, 3]
 ```
 
 `NumberArray` 表示：只要索引的类型是数字时，那么值的类型必须是数字。
@@ -265,7 +265,7 @@ let arr: NumberArray = [1,2,3];
 
 ```ts
 function sum() {
-  let args: number[] = arguments;
+  let args: number[] = arguments
 }
 
 // Type 'IArguments' is missing the following properties from type 'number[]': pop, push, concat, join, and 24 more.
@@ -276,10 +276,10 @@ function sum() {
 ```ts
 function sum() {
   let args: {
-    [index: number]: number;
-    length: number;
-    callee: Function;
-  } = arguments;
+    [index: number]: number
+    length: number
+    callee: Function
+  } = arguments
 }
 ```
 
@@ -287,7 +287,7 @@ function sum() {
 
 ```ts
 function sum() {
-  let args: IArguments = arguments;
+  let args: IArguments = arguments
 }
 ```
 
@@ -295,9 +295,9 @@ function sum() {
 
 ```ts
 interface IArguments {
-  [index: number]: any;
-  length: number;
-  callee: Function;
+  [index: number]: any
+  length: number
+  callee: Function
 }
 ```
 
@@ -306,7 +306,7 @@ interface IArguments {
 用 any 表示数组中允许出现任意类型：
 
 ```ts
-let list: any[] = ['xcatliu', 25, { website: 'http://xcatliu.com' }];
+let list: any[] = ['xcatliu', 25, { website: 'http://xcatliu.com' }]
 ```
 
 ### 函数的类型
@@ -319,13 +319,13 @@ let list: any[] = ['xcatliu', 25, { website: 'http://xcatliu.com' }];
 ```js
 // 函数声明（Function Declaration）
 function sum(x, y) {
-  return x + y;
+  return x + y
 }
 
 // 函数表达式（Function Expression）
 let mySum = function (x, y) {
-  return x + y;
-};
+  return x + y
+}
 ```
 
 #### 函数声名式
@@ -338,21 +338,21 @@ function (x: number, y: number): number {
 }
 ```
 
-**注意，输入多余的（或者少于要求的）参数，是不被允许的**
+**注意，输入多余的（或者少于要求的）参数，是不被允许的。**
 
 #### 函数表达式
 
 ```ts
-let mySum = function(x: number, y: number): number {
-  return x + y;
+let mySum = function (x: number, y: number): number {
+  return x + y
 }
 ```
 
 上面书写是可以通过编译的，不过事实上，上面的代码只对等号右侧的匿名函数进行了类型定义，而等号左边的 mySum，是通过赋值操作进行类型推论而推断出来的。如果需要我们手动给 mySum 添加类型，则应该是这样：
 
 ```ts
-let mySum: (x: number, y: number) => number = function(x: number, y: number): number {
-  return x + y;
+let mySum: (x: number, y: number) => number = function (x: number, y: number): number {
+  return x + y
 }
 ```
 
@@ -360,11 +360,11 @@ let mySum: (x: number, y: number) => number = function(x: number, y: number): nu
 
 ```ts
 interface SearchFunc {
-  (source: string, subString: string): boolean;
+  (source: string, subString: string): boolean
 }
-let mySearch: SearchFunc;
-mySearch = function(source: string, subString: string) {
-  return source.search(subString) !== -1;
+let mySearch: SearchFunc
+mySearch = function (source: string, subString: string) {
+  return source.search(subString) !== -1
 }
 ```
 
@@ -373,12 +373,12 @@ mySearch = function(source: string, subString: string) {
 ```ts
 function buildName(firstName: string, lastName?: string) {
   if (lastName) {
-    return firstName + ' ' + lastName;
+    return firstName + ' ' + lastName
   } else {
-    return firstName;
+    return firstName
   }
 }
-let tomcat = buildName('Tom', 'cat');
+let tomcat = buildName('Tom', 'cat')
 let tom = buildName('Tom')
 ```
 
@@ -388,13 +388,13 @@ let tom = buildName('Tom')
 // 可选参数 firstName 之后，还有必选参数是不允许的
 function buildName(firstName?: string, lastName: string) {
   if (firstName) {
-    return firstName + ' ' + lastName;
+    return firstName + ' ' + lastName
   } else {
-    return lastName;
+    return lastName
   }
 }
-let tomcat = buildName('Tom', 'Cat');
-let tom = buildName(undefined, 'Tom');
+let tomcat = buildName('Tom', 'Cat')
+let tom = buildName(undefined, 'Tom')
 
 // index.ts(1,40): error TS1016: A required parameter cannot follow an optional parameter.
 ```
@@ -405,20 +405,20 @@ let tom = buildName(undefined, 'Tom');
 
 ```ts
 function buildName(firstName: string, lastName: string = 'cat') {
-  return firstName + ' ' + lastName;
+  return firstName + ' ' + lastName
 }
 let tomCat = buildName('Tom', 'cat')
 let tom = buildName('Tom')
 ```
 
-此时就不受「*可选参数必须接在必需参数后面*」的限制了：
+此时就不受「_可选参数必须接在必需参数后面_」的限制了：
 
 ```ts
 function buildName(firstName: string = 'Tom', lastName: string) {
-  return firstName + ' ' + lastName;
+  return firstName + ' ' + lastName
 }
-let tomcat = buildName('Tom', 'Cat');
-let cat = buildName(undefined, 'Cat');
+let tomcat = buildName('Tom', 'Cat')
+let cat = buildName(undefined, 'Cat')
 ```
 
 #### 剩余参数
@@ -427,11 +427,11 @@ ES6 中，可以使用 `...rest` 的方式获取函数中的剩余参数（rest 
 
 ```ts
 function push(array, ...itsms) {
-  items.forEach(function(item) {
-    array.push(item);
+  items.forEach(function (item) {
+    array.push(item)
   })
 }
-let a: any[] = [];
+let a: any[] = []
 push(a, 1, 2, 3)
 ```
 
@@ -439,18 +439,18 @@ items 是一个数组。所以我们可以用数组的类型来定义它：
 
 ```ts
 function push(array: any[], ...items: any[]) {
-  items.forEach(function(item) {
-    array.push(item);
-  });
+  items.forEach(function (item) {
+    array.push(item)
+  })
 }
 
-let a = [];
-push(a, 1, 2, 3);
+let a = []
+push(a, 1, 2, 3)
 ```
 
-**注意，rest 参数只能是最后一个参数**
+**注意，rest 参数只能是最后一个参数。**
 
-#### 重载 *****
+#### 重载 **\***
 
 **重载允许一个函数接受不同数量或类型的参数时，作出不同的处理。**
 
@@ -461,9 +461,9 @@ push(a, 1, 2, 3);
 ```ts
 function reverse(x: number | string): number | string {
   if (typeof x === 'number') {
-    return Number(x.toString().split('').reverse().join(''));
+    return Number(x.toString().split('').reverse().join(''))
   } else {
-    return x.split('').reverse().join('');
+    return x.split('').reverse().join('')
   }
 }
 ```
@@ -477,9 +477,9 @@ function reverse(x: number): number
 function reverse(x: string): string
 function reverse(x: number | string): number | string {
   if (typeof x === 'number') {
-    return Number(x.toString().split('').reverse().join(''));
+    return Number(x.toString().split('').reverse().join(''))
   } else if (typeof x === 'string') {
-    return x.split('').reverse().join('');
+    return x.split('').reverse().join('')
   }
 }
 ```
@@ -493,9 +493,7 @@ function reverse(x: number | string): number | string {
 > 可以用来手动指定一个值的类型
 
 ```ts
-值 as 类型
-
-<类型>值
+;(值 as 类型) < 类型 > 值
 ```
 
 在 tsx 语法（React 的 jsx 语法的 ts 版）中必须使用前者，即 `值 as 类型`。
@@ -512,19 +510,19 @@ function reverse(x: number | string): number | string {
 
 ```ts
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
 interface Fish {
-  name: string;
-  swim(): void;
+  name: string
+  swim(): void
 }
 
 function isFish(animal: Cat | Fish) {
   if (typeof animal.swim === 'function') {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 
 // index.ts:11:23 - error TS2339: Property 'swim' does not exist on type 'Cat | Fish'.
@@ -537,39 +535,39 @@ function isFish(animal: Cat | Fish) {
 
 ```ts
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
 interface Fish {
-  name: string;
-  swim(): void;
+  name: string
+  swim(): void
 }
 function isFish(animal: Cat | Fish) {
   if (typeof (animal as Fish).swim === 'function') {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 ```
 
-**需要注意的是，类型断言只能够「欺骗」TypeScript 编译器，无法避免运行时的错误，反而滥用类型断言可能会导致运行时错误**
+**需要注意的是，类型断言只能够「欺骗」TypeScript 编译器，无法避免运行时的错误，反而滥用类型断言可能会导致运行时错误。**
 
 总之，使用类型断言时一定要格外小心，尽量避免断言后调用方法或引用深层属性，以减少不必要的运行时错误。
 
-##### 讲一个父类断言为一个更加具体的子类
+##### 将一个父类断言为一个更加具体的子类
 
 ```ts
 class ApiError extends Error {
-  code: number = 0;
+  code: number = 0
 }
 class HttpError extends Error {
-  statusCode: number = 200;
+  statusCode: number = 200
 }
-function isApiError (error: Error) {
+function isApiError(error: Error) {
   if (typeof (error as ApiError).code === 'number') {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 ```
 
@@ -582,8 +580,8 @@ function isApiError (error: Error) {
 当我们引用一个在此类型上不存在的属性或方法时，就会报错：
 
 ```ts
-const foo: number = 1;
-foo.length = 1;
+const foo: number = 1
+foo.length = 1
 
 // index.ts:2:5 - error TS2339: Property 'length' does not exist on type 'number'.
 ```
@@ -591,7 +589,7 @@ foo.length = 1;
 但有的时候，我们非常确定这段代码不会出错，比如下面这个例子：
 
 ```ts
-window.foo = 1;
+window.foo = 1
 
 // index.ts:1:8 - error TS2339: Property 'foo' does not exist on type 'Window & typeof globalThis'.
 ```
@@ -601,12 +599,12 @@ window.foo = 1;
 此时我们可以使用 as any 临时将 window 断言为 any 类型：
 
 ```ts
-(window as any).foo = 1;
+;(window as any).foo = 1
 ```
 
 **在 any 类型的变量上，访问任何属性都是允许的。**
 
-*需要注意的是，将一个变量断言为 any 可以说是解决 TypeScript 中类型问题的最后一个手段。*
+_需要注意的是，将一个变量断言为 any 可以说是解决 TypeScript 中类型问题的最后一个手段。_
 
 **它极有可能掩盖了真正的类型错误，所以如果不是非常确定，就不要使用 as any。**
 
@@ -618,7 +616,7 @@ window.foo = 1;
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key];
+  return (window as any).cache[key]
 }
 ```
 
@@ -626,20 +624,20 @@ function getCacheData(key: string): any {
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key];
+  return (window as any).cache[key]
 }
 interface Cat {
-  name: string;
-  return(): void;
+  name: string
+  return(): void
 }
 
-let cat = getCacheData('tom') as Cat;
-tom.run();
+let cat = getCacheData('tom') as Cat
+tom.run()
 ```
 
 上面的例子中，我们调用完 getCacheData 之后，立即将它断言为 Cat 类型。这样的话明确了 tom 的类型，后续对 tom 的访问时就有了代码补全，提高了代码的可维护性。
 
-#### [类型断言的限制](https://ts.xcatliu.com/basics/type-assertion#lei-xing-duan-yan-de-xian-zhi)
+#### [类型断言的限制](https://ts.xcatliu.com/basics/type-assertion.html#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E9%99%90%E5%88%B6)
 
 **但并不是任何一个类型都可以被断言为任何另一个类型。**
 
@@ -664,13 +662,13 @@ tom.run();
 
 ```ts
 interface Cat {
-  run(): void;
+  run(): void
 }
 interface Fish {
-  swim(): void;
+  swim(): void
 }
 function testCat(cat: Cat) {
-  return (cat as any as Fish);
+  return (cat as any) as Fish
 }
 ```
 
@@ -678,7 +676,7 @@ function testCat(cat: Cat) {
 
 但是若使用双重断言，则可以打破「要使得 A 能够被断言为 B，只需要 A 兼容 B 或 B 兼容 A 即可」的限制，将任何一个类型断言为任何另一个类型。
 
-*若你使用了这种双重断言，那么十有八九是非常错误的，它很可能会导致运行时错误。*
+_若你使用了这种双重断言，那么十有八九是非常错误的，它很可能会导致运行时错误。_
 
 **除非迫不得已，千万别用双重断言。**
 
@@ -688,19 +686,19 @@ function testCat(cat: Cat) {
 
 ```ts
 function toBoolean(something: any): boolean {
-  return something as boolean;
+  return something as boolean
 }
-toBoolean(1); // 1
+toBoolean(1) // 1
 ```
 
 在上面的例子中，将 something 断言为 boolean 虽然可以通过编译，但是并没有什么用，代码在编译后会变成：
 
 ```ts
 function toBoolean(something) {
-  return something;
+  return something
 }
 
-toBoolean(1);
+toBoolean(1)
 // 返回值为 1
 ```
 
@@ -710,56 +708,56 @@ toBoolean(1);
 
 ```ts
 function toBoolean(something: any): boolean {
-  return Boolean(something);
+  return Boolean(something)
 }
 
-toBoolean(1); // true
+toBoolean(1) // true
 ```
 
 #### [类型断言 vs 类型声明](https://ts.xcatliu.com/basics/type-assertion#lei-xing-duan-yan-vs-lei-xing-sheng-ming)
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cathe[key];
+  return (window as any).cathe[key]
 }
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
-const tom = getCacheData('tom') as Cat;
-tom.run();
+const tom = getCacheData('tom') as Cat
+tom.run()
 ```
 
 上例中，使用 as Cat 将 any 类型断言为了 Cat 类型。但实际上还有其他方式可以解决这个问题：
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key];
+  return (window as any).cache[key]
 }
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
-const tom: Cat = getCacheData('tom');
-tom.run();
+const tom: Cat = getCacheData('tom')
+tom.run()
 ```
 
 上面的例子中，我们通过类型声明的方式，将 tom 声明为 Cat，然后再将 any 类型的 getCacheData('tom') 赋值给 Cat 类型的 tom。
 
-这和类型断言是非常相似的，而且产生的结果也几乎是一样的  ——  tom 在接下来的代码中都变成了 Cat 类型。它们的区别，可以通过这个例子来理解：
+这和类型断言是非常相似的，而且产生的结果也几乎是一样的 —— tom 在接下来的代码中都变成了 Cat 类型。它们的区别，可以通过这个例子来理解：
 
 ```ts
 interface Animal {
-  name: string;
+  name: string
 }
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
 const animal: Animal = {
-  name: 'tom'
+  name: 'tom',
 }
-let tom = animal as Cat;
+let tom = animal as Cat
 ```
 
 ...
@@ -768,30 +766,30 @@ let tom = animal as Cat;
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key];
+  return (window as any).cache[key]
 }
 
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
 
-const tom = getCacheData('tom') as Cat;
-tom.run();
+const tom = getCacheData('tom') as Cat
+tom.run()
 ```
 
 使用泛型替代断言
 
 ```ts
 function getCacheData<T>(key: string): T {
-  return (window as any).cache[key];
+  return (window as any).cache[key]
 }
 interface Cat {
-  name: string;
-  run(): void;
+  name: string
+  run(): void
 }
-const tom = getCacheData<Cat>('Tom');
-tom.run();
+const tom = getCacheData<Cat>('Tom')
+tom.run()
 ```
 
 ### 声明文件
@@ -803,21 +801,21 @@ tom.run();
 但是在 ts 中，编译器并不知道 `$` 和 `jQuery`：
 
 ```ts
-jQuery('#foo');
+jQuery('#foo')
 // ERROR: Cannot find name 'jQuery'.
 ```
 
 这时，我们就需要使用 `declare var` 来定义它的类型：
 
 ```ts
-declare var jQuery:(selector: string) => any;
-jQuery('#foo');
+declare var jQuery: (selector: string) => any
+jQuery('#foo')
 ```
 
 上面，`declare var` 并没有真的定义一个变量，只是定义了全局变量 `jQuery` 的类型，仅仅会用于编译时的检查，在编译结果中会删除：
 
 ```js
-jQuery('#foo');
+jQuery('#foo')
 ```
 
 #### 什么是声明文件 `*.d.ts`
@@ -826,12 +824,12 @@ jQuery('#foo');
 
 ```ts
 // src/jQuery.d.ts
-declare var jQuery:(selector: string) => any;
+declare var jQuery: (selector: string) => any
 ```
 
 ```ts
 // src/index.ts
-jQuery('#foo');
+jQuery('#foo')
 ```
 
 **声明文件必须以 `.d.ts` 为后缀。**

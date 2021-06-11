@@ -1,4 +1,4 @@
-# transition支持的属性
+# transition 支持的属性
 
 - background-color
 - background-position
@@ -35,4 +35,4 @@
 - word-spacing
 - z-index
 
-<b style="color: red">注意：display属性并不支持transition过渡</b>
+<b style="color: red">注意：display 属性并不支持 transition 过渡</b>

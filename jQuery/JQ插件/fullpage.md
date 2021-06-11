@@ -57,7 +57,7 @@ var myFullpage = new fullpage('#fullpage', {
   responsiveHeight: 0,
   responsiveSlides: false,
   parallax: false,
-  parallaxOptions: {type: 'reveal', percentage: 62, property: 'translate'},
+  parallaxOptions: { type: 'reveal', percentage: 62, property: 'translate' },
 
   //自定义选择器
   sectionSelector: '.section', // section 选择器的类名
@@ -68,62 +68,55 @@ var myFullpage = new fullpage('#fullpage', {
   //事件
 
   /**
-    * 页面生成后的回调函数
-    */
-  afterRender: function () {
-  },
+   * 页面生成后的回调函数
+   */
+  afterRender: function () {},
 
   /**
-    * 滚动到 某一 section 且滚动结束后，会触发一次回调函数，设置 return false; 可以取消滚动
-    * @param origin 离开页面的序号 从1开始
-    * @param destination 滚动到目标页面的序号 从1开始
-    * @param direction 判断是往下滚还是往上滚动，值为 up或down
-    */
-  afterLoad: function (origin, destination, direction) {
-  },
+   * 滚动到 某一 section 且滚动结束后，会触发一次回调函数，设置 return false; 可以取消滚动
+   * @param origin 离开页面的序号 从1开始
+   * @param destination 滚动到目标页面的序号 从1开始
+   * @param direction 判断是往下滚还是往上滚动，值为 up或down
+   */
+  afterLoad: function (origin, destination, direction) {},
 
   /**
-    * 当离开一个 section 时，会触发此回调函数一次
-    * @param origin
-    * @param destination
-    * @param direction
-    */
-  onLeave: function (origin, destination, direction) {
-  },
+   * 当离开一个 section 时，会触发此回调函数一次
+   * @param origin
+   * @param destination
+   * @param direction
+   */
+  onLeave: function (origin, destination, direction) {},
 
   /**
-    * 滚动到某一幻灯片后的回调函数
-    * @param section
-    * @param origin
-    * @param destination
-    * @param direction
-    */
-  afterSlideLoad: function (section, origin, destination, direction) {
-  },
+   * 滚动到某一幻灯片后的回调函数
+   * @param section
+   * @param origin
+   * @param destination
+   * @param direction
+   */
+  afterSlideLoad: function (section, origin, destination, direction) {},
 
   /**
-    * 浏览器窗口尺寸改变后的回调函数
-    * @param width
-    * @param height
-    */
-  afterResize: function (width, height) {
-  },
+   * 浏览器窗口尺寸改变后的回调函数
+   * @param width
+   * @param height
+   */
+  afterResize: function (width, height) {},
 
   /**
-    *
-    * @param isResponsive
-    */
-  afterResponsive: function (isResponsive) {
-  },
+   *
+   * @param isResponsive
+   */
+  afterResponsive: function (isResponsive) {},
 
   /**
-    *
-    * @param section
-    * @param origin
-    * @param destination
-    * @param direction
-    */
-  onSlideLeave: function (section, origin, destination, direction) {
-  }
-});
+   *
+   * @param section
+   * @param origin
+   * @param destination
+   * @param direction
+   */
+  onSlideLeave: function (section, origin, destination, direction) {},
+})
 ```

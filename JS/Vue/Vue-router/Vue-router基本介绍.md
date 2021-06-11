@@ -5,7 +5,6 @@
 ## 参考
 
 - [vue-router 基本使用](https://www.cnblogs.com/SamWeb/p/6610733.html)
-- []()
 
 ## 基本概念理解
 
@@ -19,8 +18,8 @@
 
 **客户端中的路由，实际上就是 `dom` 元素的显示和隐藏，有两种实现方式**
 
-- 基于hash
-- 基于html5 history api
+- 基于 hash
+- 基于 html5 history api
 
 ## 安装使用
 
@@ -75,19 +74,19 @@ const Bar = { template: '<div>bar</div>' }
 // 或者只是一个组件配置对象
 const routes = [
   { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  { path: '/bar', component: Bar },
 ]
 
 // 3、创建router实例，然后传入 routes 配置
 const router = new VueRouter({
-  routes
+  routes,
 })
 
 // 4、创建和挂载根实例
 // 要通过 router 配置参数注入路由，从而让整个应用都有路由功能
 const app = new Vue({
-  router
-}).$mount('#app');
+  router,
+}).$mount('#app')
 ```
 
 **`通过注入路由器，我们可以在任何组件内通过 this.$router 访问路由器，也可以通过 this.$route 访问当前路由：`**
@@ -96,15 +95,15 @@ const app = new Vue({
 // Home.vue
 export default {
   computed: {
-    username () {
+    username() {
       return this.$route.params.username
-    }
+    },
   },
   methods: {
-    goBack () {
-      window.history.length > 1? this.$router.go(-1):this.$router.push('/');
-    }
-  }
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+    },
+  },
 }
 ```
 
@@ -121,12 +120,10 @@ export default {
 ```js
 const User = { template: '<div>User</div>' }
 
-const routes = [
-  { path: '/user/:id', component: User }
-]
+const routes = [{ path: '/user/:id', component: User }]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 ```
 
@@ -134,10 +131,10 @@ const router = new VueRouter({
 
 可以在一个路由中设置多段“路径参数”，对应的值都会设置到 `$route.params` 中
 
-|模式|匹配路径|$route.params|
-|---|---|---|
-|/user/:username|/user/evan|`{ username: 'evan' }`|
-|/user/:username/post/:post_id|/user/evan/post/123|`{ username: 'evan', post_id: '123' }`|
+| 模式                          | 匹配路径            | $route.params                          |
+| ----------------------------- | ------------------- | -------------------------------------- |
+| /user/:username               | /user/evan          | `{ username: 'evan' }`                 |
+| /user/:username/post/:post_id | /user/evan/post/123 | `{ username: 'evan', post_id: '123' }` |
 
 ### 响应路由参数的变化
 
@@ -149,10 +146,10 @@ const router = new VueRouter({
 const User = {
   template: '...',
   watch: {
-    '$route'(to, from) {
+    $route(to, from) {
       // 对路由变化做出响应
-    }
-  }
+    },
+  },
 }
 ```
 
@@ -174,12 +171,12 @@ const routes = [
       // 当 /user/:id/posts 匹配成功
       // UserPosts 会被渲染在 User 的 <router-view> 中
       { path: 'posts', component: UserPosts },
-    ]
-  }
+    ],
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 ```
 
@@ -190,10 +187,8 @@ const routes = [
   {
     path: '/user/:id',
     component: User,
-    children: [
-      { path: '', component: UserHome },
-    ]
-  }
+    children: [{ path: '', component: UserHome }],
+  },
 ]
 ```
 
@@ -201,15 +196,15 @@ const routes = [
 
 ### router.push(location, onComplete?, onAbort?)
 
-<b style="color:red">注意：在Vue实例内部，你可以通过 `$router` 访问到路由实例，因此你可以用 `this.$router.push`</b>
+<b style="color:red">注意：在 Vue 实例内部，你可以通过 `$router` 访问到路由实例，因此你可以用 `this.$router.push`</b>
 
 **想要导航到不同的 URL，则使用 `router.push` 方法。这个方法会向 `history` 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。**
 
 当你点击 `<router-link>` 时，这个方法会在内部调用，所以说，点击 `<router-link :to="...">` 等同于调用 `router.push(...)`。
 
-|声明式|编程式|
-|---|---|
-|`<router-link :to="...">`|`router.push(...)`|
+| 声明式                    | 编程式             |
+| ------------------------- | ------------------ |
+| `<router-link :to="...">` | `router.push(...)` |
 
 该方法的参数可以是`一个字符串路径`，或者`一个描述地址的对象`。
 
@@ -227,7 +222,7 @@ router.push({ path: 'register', query: { plan: 'private' } })
 <b style="color:red">注意：如果提供了 `path`，`params` 会被忽略，上述例子中的 `query` 并不属于这种情况。取而代之的是下面例子的做法，你需要提供路由的 `name` 或手写完整的带有参数的 `path`</b>
 
 ```js
-const userId = 123;
+const userId = 123
 router.push({ name: 'user', params: { userId } }) // /user/123
 router.push({ path: `/user/${userId}` }) // /user/123
 
@@ -241,9 +236,9 @@ router.push({ path: '/user', params: { userId } }) // /user
 
 跟 `router.push` **唯一的不同就是**，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。
 
-|声明式|编程式|
-|---|---|
-|`<router-link :to="..." replace>`|`router.replace(...)`|
+| 声明式                            | 编程式                |
+| --------------------------------- | --------------------- |
+| `<router-link :to="..." replace>` | `router.replace(...)` |
 
 ### router.go(n)
 
@@ -278,9 +273,9 @@ const router = new VueRouter({
     {
       path: '/user/:userId',
       name: 'user',
-      component: User
-    }
-  ]
+      component: User,
+    },
+  ],
 })
 ```
 
@@ -322,10 +317,10 @@ const router = new VueRouter({
       components: {
         default: Foo,
         a: Bar,
-        b: Baz
-      }
-    }
-  ]
+        b: Baz,
+      },
+    },
+  ],
 })
 ```
 
@@ -339,9 +334,7 @@ const router = new VueRouter({
 
 ```js
 const router = new VueRouter({
-  routes: [
-    { path: '/a', redirect: '/b' }
-  ]
+  routes: [{ path: '/a', redirect: '/b' }],
 })
 ```
 
@@ -349,9 +342,7 @@ const router = new VueRouter({
 
 ```js
 const router = new VueRouter({
-  routes: [
-    { path: '/a', redirect: { name: 'foo' } }
-  ]
+  routes: [{ path: '/a', redirect: { name: 'foo' } }],
 })
 ```
 
@@ -360,11 +351,14 @@ const router = new VueRouter({
 ```js
 const router = new VueRouter({
   routes: [
-    { path: '/a', redirect: to => {
-      // 方法接收 目标路由 作为参数
-      // return 重定向的 字符串路径/路径对象
-    }}
-  ]
+    {
+      path: '/a',
+      redirect: (to) => {
+        // 方法接收 目标路由 作为参数
+        // return 重定向的 字符串路径/路径对象
+      },
+    },
+  ],
 })
 ```
 
@@ -374,9 +368,7 @@ const router = new VueRouter({
 
 ```js
 const router = new VueRouter({
-  routes: [
-    { path: '/a', component: A, alias: '/b' }
-  ]
+  routes: [{ path: '/a', component: A, alias: '/b' }],
 })
 ```
 
@@ -388,13 +380,11 @@ const router = new VueRouter({
 
 ```js
 const User = {
-  template: '<div>User {{ $router.params.id }}</div>'
+  template: '<div>User {{ $router.params.id }}</div>',
 }
 
 const router = new VueRouter({
-  routes: [
-    { path: '/user/:id', component: User }
-  ]
+  routes: [{ path: '/user/:id', component: User }],
 })
 ```
 
@@ -403,7 +393,7 @@ const router = new VueRouter({
 ```js
 const User = {
   props: ['id'],
-  template: '<div>User {{ id }}</div>'
+  template: '<div>User {{ id }}</div>',
 }
 
 const router = new VueRouter({
@@ -412,9 +402,9 @@ const router = new VueRouter({
     {
       path: '/user/:id',
       components: { default: User, sidebar: Sidebar },
-      props: { default: true, slidebar: false }
-    }
-  ]
+      props: { default: true, slidebar: false },
+    },
+  ],
 })
 ```
 
@@ -426,9 +416,7 @@ const router = new VueRouter({
 
 ```js
 const router = new VueRouter({
-  routes: [
-    {path: '/promotion/from-newsletter', component: Promotion, props: { newsletterPopup: false }}
-  ]
+  routes: [{ path: '/promotion/from-newsletter', component: Promotion, props: { newsletterPopup: false } }],
 })
 ```
 
@@ -438,9 +426,7 @@ const router = new VueRouter({
 
 ```js
 const router = new VueRouter({
-  routes: [
-    { path: '/search', component: SearchUser, props: (route) => (query: route.query.q) }
-  ]
+  routes: [{ path: '/search', component: SearchUser, props: (route) => (query: route.query.q) }],
 })
 ```
 
@@ -472,9 +458,7 @@ const router = new VueRouter({
 ```js
 const router = new VueRouter({
   mode: 'history',
-  routes: [
-    { path: '*', component: NotFoundComponent }
-  ]
+  routes: [{ path: '*', component: NotFoundComponent }],
 })
 ```
 

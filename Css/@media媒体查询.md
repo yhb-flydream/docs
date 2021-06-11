@@ -1,26 +1,25 @@
 # 媒体查询
 
 ```less
-@media only screen and (min-width: 320px)  and (max-width: 359px) {
-
+@media only screen and (min-width: 320px) and (max-width: 359px) {
   html {
     font-size: 17.1px;
   }
 }
 
-@media only screen and (max-width: 374px) and (min-width:360px) {
+@media only screen and (max-width: 374px) and (min-width: 360px) {
   html {
     font-size: 19.2px;
   }
 }
 
-@media only screen and (min-width: 375px) and (max-width:399px) {
+@media only screen and (min-width: 375px) and (max-width: 399px) {
   html {
     font-size: 20px;
   }
 }
 
-@media only screen and (min-width: 414px) and (max-width:639px) {
+@media only screen and (min-width: 414px) and (max-width: 639px) {
   html {
     font-size: 22.08px;
   }
@@ -28,7 +27,6 @@
 ```
 
 ```less
-
 @media only screen and (min-width: 320px) {
   html {
     font-size: 12.8px;
@@ -58,7 +56,6 @@
     font-size: 21.3px;
   }
 }
-
 ```
 
 ```less
@@ -98,19 +95,19 @@
   }
 }
 
-@media only screen and (min-width: 600px) and (max-width: 767px){
+@media only screen and (min-width: 600px) and (max-width: 767px) {
   html {
     font-size: 20.4px;
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1200px){
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
   html {
     font-size: 26.1px;
   }
 }
 
-@media only screen and (min-width: 1201px){
+@media only screen and (min-width: 1201px) {
   html {
     font-size: 24.9px;
   }

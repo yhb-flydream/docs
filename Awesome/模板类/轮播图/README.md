@@ -23,7 +23,5 @@
 在外层 `<div class="swiper-container">` 添加 class 类 `swiper-no-swiping`
 
 ```html
-<div class="swiper-container swiper-no-swiping">
-  ...
-</div>
+<div class="swiper-container swiper-no-swiping">...</div>
 ```

@@ -1,4 +1,4 @@
-# animation属性animation-fill-mode为forwards或both时导致z-index失效问题
+# animation 属性 animation-fill-mode 为 forwards 或 both 时导致 z-index 失效问题
 
 ## 问题描述
 
@@ -9,67 +9,65 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>animation属性animation-fill-mode为forwards或both时导致z-index失效问题</title>
-  <style lang="">
-    * {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .box {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      animation: opacity .1s both ease;
-      /* animation: opacity .1s forwards ease; */
-    }
-
-    @keyframes opacity {
-      0% {
-        opacity: 0;
-        transform: scale(1.2);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>animation属性animation-fill-mode为forwards或both时导致z-index失效问题</title>
+    <style lang="">
+      * {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
       }
 
-      100% {
-        opacity: 1;
-        transform: scale(1);
+      .box {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        animation: opacity 0.1s both ease;
+        /* animation: opacity .1s forwards ease; */
       }
-    }
 
-    .dialog {
-      width: 100%;
-      height: 100px;
-      background-color: red;
-      position: fixed;
-      top: 0;
-      z-index: 3;
-    }
+      @keyframes opacity {
+        0% {
+          opacity: 0;
+          transform: scale(1.2);
+        }
 
-    .modal {
-      width: 100%;
-      height: 100px;
-      background-color: yellow;
-      position: fixed;
-      top: 20px;
-      opacity: .8;
-      z-index: 2;
-    }
-  </style>
-</head>
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-<body>
-  <div class="box">
-    <div class="dialog"></div>
-  </div>
-</body>
-<div class="modal"></div>
+      .dialog {
+        width: 100%;
+        height: 100px;
+        background-color: red;
+        position: fixed;
+        top: 0;
+        z-index: 3;
+      }
 
+      .modal {
+        width: 100%;
+        height: 100px;
+        background-color: yellow;
+        position: fixed;
+        top: 20px;
+        opacity: 0.8;
+        z-index: 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <div class="dialog"></div>
+    </div>
+  </body>
+  <div class="modal"></div>
 </html>
 ```
 
@@ -89,7 +87,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
-  animation: opacity .1s none ease;
+  animation: opacity 0.1s none ease;
   /* animation: opacity .1s ease; */
 }
 ```
@@ -103,9 +101,7 @@
 ```html
 <body>
   <div id="app">
-    <div class="main-wrap">
-      ...
-    </div>
+    <div class="main-wrap">...</div>
   </div>
 </body>
 ```
@@ -117,7 +113,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
-  animation: scale .5s both ease;
+  animation: scale 0.5s both ease;
 }
 @keyframes scale {
   0% {

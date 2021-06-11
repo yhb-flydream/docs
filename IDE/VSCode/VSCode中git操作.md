@@ -3,8 +3,9 @@
 ## `git` 使用
 
 - `git` 下载安装配置
+
   - 下载
-    - 使用之前确定已经安装了 `git`，[git官网](https://git-scm.com/downloads)下载安装
+    - 使用之前确定已经安装了 `git`，[git 官网](https://git-scm.com/downloads)下载安装
   - 配置全局 `git` 用户名
     - `git config --global user.name "your name"`
     - `git config --global user.email "your email"`

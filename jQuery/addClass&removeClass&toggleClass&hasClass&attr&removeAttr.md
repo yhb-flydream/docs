@@ -1,18 +1,18 @@
-# addClass&removeClass&toggleClass&hasClass&attr&removeAttr
+# `addClass&removeClass&toggleClass&hasClass&attr&removeAttr`
 
 ## addClass
 
 向被选元素添加一个或多个类
 
 ```js
-$("p:first").addClass("intro");
-$("p:first").addClass("intro text");
+$('p:first').addClass('intro')
+$('p:first').addClass('intro text')
 ```
 
 - 使用函数向被选元素添加类
 
 ```js
-$(selector).addClass(function(index,oldclass){})
+$(selector).addClass(function (index, oldclass) {})
 ```
 
 - `index` - 可选。接受选择器的 index 位置。
@@ -23,14 +23,14 @@ $(selector).addClass(function(index,oldclass){})
 被选元素移除一个或多个类
 
 ```js
-$("p:first").removeClass("intro");
-$("p:first").removeClass("intro text");
+$('p:first').removeClass('intro')
+$('p:first').removeClass('intro text')
 ```
 
 - 使用函数来删除被选元素中的类
 
 ```js
-$(selector).removeClass(function(index,oldclass){})
+$(selector).removeClass(function (index, oldclass) {})
 ```
 
 - `index` - 可选。接受选择器的 index 位置。
@@ -40,7 +40,7 @@ $(selector).removeClass(function(index,oldclass){})
 
 设置或移除被选元素的一个或多个类进行切换
 
-**该方法检查每个元素中指定的类。如果不存在则添加类，如果已设置则删除之。这就是所谓的切换效果**
+**该方法检查每个元素中指定的类。如果不存在则添加类，如果已设置则删除之。这就是所谓的切换效果。**
 
 **不过，通过使用 `"switch"` 参数，您能够规定只删除或只添加类**
 
@@ -49,6 +49,7 @@ $(selector).toggleClass(class,switch)
 ```
 
 - class
+
   - 必需。规定添加或移除 class 的指定元素。
   - 如需规定若干 class，请使用空格来分隔类名。
 
@@ -94,5 +95,5 @@ $(selector).attr({attribute:value, attribute:value ...})
 从被选元素中移除属性
 
 ```js
-$("p").removeAttr("id");
+$('p').removeAttr('id')
 ```

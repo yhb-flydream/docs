@@ -6,7 +6,7 @@
 
 ```js
 /* eslint-disable */
-console.log(111);
+console.log(111)
 ```
 
 ## 在文件中临时禁止规则出现警告
@@ -15,7 +15,7 @@ console.log(111);
 
 ```js
 /* eslint-disable */
-console.log(111);
+console.log(111)
 /* eslint-enable */
 ```
 
@@ -25,33 +25,33 @@ console.log(111);
 
 ```js
 /* eslint-disable no-alert, no-console */
-console.log(111);
+console.log(111)
 /* eslint-enable no-alert, no-console */
 ```
 
 ## 对指定行禁用规则警告
 
 ```js
-console.log(111); // eslint-disable-line
+console.log(111) // eslint-disable-line
 
 // eslint-disable-next-line
-console.log(111);
+console.log(111)
 ```
 
 ## 在指定行上禁用指定的某个规则
 
 ```js
-console.log(111); // eslint-disable-line no-console
+console.log(111) // eslint-disable-line no-console
 
 // eslint-disable-next-line no-console
-console.log(111);
+console.log(111)
 ```
 
 ## 在某个特定的行上禁用多个规则
 
 ```js
-console.log(111); // eslint-disable-line no-alert, quotes, semi
+console.log(111) // eslint-disable-line no-alert, quotes, semi
 
 // eslint-disable-next-line no-alert, quotes, semi
-console.log(111);
+console.log(111)
 ```

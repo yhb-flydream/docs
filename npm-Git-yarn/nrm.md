@@ -1,26 +1,26 @@
 # nrm
 
-- [用nrm一键切换npm源](https://www.cnblogs.com/wangmeijian/p/7072053.html)
+- [用 nrm 一键切换 npm 源](https://www.cnblogs.com/wangmeijian/p/7072053.html)
 
 ## `npm config list` (查看 `npm` 源地址)
 
 可以看到 `npm` 的源 `metrics-registry = "https://registry.npmjs.org/"`
 
-国内常用的镜像地址如淘宝npm：`https://registry.npm.taobao.org/`
+国内常用的镜像地址如淘宝 npm：`https://registry.npm.taobao.org/`
 
-- 修改registry，在终端输入：
+- 修改 registry，在终端输入：
 
 ```bash
 npm set registry https://registry.npm.taobao.org/
 ```
 
-- 删除registry
+- 删除 registry
 
 ```bash
 npm config rm registry
 ```
 
-反复添加删除切换源很不方便，所以有了 [`nrm`](https://github.com/Pana/nrm)，用来专门管理切换registry
+反复添加删除切换源很不方便，所以有了 [`nrm`](https://github.com/Pana/nrm)，用来专门管理切换 registry
 
 ## 安装及使用
 

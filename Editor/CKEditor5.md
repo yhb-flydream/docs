@@ -1,7 +1,6 @@
 # CKEditor 5
 
-> [官网](https://ckeditor.com/docs/ckeditor5/latest/index.html)
-> [github](https://github.com/ckeditor/ckeditor5)
+> [官网](https://ckeditor.com/docs/ckeditor5/latest/index.html) > [github](https://github.com/ckeditor/ckeditor5)
 
 ## 安装
 

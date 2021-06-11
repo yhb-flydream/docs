@@ -1,4 +1,4 @@
-# mpvue基本介绍
+# mpvue 基本介绍
 
 [TOC]
 
@@ -76,7 +76,7 @@ $ npm run dev
 ```js
 new Vue({
   data: {
-    a: 1
+    a: 1,
   },
   created() {
     // this 指向 vm 实例
@@ -84,7 +84,7 @@ new Vue({
   },
   onShow() {
     console.log('a is' + this.a, '小程序触发的 onShow')
-  }
+  },
 })
 ```
 
@@ -210,9 +210,7 @@ new Vue({
 <!-- 在这种嵌套循环的时候， index 和 itemIndex 这种索引是必须指定，且别名不能相同，正确的写法如下 -->
 <template>
   <ul v-for="(card, index) in list">
-    <li v-for="(item, itemIndex) in card">
-      {{item.value}}
-    </li>
+    <li v-for="(item, itemIndex) in card">{{item.value}}</li>
   </ul>
 </template>
 ```
@@ -252,11 +250,11 @@ new Vue({
 **在 `input` 和 `textarea` 中 `change` 事件会被转为 `blur` 事件**
 
 - **踩坑注意：**
-  - 列表中没有的原生事件也可以使用例如 `bindregionchange` 事件直接在 dom 上将`bind改为@` `@regionchange`,同时这个事件也非常特殊，它的 event type 有 begin 和 end 两个，导致我们无法在handleProxy 中区分到底是什么事件，所以你在监听此类事件的时候同时监听事件名和事件类型既 `<map @regionchange="functionName" @end="functionName" @begin="functionName"><map>`
+  - 列表中没有的原生事件也可以使用例如 `bindregionchange` 事件直接在 dom 上将`bind改为@` `@regionchange`,同时这个事件也非常特殊，它的 event type 有 begin 和 end 两个，导致我们无法在 handleProxy 中区分到底是什么事件，所以你在监听此类事件的时候同时监听事件名和事件类型既 `<map @regionchange="functionName" @end="functionName" @begin="functionName"><map>`
   - 小程序能力所致，bind 和 catch 事件同时绑定时候，只会触发 bind ,catch 不会被触发
   - 事件修饰符
     - `.stop` 的使用会阻止冒泡，但是同时绑定了一个非冒泡事件，会导致该元素上的 catchEventName 失效！
-    - `.prevent` 可以直接干掉，因为小程序里没有什么默认事件，比如submit并不会跳转页面
+    - `.prevent` 可以直接干掉，因为小程序里没有什么默认事件，比如 submit 并不会跳转页面
     - `.capture` 支持 1.0.9
     - `.self` 没有可以判断的标识
     - `.once` 也不能做，因为小程序没有 removeEventListener, 虽然可以直接在 handleProxy 中处理，但非常的不优雅，违背了原意，暂不考虑
@@ -291,13 +289,11 @@ mpvue 可以支持小程序的原生组件，比如： `picker,map` 等，需要
 
 ```html
 <picker mode="date" :value="date" start="2015-09-01" end="2017-09-01" @change="bindDateChange">
-    <view class="picker">
-      当前选择: {{date}}
-    </view>
+  <view class="picker"> 当前选择: {{date}} </view>
 </picker>
 ```
 
-## TypeScript支持
+## TypeScript 支持
 
 ## 最佳实践
 
@@ -315,4 +311,4 @@ mpvue 可以支持小程序的原生组件，比如： `picker,map` 等，需要
 
 ### 合理使用双向绑定 mpvue 建议使用 v-model.lazy 绑定方式以优化性能，此外 v-model 在老基础库下输入框输入时可能存在光标重设的问题
 
-### 谨慎选择直接使用小程序的 API 如果你有小程序和H5复用代码的需要，业务代码需要保持对 WEB Vue.js 的兼容性。此时我们不建议在代码中直接调用小程序API，更好的选择是通过桥接适配层屏蔽两端差异
+### 谨慎选择直接使用小程序的 API 如果你有小程序和 H5 复用代码的需要，业务代码需要保持对 WEB Vue.js 的兼容性。此时我们不建议在代码中直接调用小程序 API，更好的选择是通过桥接适配层屏蔽两端差异
